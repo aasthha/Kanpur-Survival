@@ -1005,10 +1005,7 @@ function LettersTab({ letters, today, loading }: { letters: any[]; today: string
               <div className="stack-ribbon" />
             </div>
           </div>
-          <p className="stack-label">Letter Collection</p>
-          <p className="stack-sub">
-            {unlockedLetters.length} {unlockedLetters.length === 1 ? "letter" : "letters"} saved
-          </p>
+          <p className="stack-label">Archives</p>
         </div>
       )}
 
