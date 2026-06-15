@@ -795,10 +795,10 @@ function TimelineTab({
                   </div>
                 )}
 
-                {hasSurprise && <span className="cal-letter-dot">✉️</span>}
+                {hasSurprise && <span className="cal-letter-dot">💌</span>}
                 {hasCardUnlock && (
-                  <span className="cal-letter-dot card-dot" style={hasSurprise ? { right: 14 } : {}}>
-                    ★
+                  <span className="cal-letter-dot card-dot" style={hasSurprise ? { right: 12 } : {}}>
+                    🎴
                   </span>
                 )}
 
