@@ -62,7 +62,7 @@ export const mR = compressImage;
 // Uploads image to Supabase storage bucket
 export async function uploadToStorage(file: File, folder: string): Promise<string | null> {
   if (!ND) return null;
-  const compressed = await compressImage(file, 800, 0.75);
+  const compressed = await compressImage(file, 1920, 0.95);
   const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.jpg`;
 
   const { error } = await ND.storage.from("photos").upload(path, compressed, {
