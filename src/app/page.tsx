@@ -652,7 +652,7 @@ function TimelineTab({
           </div>
         ) : (
           <div className="scene-row">
-            <img src="/both-sleeping.png" alt="Both sleeping" width={110} height={110} className="scene-img" />
+            <img src="/annoyed-couple.png" alt="Both annoyed" width={110} height={110} className="scene-img" />
             <div className="scene-right">
               <div className="scene-speech sleeping">
                 <TypewriterText text={`${timeGreeting} Who logs first? 🤔`} />
