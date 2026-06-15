@@ -635,7 +635,7 @@ function TimelineTab({
                   text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Dhiraj")?.text || "Done for today. Waiting for Aastha... 👀"}
                 />
               </div>
-              <p className="scene-detail">Dhiraj has logged. Aastha's turn! ✨</p>
+              <p className="scene-detail">Dhiraj is waiting for your log ✨</p>
             </div>
           </div>
         ) : isAasthaLogged && !isDhirajLogged ? (
@@ -647,7 +647,7 @@ function TimelineTab({
                   text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Aastha")?.text || "Your turn, Dhiraj 👀"}
                 />
               </div>
-              <p className="scene-detail">Don't keep me waiting 💌</p>
+              <p className="scene-detail">Aastha is waiting for your log 💌</p>
             </div>
           </div>
         ) : (
