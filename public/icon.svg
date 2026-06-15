@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="64" fill="#fff7ed"/>
+  <circle cx="256" cy="256" r="190" fill="#14b8a6"/>
+  <path d="M143 294c37 72 176 72 213 0" fill="none" stroke="#172554" stroke-width="28" stroke-linecap="round"/>
+  <circle cx="192" cy="213" r="24" fill="#172554"/>
+  <circle cx="320" cy="213" r="24" fill="#172554"/>
+  <path d="M256 65l34 72 78 11-56 55 13 77-69-36-69 36 13-77-56-55 78-11z" fill="#facc15" stroke="#172554" stroke-width="10" stroke-linejoin="round"/>
+  <text x="256" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="54" font-weight="800" fill="#172554">KSD</text>
+</svg>

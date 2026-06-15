@@ -1,0 +1,19 @@
+{
+  "name": "Kanpur Survival Dashboard",
+  "short_name": "Kanpur",
+  "description": "A shared survival countdown for getting home from Kanpur.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff7ed",
+  "theme_color": "#f97316",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
