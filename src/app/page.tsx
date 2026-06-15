@@ -146,18 +146,7 @@ const CARD_RARITIES: Record<number, { tier: string; color: string; bg: string; i
 
 // Sub-component typewriter effect
 function TypewriterText({ text }: { text: string }) {
-  const [typed, setTyped] = useState("");
-  useEffect(() => {
-    setTyped("");
-    let i = 0;
-    const interval = setInterval(() => {
-      setTyped(text.substring(0, i + 1));
-      if (++i >= text.length) clearInterval(interval);
-    }, 20);
-    return () => clearInterval(interval);
-  }, [text]);
-
-  return <span>{typed}</span>;
+  return <span>{text}</span>;
 }
 
 export default function Home() {
