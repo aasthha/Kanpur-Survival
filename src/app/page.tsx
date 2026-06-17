@@ -713,7 +713,7 @@ function TimelineTab({
             const compCount = isHistoricalDefault ? 2 : completionsForDay.length;
             const hasAasthaLogged = !isHistoricalDefault && compCount === 1 && currentCompletions.some((c: any) => c.date === dayStr && c.userName === "Aastha");
             const hasDhirajLogged = !isHistoricalDefault && compCount === 1 && currentCompletions.some((c: any) => c.date === dayStr && c.userName === "Dhiraj");
-            const hasSurprise = s.surpriseMessages.some((m: any) => m.unlockDate === dayStr);
+            const hasSurprise = s.surpriseMessages.some((m: any) => (m.unlockDate || "").startsWith(dayStr));
             const hasCardUnlock = Object.keys(cardCustoms).some(
               (key) => key.startsWith("card_unlock_") && String(cardCustoms[key] || "").startsWith(dayStr)
             );
@@ -883,7 +883,7 @@ function LettersTab({ letters, today, loading }: { letters: any[]; today: string
   }, [letters]);
 
   function handleOpenLetter(letter: any) {
-    if (isAfterOrEqual(letter.unlockDate, today)) {
+    if (isAfterOrEqual((letter.unlockDate || "").slice(0, 10), today)) {
       setSelectedLetter(letter);
       setReactionPhase("excited");
       setTimeout(() => setReactionPhase("lift"), 1500);
@@ -902,9 +902,9 @@ function LettersTab({ letters, today, loading }: { letters: any[]; today: string
     }, 600);
   }
 
-  const unlockedLetters = sortedLetters.filter((m) => isAfterOrEqual(m.unlockDate, today));
-  const lockedLetters = sortedLetters.filter((m) => !isAfterOrEqual(m.unlockDate, today));
-  const newLettersToday = sortedLetters.filter((m) => m.unlockDate === today);
+  const unlockedLetters = sortedLetters.filter((m) => isAfterOrEqual((m.unlockDate || "").slice(0, 10), today));
+  const lockedLetters = sortedLetters.filter((m) => !isAfterOrEqual((m.unlockDate || "").slice(0, 10), today));
+  const newLettersToday = sortedLetters.filter((m) => (m.unlockDate || "").startsWith(today));
 
   return (
     <React.Fragment>
@@ -1525,7 +1525,7 @@ function AdminForm({ s, onRefresh }: { s: any; onRefresh: () => void }) {
     await scheduleSurpriseMessage({
       title: letterTitle.trim(),
       message: letterMessage.trim(),
-      unlockDate: unlockDateTime.slice(0, 10),
+      unlockDate: unlockDateTime,
       type: "surprise",
     });
     setLetterTitle("");
