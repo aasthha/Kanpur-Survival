@@ -19,3 +19,8 @@
   width: auto !important;
   height: auto !important;
 }
+
+/* Fix UI bug: Calendar popover being overlapped by later days */
+.cal-day.selected {
+  z-index: 50;
+}

@@ -120,3 +120,19 @@ export function YQ(dateStr: string): string {
   }).format(parseUTCDate(dateStr));
 }
 export const formatDateFriendly = YQ;
+
+// Format YYYY-MM-DDTHH:mm into "Jun 16, 2026 at 6:30 PM" friendly format
+export function formatDateTimeFriendly(dateStr: string): string {
+  if (!dateStr.includes("T")) return formatDateFriendly(dateStr);
+  const date = new Date(dateStr);
+  if (isNaN(date.getTime())) return formatDateFriendly(dateStr);
+  
+  return new Intl.DateTimeFormat("en-IN", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(date);
+}

@@ -9,6 +9,7 @@ import {
   generateCalendarGrid,
   generateTimelineDays,
   formatDateFriendly,
+  formatDateTimeFriendly,
   daysBetween,
   isAfterOrEqual,
   parseUTCDate,
@@ -1268,7 +1269,7 @@ function CardsTab({ cards, user, customs, today, onPhoto, onCustom }: CardsTabPr
                   {isUnlocked
                     ? customs[`card_title_${card.weekNumber}`] || card.title
                     : unlockKey
-                    ? `Opens ${formatDateFriendly(unlockKey.slice(0, 10))}`
+                    ? `Opens ${formatDateTimeFriendly(unlockKey)}`
                     : "Locked 🔒"}
                 </p>
               </div>
