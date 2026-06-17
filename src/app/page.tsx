@@ -1031,7 +1031,7 @@ function LettersTab({ letters, today, loading }: { letters: any[]; today: string
                 </div>
                 <div className="locked-info">
                   <span className="locked-title">Letter #{unlockedLetters.length + idx + 1}</span>
-                  <span className="locked-date">Opens on {formatDateFriendly(letter.unlockDate)}</span>
+                  <span className="locked-date">Opens on {formatDateTimeFriendly(letter.unlockDate)}</span>
                 </div>
               </div>
             ))}
@@ -1068,7 +1068,7 @@ function LettersTab({ letters, today, loading }: { letters: any[]; today: string
                     <p className="env-from">From Aastha</p>
                     <h3 className="env-title">{letter.title}</h3>
                     <p className="env-action" style={{ color: "var(--ink-soft)" }}>
-                      Opened {formatDateFriendly(letter.unlockDate)}
+                      Opened {formatDateTimeFriendly(letter.unlockDate)}
                     </p>
                   </div>
                 </div>
