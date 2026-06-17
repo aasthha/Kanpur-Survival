@@ -1179,17 +1179,16 @@ function CardsTab({ cards, user, customs, today, onPhoto, onCustom }: CardsTabPr
     const isUnlocked = checkCardUnlocked(card);
     if (!isAdmin && !isUnlocked) return;
 
-    const unlockKey = customs[`card_unlock_${card.weekNumber}`];
-    if (unlockKey && unlockKey.startsWith(today) && !isAdmin) {
-      setShowUnlockAnim(true);
-      setTimeout(() => setShowUnlockAnim(false), 2500);
-    }
-
     setSelectedCard(card);
     setEditTitle(customs[`card_title_${card.weekNumber}`] || card.title);
     setEditCaption(customs[`card_caption_${card.weekNumber}`] || card.caption);
     setEditObservation(customs[`card_observation_${card.weekNumber}`] || card.observation);
     setEditUnlockDate(customs[`card_unlock_${card.weekNumber}`] || "");
+
+    const unlockKey = customs[`card_unlock_${card.weekNumber}`];
+    if (unlockKey && unlockKey.startsWith(today) && !isAdmin) {
+      setShowUnlockAnim(true);
+    }
   }
 
   async function handleSaveCardCustoms() {
@@ -1220,12 +1219,23 @@ function CardsTab({ cards, user, customs, today, onPhoto, onCustom }: CardsTabPr
 
   return (
     <React.Fragment>
-      {showUnlockAnim && (
+      {showUnlockAnim && selectedCard && (
         <div className="card-unlock-overlay" onClick={() => setShowUnlockAnim(false)}>
-          <div className="card-unlock-anim">
-            <div className="unlock-stars">✨🏆✨</div>
-            <h2>New Card Unlocked!</h2>
-            <p>A new character card has been revealed!</p>
+          <div className="gacha-container">
+            <div className="gacha-burst"></div>
+            <div className="gacha-card-wrapper">
+              <div className="gacha-card">
+                <img 
+                  src={selectedCard.photoUrl || selectedCard.image} 
+                  alt="Card Unlocked" 
+                  className="gacha-card-img" 
+                />
+                <div className="gacha-glare"></div>
+              </div>
+            </div>
+            <h2 className="gacha-title">New Card Unlocked!</h2>
+            <p className="gacha-subtitle">{customs[`card_title_${selectedCard.weekNumber}`] || selectedCard.title}</p>
+            <p className="gacha-tap">Tap anywhere to continue</p>
           </div>
         </div>
       )}

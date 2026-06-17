@@ -24,3 +24,124 @@
 .cal-day.selected {
   z-index: 50;
 }
+
+/* Gacha Animation */
+.gacha-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 610;
+  perspective: 1000px;
+}
+
+.gacha-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  margin-top: -240px;
+  margin-left: -200px;
+  background: radial-gradient(circle, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0) 70%);
+  z-index: -1;
+  animation: burstRotate 10s linear infinite, burstPulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes burstRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes burstPulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+.gacha-card-wrapper {
+  animation: cardFlip 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transform-style: preserve-3d;
+}
+
+@keyframes cardFlip {
+  0% { transform: scale(0) rotateY(-180deg); opacity: 0; }
+  100% { transform: scale(1) rotateY(0deg); opacity: 1; }
+}
+
+.gacha-card {
+  width: 240px;
+  height: 336px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 40px rgba(255,215,0,0.6);
+  position: relative;
+  border: 4px solid #FFD700;
+  background: #111;
+}
+
+.gacha-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gacha-glare {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-25deg);
+  animation: glareSweep 3s infinite;
+  animation-delay: 1.5s;
+}
+
+@keyframes glareSweep {
+  0% { left: -100%; }
+  20%, 100% { left: 200%; }
+}
+
+.gacha-title {
+  color: #FFD700;
+  font-size: 28px;
+  font-weight: 800;
+  margin-top: 30px;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+  animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: 1s;
+  opacity: 0;
+  text-align: center;
+}
+
+.gacha-subtitle {
+  color: #FFF;
+  font-size: 18px;
+  margin-top: 8px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: 1.2s;
+  opacity: 0;
+  text-align: center;
+}
+
+.gacha-tap {
+  color: rgba(255,255,255,0.6);
+  font-size: 14px;
+  margin-top: 40px;
+  animation: pulseOpacity 2s infinite;
+  animation-delay: 2s;
+  opacity: 0;
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulseOpacity {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
