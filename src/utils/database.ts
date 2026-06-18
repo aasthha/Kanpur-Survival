@@ -211,7 +211,7 @@ export async function saveReflection(e: {
 }) {
   const timestamp = new Date().toISOString();
   if (isSupabaseUser(e.user) && ND) {
-    await Promise.all([
+    const [res1, res2]: any[] = await Promise.all([
       ND.from("completions").upsert(
         {
           date: e.date,
@@ -241,6 +241,8 @@ export async function saveReflection(e: {
           )
         : Promise.resolve(),
     ]);
+    if (res1?.error) { alert("Error saving completion: " + res1.error.message); }
+    if (res2?.error) { alert("Error saving reflection: " + res2.error.message); }
     return;
   }
 
