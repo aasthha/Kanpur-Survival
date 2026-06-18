@@ -167,16 +167,19 @@ export async function loadProjectState(user: any) {
           createdAt: r.created_at,
           photoUrl: r.photo_url || undefined,
         })) || [],
-      surpriseMessages:
-        surpriseRes.data?.map((s: any) => ({
-          id: s.id,
-          title: s.title,
-          message: s.message,
-          unlockDate: s.unlock_date,
-          type: s.type,
-          createdAt: s.created_at,
-          photoUrl: s.photo_url || undefined,
-        })) || [],
+        surpriseMessages:
+          surpriseRes.data?.map((s: any) => {
+            const parts = (s.type || "").split("||");
+            return {
+              id: s.id,
+              title: s.title,
+              message: s.message,
+              unlockDate: parts.length > 1 ? parts[1] : s.unlock_date,
+              type: parts[0] || s.type,
+              createdAt: s.created_at,
+              photoUrl: s.photo_url || undefined,
+            };
+          }) || [],
       dailyMessageOverrides: overridesRes.data || [],
       settings: appSettings,
     },
@@ -316,11 +319,11 @@ export async function scheduleSurpriseMessage(e: {
   const timestamp = new Date().toISOString();
   if ($G && ND) {
     const { error } = await ND.from("surprise_messages").upsert({
-      id: e.id,
+      id: e.id || "msg-" + Date.now(),
       title: e.title,
       message: e.message,
-      unlock_date: e.unlockDate,
-      type: e.type,
+      unlock_date: e.unlockDate.split("T")[0],
+      type: e.type + "||" + e.unlockDate,
       created_at: timestamp,
       photo_url: e.photoUrl || null,
     });
