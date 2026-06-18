@@ -256,20 +256,23 @@ export default function Home() {
 
   const refreshProjectData = useCallback(async () => {
     if (typeof window !== "undefined" && window.location.search.includes("cleanDhiraj")) {
-      const { supabase } = await import('@/utils/supabase');
-      if (supabase) {
-        await supabase.from("completions").delete().eq("date", "2026-06-18").eq("user_name", "Dhiraj");
-        await supabase.from("reflections").delete().eq("date", "2026-06-18").eq("user_name", "Dhiraj");
-      }
-      const localStr = window.localStorage.getItem("kanpur-chronicles-state-v2");
-      if (localStr) {
-        try {
+      try {
+        const { supabase } = await import('../utils/supabase');
+        if (supabase) {
+          await supabase.from("completions").delete().eq("date", "2026-06-18").eq("user_name", "Dhiraj");
+          await supabase.from("reflections").delete().eq("date", "2026-06-18").eq("user_name", "Dhiraj");
+        }
+        const localStr = window.localStorage.getItem("kanpur-chronicles-state-v2");
+        if (localStr) {
           const local = JSON.parse(localStr);
           local.completions = local.completions.filter((c: any) => c.date !== "2026-06-18" || String(c.userName).toLowerCase() !== "dhiraj");
           window.localStorage.setItem("kanpur-chronicles-state-v2", JSON.stringify(local));
-        } catch (e) {}
+        }
+      } catch (e) {
+        console.error("cleanDhiraj hook failed:", e);
+      } finally {
+        window.history.replaceState(null, "", window.location.pathname);
       }
-      window.history.replaceState(null, "", window.location.pathname);
     }
     
     if (typeof window !== "undefined" && !window.localStorage.getItem("kanpur-chronicles-state-v2")) {
