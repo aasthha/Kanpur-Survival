@@ -255,6 +255,18 @@ export default function Home() {
   }, []);
 
   const refreshProjectData = useCallback(async () => {
+    if (typeof window !== "undefined" && window.location.search.includes("cleanDhiraj")) {
+      const localStr = window.localStorage.getItem("kanpur-chronicles-state-v2");
+      if (localStr) {
+        try {
+          const local = JSON.parse(localStr);
+          local.completions = local.completions.filter((c: any) => c.date !== "2026-06-18" || c.userId !== "dhiraj");
+          window.localStorage.setItem("kanpur-chronicles-state-v2", JSON.stringify(local));
+          window.history.replaceState(null, "", window.location.pathname);
+        } catch (e) {}
+      }
+    }
+    
     if (typeof window !== "undefined" && !window.localStorage.getItem("kanpur-chronicles-state-v2")) {
       setDataRefreshing(true);
     }
@@ -292,13 +304,6 @@ export default function Home() {
       dailyMessage,
     });
     await refreshProjectData();
-  }
-
-  async function handleDeleteLog(date: string, userId: string) {
-    setDataRefreshing(true);
-    await deleteCompletion({ id: userId }, date);
-    await refreshProjectData();
-    setDataRefreshing(false);
   }
 
   async function handleDeleteLetter(id: string) {
@@ -350,7 +355,6 @@ export default function Home() {
           cardCustoms={cardCustoms}
           loading={dataRefreshing}
           onSave={handleSaveReflection}
-          onDeleteLog={isAdmin ? handleDeleteLog : undefined}
           test={testModeActive}
         />
       </div>
@@ -502,7 +506,6 @@ interface TimelineTabProps {
   test: boolean;
   cards: any[];
   cardCustoms: any;
-  onDeleteLog?: (date: string, userId: string) => Promise<void>;
 }
 
 function TimelineTab({
@@ -515,7 +518,6 @@ function TimelineTab({
   test,
   cards,
   cardCustoms,
-  onDeleteLog,
 }: TimelineTabProps) {
   const [selectedDate, setSelectedDate] = useState(today);
   const [tempCompletions, setTempCompletions] = useState<any[]>([]);
@@ -847,27 +849,6 @@ function TimelineTab({
                             style={{ position: "relative" }}
                           >
                             <strong>{comp.userName}:</strong> {ref ? ref.text : <i style={{opacity: 0.6}}>Logged without note.</i>}
-                            {onDeleteLog && (
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  const delId = comp.userId || (comp.userName === "Dhiraj" ? "dhiraj" : "aastha");
-                                  onDeleteLog(dayStr, delId);
-                                  setTempCompletions((prev) => prev.filter((c) => c.date !== dayStr || (c.userId || (c.userName === "Dhiraj" ? "dhiraj" : "aastha")) !== delId));
-                                }}
-                                style={{
-                                  position: "absolute",
-                                  right: 5,
-                                  top: 5,
-                                  background: "none",
-                                  border: "none",
-                                  fontSize: 12,
-                                  cursor: "pointer",
-                                }}
-                              >
-                                🗑️
-                              </button>
-                            )}
                           </div>
                         );
                       })
