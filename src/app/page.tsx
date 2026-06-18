@@ -295,7 +295,6 @@ export default function Home() {
   }
 
   async function handleDeleteLog(date: string, userId: string) {
-    if (!confirm("Delete this log?")) return;
     setDataRefreshing(true);
     await deleteCompletion({ id: userId }, date);
     await refreshProjectData();
@@ -303,7 +302,6 @@ export default function Home() {
   }
 
   async function handleDeleteLetter(id: string) {
-    if (!confirm("Delete this letter?")) return;
     setDataRefreshing(true);
     await deleteSurpriseMessage(id);
     await refreshProjectData();
