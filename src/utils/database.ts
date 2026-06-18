@@ -146,7 +146,7 @@ export async function loadProjectState(user: any) {
   });
 
   const loadedCompletions = completionsRes.data?.map((c: any) => ({
-    date: c.date,
+    date: c.date.split("T")[0],
     userId: c.user_id,
     userName: c.user_name === "Aastha" ? "Aastha" : "Dhiraj",
     mood: c.mood,
@@ -165,7 +165,7 @@ export async function loadProjectState(user: any) {
       reflections:
         reflectionsRes.data?.map((r: any) => ({
           id: r.id,
-          date: r.date,
+          date: r.date.split("T")[0],
           userId: r.user_id,
           userName: r.user_name === "Aastha" ? "Aastha" : "Dhiraj",
           text: r.text,
