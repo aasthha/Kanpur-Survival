@@ -278,6 +278,25 @@ export async function saveReflection(e: {
 }
 export const Qr = saveReflection;
 
+// Deletes completion & reflection entries
+export async function deleteCompletion(user: any, date: string) {
+  if (isSupabaseUser(user) && ND) {
+    await Promise.all([
+      ND.from("completions").delete().eq("date", date).eq("user_id", user.id),
+      ND.from("reflections").delete().eq("date", date).eq("user_id", user.id),
+    ]);
+    return;
+  }
+
+  const local = getLocalState();
+  saveLocalState({
+    ...local,
+    completions: local.completions.filter((c) => c.date !== date || c.userId !== user.id),
+    reflections: local.reflections.filter((r) => r.date !== date || r.userId !== user.id),
+  });
+}
+export const deleteLog = deleteCompletion;
+
 // Creates scheduled letter / surprise message
 export async function scheduleSurpriseMessage(e: {
   id?: string;
@@ -317,6 +336,21 @@ export async function scheduleSurpriseMessage(e: {
   });
 }
 export const E0 = scheduleSurpriseMessage;
+
+// Deletes a surprise message
+export async function deleteSurpriseMessage(id: string) {
+  if ($G && ND) {
+    const { error } = await ND.from("surprise_messages").delete().eq("id", id);
+    if (!error) return;
+  }
+
+  const local = getLocalState();
+  saveLocalState({
+    ...local,
+    surpriseMessages: local.surpriseMessages.filter((m) => m.id !== id),
+  });
+}
+export const deleteLetter = deleteSurpriseMessage;
 
 // Saves config settings value
 export async function saveSetting(key: string, value: string) {

@@ -31,6 +31,8 @@ import {
   saveCardCustom,
   localSignOut,
   uploadToStorage,
+  deleteCompletion,
+  deleteSurpriseMessage,
 } from "../utils/database";
 
 // Weekly cards configuration
@@ -285,11 +287,27 @@ export default function Home() {
     await saveReflection({
       user: currentUser,
       date: targetDate,
-      mood: "good",
+      mood: "happy",
       reflection: text,
       dailyMessage,
     });
     await refreshProjectData();
+  }
+
+  async function handleDeleteLog(date: string, userId: string) {
+    if (!confirm("Delete this log?")) return;
+    setDataRefreshing(true);
+    await deleteCompletion({ id: userId }, date);
+    await refreshProjectData();
+    setDataRefreshing(false);
+  }
+
+  async function handleDeleteLetter(id: string) {
+    if (!confirm("Delete this letter?")) return;
+    setDataRefreshing(true);
+    await deleteSurpriseMessage(id);
+    await refreshProjectData();
+    setDataRefreshing(false);
   }
 
   if (appLoading) {
@@ -334,7 +352,8 @@ export default function Home() {
           cardCustoms={cardCustoms}
           loading={dataRefreshing}
           onSave={handleSaveReflection}
-          test={testModeActive && isAdmin}
+          onDeleteLog={isAdmin ? handleDeleteLog : undefined}
+          test={testModeActive}
         />
       </div>
 
@@ -350,6 +369,8 @@ export default function Home() {
           letters={syncState.surpriseMessages}
           today={todayDate}
           loading={dataRefreshing}
+          isAdmin={isAdmin}
+          onDeleteLetter={isAdmin ? handleDeleteLetter : undefined}
         />
       </div>
 
@@ -483,6 +504,7 @@ interface TimelineTabProps {
   test: boolean;
   cards: any[];
   cardCustoms: any;
+  onDeleteLog?: (date: string, userId: string) => Promise<void>;
 }
 
 function TimelineTab({
@@ -495,6 +517,7 @@ function TimelineTab({
   test,
   cards,
   cardCustoms,
+  onDeleteLog,
 }: TimelineTabProps) {
   const [selectedDate, setSelectedDate] = useState(today);
   const [tempCompletions, setTempCompletions] = useState<any[]>([]);
@@ -819,12 +842,32 @@ function TimelineTab({
                     {s.reflections.filter((r: any) => r.date === dayStr).length > 0 ? (
                       s.reflections
                         .filter((r: any) => r.date === dayStr)
-                        .map((ref: any, ridx: number) => (
+                        .map((ref: any, idx: number) => (
                           <div
+                            key={idx}
                             className={`pop-log ${ref.userName === "Dhiraj" ? "dhiraj" : "aastha"}`}
-                            key={ridx}
+                            style={{ position: "relative" }}
                           >
                             <strong>{ref.userName}:</strong> {ref.text}
+                            {onDeleteLog && (
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onDeleteLog(dayStr, ref.userId);
+                                }}
+                                style={{
+                                  position: "absolute",
+                                  right: 10,
+                                  top: 10,
+                                  background: "none",
+                                  border: "none",
+                                  fontSize: 16,
+                                  cursor: "pointer",
+                                }}
+                              >
+                                🗑️
+                              </button>
+                            )}
                           </div>
                         ))
                     ) : (
@@ -872,7 +915,7 @@ function MemoryInput({ loading, onSubmit }: { loading: boolean; onSubmit: (text:
 }
 
 // Sub-component: Letters tab
-function LettersTab({ letters, today, loading }: { letters: any[]; today: string; loading: boolean }) {
+function LettersTab({ letters, today, loading, isAdmin, onDeleteLetter }: { letters: any[]; today: string; loading: boolean; isAdmin?: boolean; onDeleteLetter?: (id: string) => Promise<void> }) {
   const [selectedLetter, setSelectedLetter] = useState<any | null>(null);
   const [reactionPhase, setReactionPhase] = useState<"idle" | "excited" | "lift" | "center" | "flap" | "slide" | "reveal" | "closing">("idle");
   const [savedLettersOpen, setSavedLettersOpen] = useState(false);
@@ -1033,6 +1076,24 @@ function LettersTab({ letters, today, loading }: { letters: any[]; today: string
                   <span className="locked-title">Letter #{unlockedLetters.length + idx + 1}</span>
                   <span className="locked-date">Opens on {formatDateTimeFriendly(letter.unlockDate)}</span>
                 </div>
+                {isAdmin && onDeleteLetter && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDeleteLetter(letter.id);
+                    }}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      fontSize: 18,
+                      cursor: "pointer",
+                      marginLeft: "auto",
+                      padding: 10,
+                    }}
+                  >
+                    🗑️
+                  </button>
+                )}
               </div>
             ))}
           </div>
@@ -1482,30 +1543,27 @@ function SettingsTab({ user, s, onSignOut, onRefresh, test, onTest }: SettingsTa
         </div>
       </div>
 
-      {isAdmin && (
-        <div className="settings-card">
-          <h3>🧪 Testing Mode</h3>
-          <div className="settings-row">
-            <span style={{ fontWeight: 700, fontSize: 15 }}>Enable Testing Mode</span>
-            <button
-              onClick={onTest}
-              style={{
-                padding: "8px 20px",
-                borderRadius: 22,
-                border: 0,
-                background: test ? "var(--pink)" : "rgba(0,0,0,0.06)",
-                color: test ? "#fff" : "var(--ink-soft)",
-                fontWeight: 800,
-                fontSize: 13,
-                minHeight: 40,
-              }}
-            >
-              {test ? "ON" : "OFF"}
-            </button>
-          </div>
+      <div className="settings-card">
+        <h3>🧪 Testing Mode</h3>
+        <div className="settings-row">
+          <span style={{ fontWeight: 700, fontSize: 15 }}>Enable Testing Mode</span>
+          <button
+            onClick={onTest}
+            style={{
+              padding: "8px 20px",
+              borderRadius: 22,
+              border: 0,
+              background: test ? "var(--pink)" : "rgba(0,0,0,0.06)",
+              color: test ? "#fff" : "var(--ink-soft)",
+              fontWeight: 800,
+              fontSize: 13,
+              minHeight: 40,
+            }}
+          >
+            {test ? "ON" : "OFF"}
+          </button>
         </div>
-      )}
-
+      </div>
       {isAdmin && <AdminForm s={s} onRefresh={onRefresh} />}
     </React.Fragment>
   );
