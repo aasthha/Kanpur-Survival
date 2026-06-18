@@ -123,8 +123,11 @@ export const formatDateFriendly = YQ;
 
 // Format YYYY-MM-DDTHH:mm into "Jun 16, 2026 at 6:30 PM" friendly format
 export function formatDateTimeFriendly(dateStr: string): string {
-  if (!dateStr.includes("T")) return formatDateFriendly(dateStr);
-  const date = new Date(dateStr);
+  let fullDateStr = dateStr;
+  if (!fullDateStr.includes("T")) {
+    fullDateStr += "T00:00";
+  }
+  const date = new Date(fullDateStr);
   if (isNaN(date.getTime())) return formatDateFriendly(dateStr);
   
   return new Intl.DateTimeFormat("en-IN", {
