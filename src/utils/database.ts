@@ -148,7 +148,7 @@ export async function loadProjectState(user: any) {
   const loadedCompletions = completionsRes.data?.map((c: any) => ({
     date: c.date.split("T")[0],
     userId: c.user_id,
-    userName: c.user_name === "Aastha" ? "Aastha" : "Dhiraj",
+    userName: String(c.user_name || "").toLowerCase().includes("aastha") ? "Aastha" : "Dhiraj",
     mood: c.mood,
     completedAt: c.completed_at,
     dailyMessage: c.daily_message,
@@ -167,7 +167,7 @@ export async function loadProjectState(user: any) {
           id: r.id,
           date: r.date.split("T")[0],
           userId: r.user_id,
-          userName: r.user_name === "Aastha" ? "Aastha" : "Dhiraj",
+          userName: String(r.user_name || "").toLowerCase().includes("aastha") ? "Aastha" : "Dhiraj",
           text: r.text,
           createdAt: r.created_at,
           photoUrl: r.photo_url || undefined,
