@@ -33,7 +33,7 @@ function saveLocalState(state: typeof initialLocalState) {
 }
 
 function isSupabaseUser(user: any): boolean {
-  return !!($G && ND && user && !["dhiraj", "aastha"].includes(user.id));
+  return !!($G && ND && user && user.id && !["dhiraj", "aastha"].includes(String(user.id).toLowerCase()));
 }
 
 // Compresses photo before upload
@@ -289,10 +289,17 @@ export async function deleteCompletion(user: any, date: string) {
   }
 
   const local = getLocalState();
+  const targetId = String(user.id).toLowerCase();
   saveLocalState({
     ...local,
-    completions: local.completions.filter((c) => c.date !== date || c.userId !== user.id),
-    reflections: local.reflections.filter((r) => r.date !== date || r.userId !== user.id),
+    completions: local.completions.filter((c) => {
+      const cid = String(c.userId || c.user_id || c.userName || "").toLowerCase();
+      return c.date !== date || cid !== targetId;
+    }),
+    reflections: local.reflections.filter((r) => {
+      const rid = String(r.userId || r.user_id || r.userName || "").toLowerCase();
+      return r.date !== date || rid !== targetId;
+    }),
   });
 }
 export const deleteLog = deleteCompletion;

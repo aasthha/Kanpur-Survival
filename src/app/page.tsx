@@ -851,8 +851,9 @@ function TimelineTab({
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  onDeleteLog(dayStr, comp.userId);
-                                  setTempCompletions((prev) => prev.filter((c) => c.date !== dayStr || c.userId !== comp.userId));
+                                  const delId = comp.userId || (comp.userName === "Dhiraj" ? "dhiraj" : "aastha");
+                                  onDeleteLog(dayStr, delId);
+                                  setTempCompletions((prev) => prev.filter((c) => c.date !== dayStr || (c.userId || (c.userName === "Dhiraj" ? "dhiraj" : "aastha")) !== delId));
                                 }}
                                 style={{
                                   position: "absolute",
