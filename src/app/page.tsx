@@ -307,7 +307,7 @@ export default function Home() {
     await saveReflection({
       user: currentUser,
       date: targetDate,
-      mood: "happy",
+      mood: "good",
       reflection: text,
       dailyMessage,
     });
