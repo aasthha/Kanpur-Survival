@@ -318,15 +318,17 @@ export async function scheduleSurpriseMessage(e: {
 }) {
   const timestamp = new Date().toISOString();
   if ($G && ND) {
-    const { error } = await ND.from("surprise_messages").upsert({
-      id: e.id || "msg-" + Date.now(),
+    const payload: any = {
       title: e.title,
       message: e.message + "||__TIME__" + e.unlockDate,
       unlock_date: e.unlockDate.split("T")[0],
       type: e.type,
       created_at: timestamp,
       photo_url: e.photoUrl || null,
-    });
+    };
+    if (e.id) payload.id = e.id;
+    
+    const { error } = await ND.from("surprise_messages").upsert(payload);
     if (!error) return;
     console.warn("scheduleSurpriseMessage Supabase upsert failed, falling back to localStorage:", error.message);
   }
