@@ -839,29 +839,29 @@ function TimelineTab({
                       ✕
                     </button>
                     <div className="pop-header">Day {Array.from(timelineSet).indexOf(dayStr) + 1}</div>
-                    {s.reflections.filter((r: any) => r.date === dayStr).length > 0 ? (
-                      s.reflections
-                        .filter((r: any) => r.date === dayStr)
-                        .map((ref: any, idx: number) => (
+                    {completionsForDay.length > 0 ? (
+                      completionsForDay.map((comp: any, idx: number) => {
+                        const ref = s.reflections.find((r: any) => r.date === dayStr && r.userId === comp.userId);
+                        return (
                           <div
                             key={idx}
-                            className={`pop-log ${ref.userName === "Dhiraj" ? "dhiraj" : "aastha"}`}
+                            className={`pop-log ${comp.userName === "Dhiraj" ? "dhiraj" : "aastha"}`}
                             style={{ position: "relative" }}
                           >
-                            <strong>{ref.userName}:</strong> {ref.text}
+                            <strong>{comp.userName}:</strong> {ref ? ref.text : <i style={{opacity: 0.6}}>Logged without note.</i>}
                             {onDeleteLog && (
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  onDeleteLog(dayStr, ref.userId);
+                                  onDeleteLog(dayStr, comp.userId);
                                 }}
                                 style={{
                                   position: "absolute",
-                                  right: 10,
-                                  top: 10,
+                                  right: 5,
+                                  top: 5,
                                   background: "none",
                                   border: "none",
-                                  fontSize: 16,
+                                  fontSize: 12,
                                   cursor: "pointer",
                                 }}
                               >
@@ -869,7 +869,8 @@ function TimelineTab({
                               </button>
                             )}
                           </div>
-                        ))
+                        );
+                      })
                     ) : (
                       <div className="pop-log" style={{ background: "#f0f0f0", color: "#666", textAlign: "center" }}>
                         No logs yet.
