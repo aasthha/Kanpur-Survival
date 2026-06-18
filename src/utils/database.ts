@@ -169,13 +169,13 @@ export async function loadProjectState(user: any) {
         })) || [],
         surpriseMessages:
           surpriseRes.data?.map((s: any) => {
-            const parts = (s.type || "").split("||");
+            const parts = (s.message || "").split("||__TIME__");
             return {
               id: s.id,
               title: s.title,
-              message: s.message,
+              message: parts[0],
               unlockDate: parts.length > 1 ? parts[1] : s.unlock_date,
-              type: parts[0] || s.type,
+              type: s.type,
               createdAt: s.created_at,
               photoUrl: s.photo_url || undefined,
             };
@@ -321,9 +321,9 @@ export async function scheduleSurpriseMessage(e: {
     const { error } = await ND.from("surprise_messages").upsert({
       id: e.id || "msg-" + Date.now(),
       title: e.title,
-      message: e.message,
+      message: e.message + "||__TIME__" + e.unlockDate,
       unlock_date: e.unlockDate.split("T")[0],
-      type: e.type + "||" + e.unlockDate,
+      type: e.type,
       created_at: timestamp,
       photo_url: e.photoUrl || null,
     });
