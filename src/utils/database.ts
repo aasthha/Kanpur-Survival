@@ -145,18 +145,23 @@ export async function loadProjectState(user: any) {
     }
   });
 
+  const loadedCompletions = completionsRes.data?.map((c: any) => ({
+    date: c.date,
+    userId: c.user_id,
+    userName: c.user_name === "Aastha" ? "Aastha" : "Dhiraj",
+    mood: c.mood,
+    completedAt: c.completed_at,
+    dailyMessage: c.daily_message,
+    photoUrl: c.photo_url || undefined,
+  })) || [];
+
+  if (typeof window !== "undefined" && window.location.search.includes("debugLoad")) {
+    alert(`Loaded ${loadedCompletions.length} completions from Supabase. Last date: ${loadedCompletions.length ? loadedCompletions[loadedCompletions.length - 1].date : "none"}`);
+  }
+
   return {
     state: {
-      completions:
-        completionsRes.data?.map((c: any) => ({
-          date: c.date,
-          userId: c.user_id,
-          userName: c.user_name === "Aastha" ? "Aastha" : "Dhiraj",
-          mood: c.mood,
-          completedAt: c.completed_at,
-          dailyMessage: c.daily_message,
-          photoUrl: c.photo_url || undefined,
-        })) || [],
+      completions: loadedCompletions,
       reflections:
         reflectionsRes.data?.map((r: any) => ({
           id: r.id,
