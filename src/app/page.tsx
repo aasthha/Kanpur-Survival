@@ -918,12 +918,10 @@ function LettersTab({ letters, today, loading, isAdmin, onDeleteLetter }: { lett
   function handleOpenLetter(letter: any) {
     if (isAfterOrEqual((letter.unlockDate || "").slice(0, 10), today)) {
       setSelectedLetter(letter);
-      setReactionPhase("excited");
-      setTimeout(() => setReactionPhase("lift"), 1500);
-      setTimeout(() => setReactionPhase("center"), 1800);
-      setTimeout(() => setReactionPhase("flap"), 2300);
-      setTimeout(() => setReactionPhase("slide"), 2700);
-      setTimeout(() => setReactionPhase("reveal"), 3300);
+      setReactionPhase("center");
+      setTimeout(() => setReactionPhase("flap"), 400);
+      setTimeout(() => setReactionPhase("slide"), 800);
+      setTimeout(() => setReactionPhase("reveal"), 1300);
     }
   }
 
@@ -1140,14 +1138,6 @@ function LettersTab({ letters, today, loading, isAdmin, onDeleteLetter }: { lett
       {selectedLetter && reactionPhase !== "idle" && (
         <div className={`letter-fullscreen phase-${reactionPhase}`} onClick={reactionPhase === "reveal" ? handleCloseLetter : undefined}>
           <div className="letter-backdrop" />
-          <div className={`dhiraj-letter-reaction phase-${reactionPhase}`}>
-            <Image
-              src={reactionPhase === "reveal" ? MASCOT_AVATARS.dhirajReading : MASCOT_AVATARS.dhirajCelebrate}
-              alt="Dhiraj"
-              width={140}
-              height={140}
-            />
-          </div>
           <div className="letter-stage">
             <div className="fs-envelope">
               <div className="fs-env-flap" />
@@ -1155,8 +1145,33 @@ function LettersTab({ letters, today, loading, isAdmin, onDeleteLetter }: { lett
                 <div className="fs-env-stamp">💌</div>
               </div>
             </div>
-            <div className="fs-letter-card">
-              <div className="fs-card-inner">
+            <div className="fs-letter-card" onClick={(e) => e.stopPropagation()}>
+              <div className="fs-card-inner" style={{ position: "relative" }}>
+                {reactionPhase === "reveal" && (
+                  <button 
+                    onClick={handleCloseLetter}
+                    style={{
+                      position: "absolute",
+                      top: "16px",
+                      right: "16px",
+                      background: "rgba(124, 107, 196, 0.08)",
+                      border: "none",
+                      borderRadius: "50%",
+                      width: "32px",
+                      height: "32px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                      color: "var(--purple)",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                      zIndex: 100,
+                    }}
+                  >
+                    ✕
+                  </button>
+                )}
                 <div className="fs-butterflies">
                   <span className="b1">🦋</span>
                   <span className="b2">✨</span>
@@ -1185,13 +1200,7 @@ function LettersTab({ letters, today, loading, isAdmin, onDeleteLetter }: { lett
               </div>
             </div>
           </div>
-          {reactionPhase === "reveal" && (
-            <div className="fs-close-wrap">
-              <button className="fs-close" onClick={handleCloseLetter}>
-                Close letter ✕
-              </button>
-            </div>
-          )}
+          </div>
         </div>
       )}
     </React.Fragment>
