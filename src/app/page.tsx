@@ -238,10 +238,14 @@ export default function Home() {
     setTimeout(() => fire({ particleCount: 200, spread: 140, origin: { x: 0.5, y: 0.6 } }), 1000);
   }, [currentUser, isMilestoneDay]);
 
-  // Show overlay on every refresh during milestone day
+  // Show overlay once per session on milestone day
   useEffect(() => {
-    if (!currentUser || !isMilestoneDay) return;
-    setMilestoneOverlay(isMilestoneDay as number);
+    if (!currentUser || !isMilestoneDay || typeof window === "undefined") return;
+    const sessionKey = `milestone_overlay_seen_${isMilestoneDay}`;
+    if (!window.sessionStorage.getItem(sessionKey)) {
+      setMilestoneOverlay(isMilestoneDay as number);
+      window.sessionStorage.setItem(sessionKey, "true");
+    }
   }, [currentUser, isMilestoneDay]);
 
   // Handle SW cleanups

@@ -60,7 +60,8 @@ body{color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;-we
 button,input,select,textarea{font:inherit;color:inherit}
 button{touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .app-shell{height:100dvh;display:flex;flex-direction:column;overflow:hidden;position:relative;background:linear-gradient(145deg,#E2D7F4,#D1C0EC);transition:background 1s ease}
-.app-shell.milestone-day{background:linear-gradient(145deg,#F0E4FF,#E8D5F5,#FFE8F0,#F5E0FF);animation:festiveBg 8s ease infinite;background-size:400% 400%}
+.app-shell.milestone-day{background:linear-gradient(135deg,#E6D8FC,#FCDAE8,#FCE8D5,#EAE0FB);animation:festiveBg 8s ease infinite;background-size:400% 400%}
+.app-shell.milestone-day::before{content:"";position:absolute;border-radius:50%;filter:blur(80px);opacity:0.35;width:400px;height:400px;background:#6610F2;top:40%;left:-100px;animation:blobDrift 18s ease-in-out infinite alternate;pointer-events:none;z-index:0}
 @keyframes festiveBg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .screen{flex:1;display:flex;flex-direction:column;padding:0 14px 14px}
 .screen,.screen-scroll{overflow-y:auto;width:min(100%,440px);margin:0 auto;position:relative;z-index:1;-webkit-overflow-scrolling:touch}
@@ -718,6 +719,9 @@ to{left:200%}
 .timeline-bg-blobs:after,.timeline-bg-blobs:before{content:"";position:absolute;border-radius:50%;filter:blur(60px);opacity:.6;animation:blobDrift 20s ease-in-out infinite alternate}
 .timeline-bg-blobs:before{width:350px;height:350px;background:#E8DFF5;top:-100px;left:-100px}
 .timeline-bg-blobs:after{width:300px;height:300px;background:#FCEEF3;bottom:-50px;right:-50px;animation-delay:-10s}
+.app-shell.milestone-day .timeline-bg-blobs:before{background:#E83E8C;opacity:0.4;animation:blobDrift 15s ease-in-out infinite alternate,blobPulse 6s infinite alternate}
+.app-shell.milestone-day .timeline-bg-blobs:after{background:#FFD700;opacity:0.35;animation:blobDrift 12s ease-in-out infinite alternate,blobPulse 5s infinite alternate}
+@keyframes blobPulse{0%{transform:scale(1)}100%{transform:scale(1.4)}}
 @keyframes blobDrift{0%{transform:translate(0) scale(1)}
 to{transform:translate(30px,40px) scale(1.1)}
 }
