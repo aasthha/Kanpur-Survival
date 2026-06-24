@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import Image from "next/image";
+import confetti from "canvas-confetti";
 import {
   Jr,
   getKolkataToday,
@@ -207,6 +208,42 @@ export default function Home() {
     );
   }, [cardCustoms, todayDate]);
 
+  // Milestone day detection & celebration
+  const [milestoneOverlay, setMilestoneOverlay] = useState<number | null>(null);
+  const isMilestoneDay = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    const milestones = [80, 50]; // check highest first
+    for (const m of milestones) {
+      if (stats.percentComplete >= m) {
+        const dateKey = `milestone_${m}_date`;
+        const storedDate = window.localStorage.getItem(dateKey);
+        if (!storedDate) {
+          window.localStorage.setItem(dateKey, todayDate);
+          return m;
+        }
+        if (storedDate === todayDate) return m;
+        return false; // milestone was reached on a past day
+      }
+    }
+    return false;
+  }, [stats.percentComplete, todayDate]);
+
+  // Multi-burst fireworks on every refresh during milestone day
+  useEffect(() => {
+    if (!currentUser || !isMilestoneDay || typeof window === "undefined") return;
+    const fire = (opts: any) => confetti({ ...opts, colors: ['#FFD700', '#FFA500', '#FF8E53', '#E83E8C', '#6610F2'] });
+    // Burst sequence: left, right, center
+    setTimeout(() => fire({ particleCount: 100, spread: 80, origin: { x: 0.2, y: 0.7 }, angle: 60 }), 300);
+    setTimeout(() => fire({ particleCount: 100, spread: 80, origin: { x: 0.8, y: 0.7 }, angle: 120 }), 600);
+    setTimeout(() => fire({ particleCount: 200, spread: 140, origin: { x: 0.5, y: 0.6 } }), 1000);
+  }, [currentUser, isMilestoneDay]);
+
+  // Show overlay on every refresh during milestone day
+  useEffect(() => {
+    if (!currentUser || !isMilestoneDay) return;
+    setMilestoneOverlay(isMilestoneDay as number);
+  }, [currentUser, isMilestoneDay]);
+
   // Handle SW cleanups
   useEffect(() => {
     if (typeof navigator !== "undefined" && "serviceWorker" in navigator) {
@@ -350,7 +387,20 @@ export default function Home() {
   const isAdmin = currentUser.role === "admin";
 
   return (
-    <main className="app-shell">
+    <main className={`app-shell ${isMilestoneDay ? 'milestone-day' : ''}`}>
+      {/* Milestone Celebration Overlay */}
+      {milestoneOverlay && (
+        <div className="milestone-overlay" onClick={() => setMilestoneOverlay(null)}>
+          <div className="milestone-overlay-glow" />
+          <div className="milestone-overlay-particles" />
+          <div className="milestone-overlay-percent">{milestoneOverlay}%</div>
+          <div className="milestone-overlay-msg">
+            {milestoneOverlay === 50 ? "🎉 Halfway there! You're doing amazing!" : "🔥 80% done! The finish line is so close!"}
+          </div>
+          <div className="milestone-overlay-sub">Tap anywhere to continue</div>
+        </div>
+      )}
+
       {/* Timeline Tab */}
       <div className="screen" style={{ display: activeTab === "timeline" ? "flex" : "none" }}>
         <div className="timeline-bg-blobs" />
@@ -364,6 +414,7 @@ export default function Home() {
           loading={dataRefreshing}
           onSave={handleSaveReflection}
           test={testModeActive}
+          milestoneDay={isMilestoneDay}
         />
       </div>
 
@@ -514,6 +565,7 @@ interface TimelineTabProps {
   test: boolean;
   cards: any[];
   cardCustoms: any;
+  milestoneDay: number | false;
 }
 
 function TimelineTab({
@@ -526,6 +578,7 @@ function TimelineTab({
   test,
   cards,
   cardCustoms,
+  milestoneDay,
 }: TimelineTabProps) {
   const [selectedDate, setSelectedDate] = useState(today);
   const [tempCompletions, setTempCompletions] = useState<any[]>([]);
@@ -612,10 +665,10 @@ function TimelineTab({
       {/* Stats Header */}
       <div className="hero-compact">
         <div className="stats-row">
-          <div className="stat-pill">
+          <div className={`stat-pill ${milestoneDay ? 'stat-pill-celebrate' : ''}`}>
             📍 <strong className="text-gradient-warm">Day {stats.elapsed}</strong>
           </div>
-          <div className="stat-pill">
+          <div className={`stat-pill ${milestoneDay ? 'stat-pill-celebrate' : ''}`}>
             ⏳ <strong className="text-gradient-cool">{stats.daysUntilHome} to go</strong>
           </div>
         </div>
@@ -624,9 +677,13 @@ function TimelineTab({
       {/* Progress Track */}
       <div className="journey-bar">
         <div className="jb-track">
-          <div className="jb-fill" style={{ width: `${stats.percentComplete}%` }} />
+          <div className="jb-fill" style={{ width: `${stats.percentComplete}%` }}>
+            {stats.percentComplete >= 50 && <div className="jb-shimmer-overlay" />}
+          </div>
+          <div className={`jb-milestone jb-milestone-50 ${stats.percentComplete >= 50 ? 'reached' : ''}`} title="50%" />
+          <div className={`jb-milestone jb-milestone-80 ${stats.percentComplete >= 80 ? 'reached' : ''}`} title="80%" />
           <div className="jb-marker" style={{ left: `${Math.max(5, Math.min(95, stats.percentComplete))}%` }}>
-            <img src={MASCOT_AVATARS.dhiraj} alt="Dhiraj" className="jb-avatar" />
+            <img src={MASCOT_AVATARS.dhiraj} alt="Dhiraj" className={`jb-avatar ${stats.percentComplete >= 50 ? 'jb-halo' : ''}`} />
           </div>
         </div>
         <div className="jb-labels">
@@ -1199,7 +1256,6 @@ function LettersTab({ letters, today, loading, isAdmin, onDeleteLetter }: { lett
                 )}
               </div>
             </div>
-          </div>
           </div>
         </div>
       )}
