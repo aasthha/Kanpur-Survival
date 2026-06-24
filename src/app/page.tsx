@@ -815,7 +815,7 @@ function TimelineTab({
               <div
                 className={[
                   "cal-day",
-                  compCount > 0 ? "struck" : "",
+                  (compCount > 0 || dayStr < today) ? "struck" : "",
                   dayStr === today ? "today" : "",
                   !timelineSet.has(dayStr) ? "outside" : "",
                   selectedCalDate === dayStr ? "selected" : "",
