@@ -55,7 +55,7 @@ img,video{max-width:100%;height:auto}
 .filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}
 :root{--purple:#7C6BC4;--purple-deep:#6A5AAE;--purple-light:#B8ACE0;--purple-pale:#EDE9FC;--pink:#E87899;--pink-bg:#FCEEF3;--blue:#5B9FD6;--blue-bg:#EEF5FB;--green:#6BCB77;--green-deep:#4CAF50;--green-bg:#EDF9EE;--yellow:#F5C842;--yellow-bg:#FFF8E1;--orange:#F5A442;--red:#E86B6B;--ink:#2B2D42;--ink-soft:#585B73;--ink-muted:#9599B3;--card:#FFFFFF;--card-shadow:0 2px 12px rgba(124,107,196,0.07);--radius:20px;--radius-sm:14px;--font:var(--font-nunito,"Nunito"),system-ui,-apple-system,sans-serif}
 *{box-sizing:border-box;margin:0}
-body,html{height:100%;width:100%;overscroll-behavior-y:none}
+body,html{height:100%;width:100%}
 body{color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;background:#EDE9FC}
 button,input,select,textarea{font:inherit;color:inherit}
 button{touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -64,7 +64,7 @@ button{touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:tran
 .app-shell.milestone-day::before{content:"";position:absolute;border-radius:50%;filter:blur(80px);opacity:0.35;width:400px;height:400px;background:#6610F2;top:40%;left:-100px;animation:blobDrift 18s ease-in-out infinite alternate;pointer-events:none;z-index:0}
 @keyframes festiveBg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .screen{flex:1;display:flex;flex-direction:column;padding:0 14px 14px}
-.screen,.screen-scroll{overflow-y:auto;width:min(100%,440px);margin:0 auto;position:relative;z-index:1;-webkit-overflow-scrolling:touch;overscroll-behavior-y:none}
+.screen,.screen-scroll{overflow-y:auto;width:min(100%,440px);margin:0 auto;position:relative;z-index:1;-webkit-overflow-scrolling:touch}
 .screen-scroll{flex:1;padding:0 14px 24px}
 .comic-title{display:inline-block;position:relative;font-size:26px;font-weight:900;font-style:italic;color:#fff;letter-spacing:.02em;line-height:1;padding:6px 24px 8px;margin:0 auto;background:linear-gradient(135deg,var(--purple),#9B4DFF);border-radius:8px;transform:rotate(-2deg);box-shadow:4px 4px 0 rgba(0,0,0,.15),0 2px 12px rgba(124,107,196,.3);text-shadow:2px 2px 0 rgba(0,0,0,.2)}
 .comic-title:before{content:"";position:absolute;inset:-3px;border:3px solid var(--yellow);border-radius:10px;transform:rotate(1deg)}

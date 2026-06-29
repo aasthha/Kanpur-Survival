@@ -792,18 +792,19 @@ function TimelineTab({
       )}
 
       {/* Calendar Grid Card */}
-      <div className="card cal-card" style={{ position: "relative" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-          <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: "var(--ink)" }}>Calendar</h3>
+      <div className="card cal-card" style={{ position: "relative", padding: "12px 14px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+          <h3 style={{ margin: 0, fontSize: 14, fontWeight: 800, color: "var(--ink)" }}>Calendar</h3>
           <select 
             value={viewMonth}
             onChange={(e) => setViewMonth(Number(e.target.value))}
             style={{ 
-              padding: "4px 8px", 
-              borderRadius: 12, 
+              padding: "2px 6px", 
+              borderRadius: 8, 
               border: "1px solid rgba(124,107,196,0.3)",
               background: "rgba(255,255,255,0.5)",
               fontWeight: 700,
+              fontSize: 13,
               color: "var(--purple)",
               outline: "none"
             }}
