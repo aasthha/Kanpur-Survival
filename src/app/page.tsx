@@ -811,7 +811,6 @@ function TimelineTab({
             <option value={4}>May</option>
             <option value={5}>June</option>
             <option value={6}>July</option>
-            <option value={7}>August</option>
           </select>
         </div>
         <div className="cal-grid" style={{ position: "relative", zIndex: 1 }}>
