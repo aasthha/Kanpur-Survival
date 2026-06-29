@@ -299,14 +299,15 @@ export default function Home() {
     if (typeof window !== "undefined" && window.location.search.includes("cleanDhiraj")) {
       try {
         const { supabase } = await import('../utils/supabase');
+        const todayStr = getKolkataToday();
         if (supabase) {
-          await supabase.from("completions").delete().eq("date", "2026-06-18").eq("user_name", "Dhiraj");
-          await supabase.from("reflections").delete().eq("date", "2026-06-18").eq("user_name", "Dhiraj");
+          await supabase.from("completions").delete().eq("date", todayStr).eq("user_name", "Dhiraj");
+          await supabase.from("reflections").delete().eq("date", todayStr).eq("user_name", "Dhiraj");
         }
         const localStr = window.localStorage.getItem("kanpur-chronicles-state-v2");
         if (localStr) {
           const local = JSON.parse(localStr);
-          local.completions = local.completions.filter((c: any) => c.date !== "2026-06-18" || String(c.userName).toLowerCase() !== "dhiraj");
+          local.completions = local.completions.filter((c: any) => c.date !== todayStr || String(c.userName).toLowerCase() !== "dhiraj");
           window.localStorage.setItem("kanpur-chronicles-state-v2", JSON.stringify(local));
         }
       } catch (e) {
@@ -792,7 +793,7 @@ function TimelineTab({
       {/* Calendar Grid Card */}
       <div className="card cal-card" style={{ position: "relative" }}>
         <div className="cal-grid" style={{ position: "relative", zIndex: 1 }}>
-          {["S", "M", "T", "W", "T", "F", "S"].map((w, idx) => (
+          {["M", "T", "W", "T", "F", "S", "S"].map((w, idx) => (
             <div className="cal-weekday" key={`w-${idx}`}>
               {w}
             </div>

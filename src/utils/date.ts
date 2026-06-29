@@ -99,10 +99,11 @@ export const generateTimelineDays = o0;
 // Generate the padded calendar grid array for a given year and month index (0-11)
 export function bl(year: number, monthIndex: number): (string | null)[] {
   const startDayOfWeek = new Date(Date.UTC(year, monthIndex, 1)).getUTCDay();
+  const adjustedStartDay = (startDayOfWeek + 6) % 7;
   const numDays = new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
 
   return [
-    ...Array.from({ length: startDayOfWeek }, () => null),
+    ...Array.from({ length: adjustedStartDay }, () => null),
     ...Array.from({ length: numDays }, (_, i) =>
       formatUTCDateString(new Date(Date.UTC(year, monthIndex, i + 1)))
     ),
