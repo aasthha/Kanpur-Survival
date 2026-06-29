@@ -809,7 +809,6 @@ function TimelineTab({
               outline: "none"
             }}
           >
-            <option value={4}>May</option>
             <option value={5}>June</option>
             <option value={6}>July</option>
           </select>
