@@ -55,7 +55,7 @@ img,video{max-width:100%;height:auto}
 .filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}
 :root{--purple:#7C6BC4;--purple-deep:#6A5AAE;--purple-light:#B8ACE0;--purple-pale:#EDE9FC;--pink:#E87899;--pink-bg:#FCEEF3;--blue:#5B9FD6;--blue-bg:#EEF5FB;--green:#6BCB77;--green-deep:#4CAF50;--green-bg:#EDF9EE;--yellow:#F5C842;--yellow-bg:#FFF8E1;--orange:#F5A442;--red:#E86B6B;--ink:#2B2D42;--ink-soft:#585B73;--ink-muted:#9599B3;--card:#FFFFFF;--card-shadow:0 2px 12px rgba(124,107,196,0.07);--radius:20px;--radius-sm:14px;--font:var(--font-nunito,"Nunito"),system-ui,-apple-system,sans-serif}
 *{box-sizing:border-box;margin:0}
-body,html{height:100%;width:100%}
+body,html{height:100%;width:100%;overscroll-behavior-y:none}
 body{color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;background:#EDE9FC}
 button,input,select,textarea{font:inherit;color:inherit}
 button{touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}
