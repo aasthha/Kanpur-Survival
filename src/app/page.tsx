@@ -591,6 +591,8 @@ function TimelineTab({
   const [animationPhase, setAnimationPhase] = useState<"idle" | "walk-in" | "write" | "strike" | "celebrate" | "walk-out">("idle");
   const [animatingDate, setAnimatingDate] = useState<string | null>(null);
   const [grandUnlockCard, setGrandUnlockCard] = useState<any | null>(null);
+  const dateObj = parseUTCDate(today);
+  const [viewMonth, setViewMonth] = useState(dateObj.getUTCMonth());
 
   const activeDate = test ? selectedDate : today;
   const currentCompletions = test ? [...s.completions, ...tempCompletions] : s.completions;
@@ -641,9 +643,8 @@ function TimelineTab({
   }
 
   // Calendar rendering
-  const dateObj = parseUTCDate(today);
-  const calendarYear = dateObj.getUTCFullYear();
-  const calendarMonth = dateObj.getUTCMonth();
+  const calendarYear = 2026; // Since the journey is entirely in 2026
+  const calendarMonth = viewMonth;
   const calendarGrid = generateCalendarGrid(calendarYear, calendarMonth);
   const timelineSet = new Set(generateTimelineDays());
 
@@ -792,6 +793,27 @@ function TimelineTab({
 
       {/* Calendar Grid Card */}
       <div className="card cal-card" style={{ position: "relative" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+          <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: "var(--ink)" }}>Calendar</h3>
+          <select 
+            value={viewMonth}
+            onChange={(e) => setViewMonth(Number(e.target.value))}
+            style={{ 
+              padding: "4px 8px", 
+              borderRadius: 12, 
+              border: "1px solid rgba(124,107,196,0.3)",
+              background: "rgba(255,255,255,0.5)",
+              fontWeight: 700,
+              color: "var(--purple)",
+              outline: "none"
+            }}
+          >
+            <option value={4}>May</option>
+            <option value={5}>June</option>
+            <option value={6}>July</option>
+            <option value={7}>August</option>
+          </select>
+        </div>
         <div className="cal-grid" style={{ position: "relative", zIndex: 1 }}>
           {["M", "T", "W", "T", "F", "S", "S"].map((w, idx) => (
             <div className="cal-weekday" key={`w-${idx}`}>
