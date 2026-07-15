@@ -958,15 +958,15 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 .rocket-countdown {
   position: relative;
   overflow: hidden;
-  margin: 4px 0 8px;
-  padding: 14px 16px 12px;
-  border-radius: 16px;
+  margin: 6px 0 10px;
+  padding: 20px 16px 16px;
+  border-radius: 18px;
   background: linear-gradient(145deg, #0a0e17, #111827, #0a0e17);
-  border: 1px solid rgba(34, 211, 153, 0.25);
+  border: 1.5px solid rgba(34, 211, 153, 0.3);
   box-shadow:
-    0 0 20px rgba(34, 211, 153, 0.08),
-    0 4px 24px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    0 0 24px rgba(34, 211, 153, 0.1),
+    0 6px 28px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
   animation: rocketFadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -981,8 +981,8 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(34, 211, 153, 0.6), transparent);
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(34, 211, 153, 0.7), transparent);
   animation: scanlineSweep 3s linear infinite;
   z-index: 2;
   pointer-events: none;
@@ -991,7 +991,7 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 @keyframes scanlineSweep {
   0% { transform: translateY(0); opacity: 0.8; }
   50% { opacity: 1; }
-  100% { transform: translateY(80px); opacity: 0; }
+  100% { transform: translateY(120px); opacity: 0; }
 }
 
 /* Header */
@@ -999,13 +999,13 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
 .rocket-status-label {
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -1014,7 +1014,7 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 }
 
 .rocket-status-icon {
-  font-size: 13px;
+  font-size: 16px;
   animation: rocketIconPulse 2s ease-in-out infinite;
 }
 
@@ -1028,25 +1028,29 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 6px;
+  padding: 4px 0;
 }
 
 .rocket-digit-group {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 52px;
+  min-width: 58px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  padding: 8px 4px 6px;
 }
 
 .rocket-digit {
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
-  font-size: 32px;
+  font-size: 38px;
   font-weight: 900;
   line-height: 1;
   color: #22d393;
   text-shadow:
-    0 0 10px rgba(34, 211, 153, 0.6),
-    0 0 30px rgba(34, 211, 153, 0.2);
+    0 0 12px rgba(34, 211, 153, 0.7),
+    0 0 35px rgba(34, 211, 153, 0.25);
   letter-spacing: 0.05em;
   transition: color 0.5s ease, text-shadow 0.5s ease;
 }
@@ -1062,20 +1066,20 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 
 .rocket-unit {
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.15em;
-  color: rgba(34, 211, 153, 0.45);
-  margin-top: 2px;
+  color: rgba(34, 211, 153, 0.5);
+  margin-top: 4px;
 }
 
 .rocket-colon {
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 900;
   color: rgba(34, 211, 153, 0.5);
   animation: colonBlink 1s steps(1) infinite;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 @keyframes colonBlink {
@@ -1087,11 +1091,11 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 .rocket-footer {
   text-align: center;
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.08em;
-  color: rgba(34, 211, 153, 0.4);
-  margin-top: 8px;
+  color: rgba(34, 211, 153, 0.45);
+  margin-top: 10px;
   text-transform: uppercase;
 }
 
