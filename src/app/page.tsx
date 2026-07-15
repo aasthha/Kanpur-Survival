@@ -156,7 +156,7 @@ function TypewriterText({ text }: { text: string }) {
 
 // Sub-component: Massive Live Countdown Hero
 function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: number; percentComplete: number }) {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, dayProgress: 0 });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -167,11 +167,13 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       const now = new Date();
       const diff = Math.max(0, targetUTC.getTime() - now.getTime());
       const totalSecs = Math.floor(diff / 1000);
+      const dayProgress = ((now.getHours() * 3600) + (now.getMinutes() * 60) + now.getSeconds()) / 86400 * 100;
       return {
         days: Math.floor(totalSecs / 86400),
         hours: Math.floor((totalSecs % 86400) / 3600),
         minutes: Math.floor((totalSecs % 3600) / 60),
         seconds: totalSecs % 60,
+        dayProgress,
       };
     }
     setTimeLeft(calcRemaining());
@@ -218,7 +220,7 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       </div>
       
       <div className="ch-digits-row">
-        <div className="ch-group ch-group-days" style={{ "--progress": percentComplete } as React.CSSProperties}>
+        <div className="ch-group ch-group-days" style={{ "--progress": timeLeft.dayProgress } as React.CSSProperties}>
           <span key={timeLeft.days} className="ch-val ch-days slide-in">{pad(timeLeft.days)}</span>
         </div>
         
