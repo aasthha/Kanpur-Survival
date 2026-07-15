@@ -155,7 +155,7 @@ function TypewriterText({ text }: { text: string }) {
 }
 
 // Sub-component: Massive Live Countdown Hero
-function LiveCountdownHero({ daysUntilHome }: { daysUntilHome: number }) {
+function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: number; percentComplete: number }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [mounted, setMounted] = useState(false);
 
@@ -190,6 +190,10 @@ function LiveCountdownHero({ daysUntilHome }: { daysUntilHome: number }) {
 
   const isComplete = timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0;
   const pad = (n: number) => String(n).padStart(2, "0");
+  
+  const r = 46;
+  const circ = 2 * Math.PI * r;
+  const offset = circ - (percentComplete / 100) * circ;
 
   if (isComplete) {
     return (
@@ -210,32 +214,24 @@ function LiveCountdownHero({ daysUntilHome }: { daysUntilHome: number }) {
       </div>
       
       <div className="ch-digits-row">
-        <div className="ch-group">
-          <span className="ch-val ch-days">{pad(timeLeft.days)}</span>
+        <div className="ch-group ch-group-days">
+          <svg className="ch-progress-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r={r} className="ch-ring-bg" />
+            <circle cx="50" cy="50" r={r} className="ch-ring-fill" strokeDasharray={circ} strokeDashoffset={offset} />
+          </svg>
+          <span key={timeLeft.days} className="ch-val ch-days slide-in">{pad(timeLeft.days)}</span>
           <span className="ch-unit">days</span>
         </div>
-        <div className="ch-sep">
-          <div className="ch-dot" />
-          <div className="ch-dot" />
-        </div>
         <div className="ch-group">
-          <span className="ch-val ch-hrs">{pad(timeLeft.hours)}</span>
+          <span key={timeLeft.hours} className="ch-val ch-hrs slide-in">{pad(timeLeft.hours)}</span>
           <span className="ch-unit">hrs</span>
         </div>
-        <div className="ch-sep">
-          <div className="ch-dot" />
-          <div className="ch-dot" />
-        </div>
         <div className="ch-group">
-          <span className="ch-val ch-mins">{pad(timeLeft.minutes)}</span>
+          <span key={timeLeft.minutes} className="ch-val ch-mins slide-in">{pad(timeLeft.minutes)}</span>
           <span className="ch-unit">mins</span>
         </div>
-        <div className="ch-sep">
-          <div className="ch-dot" />
-          <div className="ch-dot" />
-        </div>
         <div className="ch-group">
-          <span className="ch-val ch-secs">{pad(timeLeft.seconds)}</span>
+          <span key={timeLeft.seconds} className="ch-val ch-secs slide-in">{pad(timeLeft.seconds)}</span>
           <span className="ch-unit">secs</span>
         </div>
       </div>
@@ -761,7 +757,7 @@ function TimelineTab({
 
       {/* Massive Digital Countdown Hero */}
       <div className="hero-compact">
-        <LiveCountdownHero daysUntilHome={stats.daysUntilHome} />
+        <LiveCountdownHero daysUntilHome={stats.daysUntilHome} percentComplete={stats.percentComplete} />
       </div>
 
       {/* Progress Track */}
