@@ -954,327 +954,383 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 @keyframes glowPulse{0%{transform:scale(1);opacity:0.5}100%{transform:scale(1.3);opacity:0.8}}
 @keyframes milestoneOverlayIn{0%{opacity:0}100%{opacity:1}}
 
-/* === Rocket Launch Countdown Timer === */
-.rocket-countdown {
+/* === Rocket Launch Visual Countdown === */
+.rocket-card {
   position: relative;
   overflow: hidden;
   margin: 6px 0 10px;
-  padding: 20px 16px 16px;
+  padding: 18px 16px 14px;
   border-radius: 18px;
-  background: linear-gradient(145deg, #0a0e17, #111827, #0a0e17);
-  border: 1.5px solid rgba(34, 211, 153, 0.3);
-  box-shadow:
-    0 0 24px rgba(34, 211, 153, 0.1),
-    0 6px 28px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  animation: rocketFadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  background: linear-gradient(180deg, #070b1a, #0f1528, #070b1a);
+  border: 1.5px solid rgba(100, 130, 220, 0.15);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.5);
+  animation: rocketCardIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-@keyframes rocketFadeIn {
+.rocket-card-liftoff {
+  border-color: rgba(34, 211, 153, 0.35);
+}
+
+@keyframes rocketCardIn {
   0% { opacity: 0; transform: translateY(10px) scale(0.97); }
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Scan line */
-.rocket-scanline {
+/* Starfield */
+.rocket-stars-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 8% 15%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1.2px 1.2px at 22% 72%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1.5px 1.5px at 48% 8%, rgba(255,255,255,0.9), transparent),
+    radial-gradient(1px 1px at 65% 38%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 82% 68%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1.3px 1.3px at 15% 85%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 55% 88%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 92% 12%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1.2px 1.2px at 38% 50%, rgba(255,255,255,0.35), transparent),
+    radial-gradient(1px 1px at 75% 92%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(0.8px 0.8px at 5% 45%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(0.8px 0.8px at 95% 42%, rgba(255,255,255,0.45), transparent);
+  animation: starsFlicker 5s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes starsFlicker {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Scene layout */
+.rocket-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  padding-top: 6px;
+  min-height: 150px;
+}
+
+/* Rocket assembly */
+.rocket-ship {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+}
+
+/* Nose cone — CSS triangle */
+.rocket-nose-cone {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 32px solid #dcdae4;
+  position: relative;
+  z-index: 3;
+}
+
+/* Nose highlight */
+.rocket-nose-cone::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: -6px;
+  width: 8px;
+  height: 16px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  transform: rotate(-12deg);
+}
+
+/* Body hull */
+.rocket-body-hull {
+  width: 50px;
+  height: 72px;
+  background: linear-gradient(90deg, #bbb8c6 0%, #dcdae4 35%, #d2d0da 65%, #c5c3cf 100%);
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+  box-shadow:
+    inset -5px 0 8px rgba(0,0,0,0.12),
+    inset 5px 0 8px rgba(255,255,255,0.08);
+}
+
+/* Red stripe on body */
+.rocket-body-hull::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(180deg, #E83E8C, #e05580);
+  z-index: 4;
+  opacity: 0.6;
+}
+
+/* Porthole window */
+.rocket-porthole {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #b8e4ff, #3a8fd9, #1a4f8a);
+  border: 2.5px solid #cdcbd5;
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  box-shadow:
+    inset 0 -2px 5px rgba(0,0,0,0.3),
+    0 0 10px rgba(58,143,217,0.5);
+}
+
+/* Porthole glint */
+.rocket-porthole::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.7);
+}
+
+/* Fuel liquid */
+.rocket-fuel-liquid {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(0deg, #00b4d8, #48cae4, #90e0ef);
+  transition: height 2s ease;
+  z-index: 1;
+  opacity: 0.55;
+  border-top: 2px solid rgba(144, 224, 239, 0.5);
+}
+
+/* Fuel wave shimmer */
+.rocket-fuel-liquid::after {
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, rgba(34, 211, 153, 0.7), transparent);
-  animation: scanlineSweep 3s linear infinite;
+  height: 6px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  background-size: 200% 100%;
+  animation: fuelShimmer 2.5s linear infinite;
+}
+
+@keyframes fuelShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Fins */
+.rocket-fin-l, .rocket-fin-r {
+  position: absolute;
+  bottom: 7px;
+  width: 16px;
+  height: 30px;
+  z-index: 1;
+}
+
+.rocket-fin-l {
+  left: -3px;
+  background: linear-gradient(135deg, #a8a6b2, #c0beca);
+  clip-path: polygon(100% 0%, 100% 100%, 10% 100%);
+}
+
+.rocket-fin-r {
+  right: -3px;
+  background: linear-gradient(225deg, #a8a6b2, #c0beca);
+  clip-path: polygon(0% 0%, 90% 100%, 0% 100%);
+}
+
+/* Nozzle */
+.rocket-nozzle {
+  width: 24px;
+  height: 10px;
+  background: linear-gradient(180deg, #777, #555);
+  border-radius: 0 0 5px 5px;
   z-index: 2;
-  pointer-events: none;
 }
 
-@keyframes scanlineSweep {
-  0% { transform: translateY(0); opacity: 0.8; }
-  50% { opacity: 1; }
-  100% { transform: translateY(120px); opacity: 0; }
-}
-
-/* Header */
-.rocket-header {
+/* Exhaust flames */
+.rocket-exhaust-fire {
+  position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 12px;
+  z-index: 1;
+  margin-top: -2px;
 }
 
-.rocket-status-label {
-  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(34, 211, 153, 0.9);
-  text-shadow: 0 0 10px rgba(34, 211, 153, 0.4);
+.flame-inner {
+  width: 10px;
+  height: 18px;
+  background: linear-gradient(0deg, transparent 10%, #ffd700 40%, #fffbe6 90%);
+  border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
+  animation: flameTwitch 0.1s infinite alternate;
+  z-index: 2;
+  opacity: 0.95;
 }
 
-.rocket-status-icon {
-  font-size: 16px;
-  animation: rocketIconPulse 2s ease-in-out infinite;
+.flame-outer {
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 14px;
+  background: linear-gradient(0deg, transparent 5%, #ff6b35 40%, #ff4444 90%);
+  border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
+  animation: flameTwitch 0.08s infinite alternate-reverse;
+  z-index: 1;
+  opacity: 0.8;
 }
 
-@keyframes rocketIconPulse {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.15); opacity: 1; }
+/* Medium flames */
+.fire-med .flame-inner {
+  width: 14px;
+  height: 30px;
+}
+.fire-med .flame-outer {
+  width: 24px;
+  height: 22px;
 }
 
-/* Digit display */
-.rocket-digits-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 4px 0;
+/* Hot flames */
+.fire-hot .flame-inner {
+  width: 16px;
+  height: 42px;
+  background: linear-gradient(0deg, transparent 5%, #ffd700 30%, #fff 80%);
+}
+.fire-hot .flame-outer {
+  width: 28px;
+  height: 32px;
 }
 
-.rocket-digit-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 58px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 10px;
-  padding: 8px 4px 6px;
+@keyframes flameTwitch {
+  0% { transform: scaleX(0.85) scaleY(0.92); }
+  100% { transform: scaleX(1.15) scaleY(1.08); }
 }
 
-.rocket-digit {
-  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
-  font-size: 38px;
-  font-weight: 900;
-  line-height: 1;
-  color: #22d393;
-  text-shadow:
-    0 0 12px rgba(34, 211, 153, 0.7),
-    0 0 35px rgba(34, 211, 153, 0.25);
-  letter-spacing: 0.05em;
-  transition: color 0.5s ease, text-shadow 0.5s ease;
+/* Rumble for high fuel */
+.ship-rumble {
+  animation: rocketRumble 0.12s infinite alternate;
 }
 
-.rocket-seconds {
-  animation: secondsTick 1s steps(1) infinite;
+@keyframes rocketRumble {
+  0% { transform: translateX(-1px) translateY(0.5px); }
+  100% { transform: translateX(1px) translateY(-0.5px); }
 }
 
-@keyframes secondsTick {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+/* Liftoff animation */
+.ship-launch {
+  animation: rocketLiftoff 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-.rocket-unit {
-  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: rgba(34, 211, 153, 0.5);
-  margin-top: 4px;
+@keyframes rocketLiftoff {
+  0% { transform: translateY(0); }
+  20% { transform: translateY(4px); }
+  100% { transform: translateY(-250px); opacity: 0; }
 }
 
-.rocket-colon {
-  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
-  font-size: 32px;
-  font-weight: 900;
-  color: rgba(34, 211, 153, 0.5);
-  animation: colonBlink 1s steps(1) infinite;
-  margin-bottom: 16px;
+/* Launch pad */
+.rocket-pad-base {
+  width: 100px;
+  height: 6px;
+  background: linear-gradient(90deg, rgba(80,80,100,0.3), rgba(120,120,150,0.6), rgba(80,80,100,0.3));
+  border-radius: 3px;
+  margin-top: 2px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  z-index: 0;
 }
 
-@keyframes colonBlink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.2; }
-}
-
-/* Footer */
-.rocket-footer {
+/* Fuel info label */
+.rocket-fuel-info {
   text-align: center;
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: rgba(34, 211, 153, 0.45);
-  margin-top: 10px;
-  text-transform: uppercase;
-}
-
-/* === Urgency Tier: Warning (<=7 days) === */
-.rocket-warning {
-  border-color: rgba(245, 158, 11, 0.3);
-  box-shadow:
-    0 0 20px rgba(245, 158, 11, 0.1),
-    0 4px 24px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.rocket-warning .rocket-scanline {
-  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.7), transparent);
-}
-
-.rocket-warning .rocket-status-label {
-  color: rgba(245, 158, 11, 0.95);
-  text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
-}
-
-.rocket-warning .rocket-digit {
-  color: #f59e0b;
-  text-shadow:
-    0 0 10px rgba(245, 158, 11, 0.6),
-    0 0 30px rgba(245, 158, 11, 0.2);
-}
-
-.rocket-warning .rocket-unit {
-  color: rgba(245, 158, 11, 0.45);
-}
-
-.rocket-warning .rocket-colon {
-  color: rgba(245, 158, 11, 0.5);
-}
-
-.rocket-warning .rocket-footer {
-  color: rgba(245, 158, 11, 0.4);
-}
-
-/* === Urgency Tier: Critical (<=3 days) === */
-.rocket-critical {
-  border-color: rgba(239, 68, 68, 0.35);
-  box-shadow:
-    0 0 24px rgba(239, 68, 68, 0.12),
-    0 4px 24px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  animation: rocketFadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), criticalPulse 2s ease-in-out infinite;
-}
-
-@keyframes criticalPulse {
-  0%, 100% { border-color: rgba(239, 68, 68, 0.35); box-shadow: 0 0 24px rgba(239, 68, 68, 0.12), 0 4px 24px rgba(0, 0, 0, 0.4); }
-  50% { border-color: rgba(239, 68, 68, 0.6); box-shadow: 0 0 32px rgba(239, 68, 68, 0.2), 0 4px 24px rgba(0, 0, 0, 0.4); }
-}
-
-.rocket-critical .rocket-scanline {
-  background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.7), transparent);
-  animation: scanlineSweep 2s linear infinite;
-}
-
-.rocket-critical .rocket-status-label {
-  color: rgba(239, 68, 68, 0.95);
-  text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-  animation: criticalLabelBlink 1.5s steps(1) infinite;
-}
-
-@keyframes criticalLabelBlink {
-  0%, 75%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-.rocket-critical .rocket-digit {
-  color: #ef4444;
-  text-shadow:
-    0 0 12px rgba(239, 68, 68, 0.7),
-    0 0 30px rgba(239, 68, 68, 0.3);
-}
-
-.rocket-critical .rocket-unit {
-  color: rgba(239, 68, 68, 0.45);
-}
-
-.rocket-critical .rocket-colon {
-  color: rgba(239, 68, 68, 0.5);
-}
-
-.rocket-critical .rocket-footer {
-  color: rgba(239, 68, 68, 0.45);
-}
-
-/* === Urgency Tier: Final (<=1 day) === */
-.rocket-final {
-  border-color: rgba(255, 215, 0, 0.4);
-  background: linear-gradient(145deg, #1a0f00, #1a1000, #1a0f00);
-  box-shadow:
-    0 0 30px rgba(255, 215, 0, 0.15),
-    0 4px 24px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 215, 0, 0.1);
-  animation: rocketFadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), finalGlow 1.5s ease-in-out infinite;
-}
-
-@keyframes finalGlow {
-  0%, 100% { border-color: rgba(255, 215, 0, 0.4); box-shadow: 0 0 30px rgba(255, 215, 0, 0.15), 0 4px 24px rgba(0, 0, 0, 0.4); }
-  50% { border-color: rgba(255, 215, 0, 0.7); box-shadow: 0 0 40px rgba(255, 215, 0, 0.25), 0 4px 24px rgba(0, 0, 0, 0.4); }
-}
-
-.rocket-final .rocket-scanline {
-  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.8), transparent);
-  animation: scanlineSweep 1.5s linear infinite;
-}
-
-.rocket-final .rocket-status-label {
-  color: #ffd700;
-  text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
-  animation: finalLabelPulse 1s ease-in-out infinite;
-}
-
-@keyframes finalLabelPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.02); }
-}
-
-.rocket-final .rocket-digit {
-  color: #ffd700;
-  text-shadow:
-    0 0 14px rgba(255, 215, 0, 0.7),
-    0 0 40px rgba(255, 215, 0, 0.3);
-  font-size: 36px;
-}
-
-.rocket-final .rocket-unit {
-  color: rgba(255, 215, 0, 0.5);
-}
-
-.rocket-final .rocket-colon {
-  color: rgba(255, 215, 0, 0.6);
-  font-size: 32px;
-}
-
-.rocket-final .rocket-footer {
-  color: rgba(255, 215, 0, 0.5);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
+  color: rgba(72, 202, 228, 0.65);
+  margin-top: 12px;
+  letter-spacing: 0.04em;
+  position: relative;
+  z-index: 1;
 }
 
-/* === Complete state === */
-.rocket-complete {
-  border-color: rgba(34, 211, 153, 0.5);
-  background: linear-gradient(145deg, #041a10, #0a2018, #041a10);
-  box-shadow:
-    0 0 30px rgba(34, 211, 153, 0.2),
-    0 4px 24px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(34, 211, 153, 0.1);
+/* Mini digital timer */
+.rocket-mini-timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  margin-top: 8px;
+  position: relative;
+  z-index: 1;
 }
 
-.rocket-complete .rocket-scanline {
-  background: linear-gradient(90deg, transparent, rgba(34, 211, 153, 0.8), transparent);
-  animation: scanlineSweep 4s linear infinite;
-}
-
-.rocket-complete-msg {
+.rmt-block {
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
-  font-size: 28px;
+  font-size: 18px;
   font-weight: 900;
-  letter-spacing: 0.15em;
+  color: rgba(220, 220, 235, 0.9);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px 7px;
+  border-radius: 7px;
+  min-width: 44px;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(255,255,255,0.15);
+}
+
+.rmt-block small {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(180, 180, 200, 0.4);
+  margin-left: 1px;
+}
+
+.rmt-sep {
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+  font-size: 16px;
+  font-weight: 900;
+  color: rgba(180, 180, 210, 0.35);
+  animation: timerBlink 1s steps(1) infinite;
+}
+
+@keyframes timerBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+
+.rmt-sec {
+  color: rgba(72, 202, 228, 0.85);
+}
+
+/* Homebound label */
+.rocket-home-label {
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
   background: linear-gradient(135deg, #22d393, #3b82f6, #a855f7, #22d393);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: completeShimmer 3s linear infinite;
-  padding: 8px 0;
+  animation: homeBoundShimmer 3s linear infinite;
 }
 
-@keyframes completeShimmer {
+@keyframes homeBoundShimmer {
   0% { background-position: 0% 50%; }
   100% { background-position: 300% 50%; }
 }
 
-.rocket-complete .rocket-footer {
-  color: rgba(34, 211, 153, 0.6);
-  font-size: 11px;
-}

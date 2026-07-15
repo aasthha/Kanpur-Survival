@@ -158,15 +158,13 @@ function TypewriterText({ text }: { text: string }) {
 function RocketCountdown({ daysUntilHome }: { daysUntilHome: number }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [mounted, setMounted] = useState(false);
+  const TOTAL_COUNTDOWN_DAYS = 16;
 
   useEffect(() => {
     setMounted(true);
     function calcRemaining() {
-      // Target: end of END_DATE (midnight IST of the day after)
       const [y, m, d] = END_DATE.split("-").map(Number);
-      // Create target as midnight IST of the day AFTER end date
-      // IST = UTC+5:30, so midnight IST = 18:30 UTC previous day
-      const targetUTC = new Date(Date.UTC(y, m - 1, d, 18, 30, 0)); // 00:00 IST Aug 1 = 18:30 UTC Jul 31
+      const targetUTC = new Date(Date.UTC(y, m - 1, d, 18, 30, 0));
       const now = new Date();
       const diff = Math.max(0, targetUTC.getTime() - now.getTime());
       const totalSecs = Math.floor(diff / 1000);
@@ -184,74 +182,67 @@ function RocketCountdown({ daysUntilHome }: { daysUntilHome: number }) {
 
   if (!mounted) return null;
 
-  const totalSecs = timeLeft.days * 86400 + timeLeft.hours * 3600 + timeLeft.minutes * 60 + timeLeft.seconds;
-  const isComplete = totalSecs <= 0;
-
-  // Urgency tiers
-  let urgencyClass = "rocket-nominal"; // green, > 7 days
-  let statusLabel = "T-MINUS";
-  let statusIcon = "🚀";
-  if (isComplete) {
-    urgencyClass = "rocket-complete";
-    statusLabel = "MISSION COMPLETE";
-    statusIcon = "🏠";
-  } else if (daysUntilHome <= 1) {
-    urgencyClass = "rocket-final";
-    statusLabel = "⚠ FINAL COUNTDOWN";
-    statusIcon = "🔥";
-  } else if (daysUntilHome <= 3) {
-    urgencyClass = "rocket-critical";
-    statusLabel = "🔴 T-MINUS";
-    statusIcon = "⚡";
-  } else if (daysUntilHome <= 7) {
-    urgencyClass = "rocket-warning";
-    statusLabel = "T-MINUS";
-    statusIcon = "⏰";
-  }
-
+  const totalSecsLeft = timeLeft.days * 86400 + timeLeft.hours * 3600 + timeLeft.minutes * 60 + timeLeft.seconds;
+  const totalCountdownSecs = TOTAL_COUNTDOWN_DAYS * 86400;
+  const fuelPercent = Math.min(100, Math.max(0, Math.round(((totalCountdownSecs - totalSecsLeft) / totalCountdownSecs) * 100)));
+  const isLiftoff = totalSecsLeft <= 0;
   const pad = (n: number) => String(n).padStart(2, "0");
 
   return (
-    <div className={`rocket-countdown ${urgencyClass}`}>
-      <div className="rocket-scanline" />
-      <div className="rocket-header">
-        <span className="rocket-status-icon">{statusIcon}</span>
-        <span className="rocket-status-label">{statusLabel}</span>
-        <span className="rocket-status-icon">{statusIcon}</span>
+    <div className={`rocket-card ${isLiftoff ? "rocket-card-liftoff" : ""}`}>
+      <div className="rocket-stars-bg" />
+
+      <div className="rocket-visual">
+        <div className={`rocket-ship ${isLiftoff ? "ship-launch" : ""} ${fuelPercent >= 90 ? "ship-rumble" : ""}`}>
+          {/* Nose cone */}
+          <div className="rocket-nose-cone" />
+          {/* Body with fuel gauge */}
+          <div className="rocket-body-hull">
+            <div className="rocket-porthole" />
+            <div className="rocket-fuel-liquid" style={{ height: `${fuelPercent}%` }} />
+          </div>
+          {/* Fins */}
+          <div className="rocket-fin-l" />
+          <div className="rocket-fin-r" />
+          {/* Nozzle */}
+          <div className="rocket-nozzle" />
+          {/* Exhaust flames — grow with fuel */}
+          {fuelPercent >= 30 && (
+            <div className={`rocket-exhaust-fire ${fuelPercent >= 65 ? "fire-med" : ""} ${fuelPercent >= 85 ? "fire-hot" : ""}`}>
+              <div className="flame-inner" />
+              <div className="flame-outer" />
+            </div>
+          )}
+        </div>
+        {/* Launch pad */}
+        {!isLiftoff && <div className="rocket-pad-base" />}
       </div>
-      {isComplete ? (
-        <div className="rocket-digits-wrap">
-          <div className="rocket-complete-msg">HOMEBOUND</div>
-        </div>
-      ) : (
-        <div className="rocket-digits-wrap">
-          <div className="rocket-digit-group">
-            <span className="rocket-digit">{pad(timeLeft.days)}</span>
-            <span className="rocket-unit">DAYS</span>
-          </div>
-          <span className="rocket-colon">:</span>
-          <div className="rocket-digit-group">
-            <span className="rocket-digit">{pad(timeLeft.hours)}</span>
-            <span className="rocket-unit">HRS</span>
-          </div>
-          <span className="rocket-colon">:</span>
-          <div className="rocket-digit-group">
-            <span className="rocket-digit">{pad(timeLeft.minutes)}</span>
-            <span className="rocket-unit">MIN</span>
-          </div>
-          <span className="rocket-colon">:</span>
-          <div className="rocket-digit-group">
-            <span className="rocket-digit rocket-seconds">{pad(timeLeft.seconds)}</span>
-            <span className="rocket-unit">SEC</span>
-          </div>
-        </div>
-      )}
-      <div className="rocket-footer">
-        {isComplete ? "The journey is complete. Welcome home." : `${daysUntilHome} day${daysUntilHome === 1 ? "" : "s"} until homecoming`}
+
+      {/* Fuel status */}
+      <div className="rocket-fuel-info">
+        ⛽ {isLiftoff ? "Launch complete!" : `Fuel: ${fuelPercent}%`}
+      </div>
+
+      {/* Digital countdown */}
+      <div className="rocket-mini-timer">
+        {isLiftoff ? (
+          <span className="rocket-home-label">🏠 HOMEBOUND!</span>
+        ) : (
+          <>
+            <span className="rmt-block">{pad(timeLeft.days)}<small>d</small></span>
+            <span className="rmt-sep">:</span>
+            <span className="rmt-block">{pad(timeLeft.hours)}<small>h</small></span>
+            <span className="rmt-sep">:</span>
+            <span className="rmt-block">{pad(timeLeft.minutes)}<small>m</small></span>
+            <span className="rmt-sep">:</span>
+            <span className="rmt-block rmt-sec">{pad(timeLeft.seconds)}<small>s</small></span>
+          </>
+        )}
       </div>
     </div>
   );
 }
+
 
 export default function Home() {
   const [todayDate] = useState(() => getKolkataToday());
