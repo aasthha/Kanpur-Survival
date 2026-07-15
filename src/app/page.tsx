@@ -191,9 +191,9 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
   const isComplete = timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0;
   const pad = (n: number) => String(n).padStart(2, "0");
   
-  const r = 46;
-  const circ = 2 * Math.PI * r;
-  const offset = circ - (percentComplete / 100) * circ;
+  const r = 24; // new rx
+  const rectCirc = 100;
+  const offset = 100 - percentComplete;
 
   if (isComplete) {
     return (
@@ -212,7 +212,7 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       
       <div className="ch-title">
         {timeLeft.days} Days Until You're Home
-        <svg className="ch-heart-svg" viewBox="0 0 32 29.6">
+        <svg key={timeLeft.seconds} className="ch-heart-svg" viewBox="0 0 32 29.6">
           <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2 c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
         </svg>
       </div>
@@ -220,23 +220,31 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       <div className="ch-digits-row">
         <div className="ch-group ch-group-days">
           <svg className="ch-progress-svg" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r={r} className="ch-ring-bg" />
-            <circle cx="50" cy="50" r={r} className="ch-ring-fill" strokeDasharray={circ} strokeDashoffset={offset} />
+            <rect x="2" y="2" width="96" height="96" rx="24" className="ch-ring-bg" />
+            <rect x="2" y="2" width="96" height="96" rx="24" className="ch-ring-fill" pathLength="100" strokeDasharray="100" strokeDashoffset={100 - percentComplete} />
           </svg>
-          <span key={timeLeft.days} className="ch-val ch-days slide-in">{pad(timeLeft.days)}</span>
-          <span className="ch-unit">d</span>
+          <div className="ch-val-wrapper">
+            <span key={timeLeft.days} className="ch-val ch-days slide-in">{pad(timeLeft.days)}</span>
+            <span className="ch-unit">d</span>
+          </div>
         </div>
         <div className="ch-group">
-          <span key={timeLeft.hours} className="ch-val ch-hrs slide-in">{pad(timeLeft.hours)}</span>
-          <span className="ch-unit">h</span>
+          <div className="ch-val-wrapper">
+            <span key={timeLeft.hours} className="ch-val ch-hrs slide-in">{pad(timeLeft.hours)}</span>
+            <span className="ch-unit">h</span>
+          </div>
         </div>
         <div className="ch-group">
-          <span key={timeLeft.minutes} className="ch-val ch-mins slide-in">{pad(timeLeft.minutes)}</span>
-          <span className="ch-unit">m</span>
+          <div className="ch-val-wrapper">
+            <span key={timeLeft.minutes} className="ch-val ch-mins slide-in">{pad(timeLeft.minutes)}</span>
+            <span className="ch-unit">m</span>
+          </div>
         </div>
         <div className="ch-group">
-          <span key={timeLeft.seconds} className="ch-val ch-secs slide-in">{pad(timeLeft.seconds)}</span>
-          <span className="ch-unit">s</span>
+          <div className="ch-val-wrapper">
+            <span key={timeLeft.seconds} className="ch-val ch-secs slide-in">{pad(timeLeft.seconds)}</span>
+            <span className="ch-unit">s</span>
+          </div>
         </div>
       </div>
     </div>
