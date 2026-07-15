@@ -206,11 +206,15 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
 
   return (
     <div className="countdown-hero-card">
+      <div className="ch-glare" />
       <div className="ch-blob ch-blob-1" />
       <div className="ch-blob ch-blob-2" />
       
       <div className="ch-title">
-        {timeLeft.days} Days Until You're Home ❤️
+        {timeLeft.days} Days Until You're Home
+        <svg className="ch-heart-svg" viewBox="0 0 32 29.6">
+          <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2 c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
+        </svg>
       </div>
       
       <div className="ch-digits-row">
@@ -220,19 +224,19 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
             <circle cx="50" cy="50" r={r} className="ch-ring-fill" strokeDasharray={circ} strokeDashoffset={offset} />
           </svg>
           <span key={timeLeft.days} className="ch-val ch-days slide-in">{pad(timeLeft.days)}</span>
-          <span className="ch-unit">days</span>
+          <span className="ch-unit">d</span>
         </div>
         <div className="ch-group">
           <span key={timeLeft.hours} className="ch-val ch-hrs slide-in">{pad(timeLeft.hours)}</span>
-          <span className="ch-unit">hrs</span>
+          <span className="ch-unit">h</span>
         </div>
         <div className="ch-group">
           <span key={timeLeft.minutes} className="ch-val ch-mins slide-in">{pad(timeLeft.minutes)}</span>
-          <span className="ch-unit">mins</span>
+          <span className="ch-unit">m</span>
         </div>
         <div className="ch-group">
           <span key={timeLeft.seconds} className="ch-val ch-secs slide-in">{pad(timeLeft.seconds)}</span>
-          <span className="ch-unit">secs</span>
+          <span className="ch-unit">s</span>
         </div>
       </div>
     </div>

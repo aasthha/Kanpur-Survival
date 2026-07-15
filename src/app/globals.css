@@ -1354,6 +1354,18 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   animation: breatheScale 4s ease-in-out infinite alternate;
 }
 
+.ch-glare {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0) 100%);
+  transform: rotate(25deg);
+  pointer-events: none;
+  z-index: 0;
+}
+
 @keyframes breatheScale {
   0% { transform: scale(1); }
   100% { transform: scale(1.015); }
@@ -1399,6 +1411,24 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   margin-bottom: 24px;
   text-align: center;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ch-heart-svg {
+  width: 20px;
+  height: 20px;
+  fill: #FF6B81;
+  margin-left: 8px;
+  animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.2); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.2); }
 }
 
 .ch-digits-row {
@@ -1416,11 +1446,12 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   align-items: center;
   justify-content: center;
   flex: 1;
+  aspect-ratio: 1 / 1;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 24px;
-  padding: 16px 4px 12px;
+  padding: 12px 4px 10px;
   box-shadow: 0 8px 24px rgba(124, 107, 196, 0.15), 0 2px 8px rgba(124, 107, 196, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.9);
   min-width: 0;
@@ -1464,16 +1495,15 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   font-size: clamp(32px, 7vw, 42px);
   font-weight: 800;
   line-height: 1;
-  letter-spacing: -1.5px;
+  letter-spacing: -1px;
   display: inline-block;
 }
 
-.ch-days { color: #7B5CFF; text-shadow: 0 0 15px rgba(123, 92, 255, 0.3); }
-.ch-hrs { color: #4EA7FF; text-shadow: 0 0 15px rgba(78, 167, 255, 0.3); }
-.ch-mins { color: #059669; text-shadow: 0 0 15px rgba(5, 150, 105, 0.3); }
+.ch-days { background: linear-gradient(135deg, #A855F7, #7B5CFF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.ch-hrs { background: linear-gradient(135deg, #00C6FF, #0072FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.ch-mins { background: linear-gradient(135deg, #10B981, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .ch-secs { 
-  color: #FF6B81; 
-  text-shadow: 0 0 15px rgba(255, 107, 129, 0.3); 
+  background: linear-gradient(135deg, #FF6B81, #E83E8C); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   animation: tickPulse 1s cubic-bezier(0.25, 1, 0.5, 1) infinite;
   display: inline-block;
 }
