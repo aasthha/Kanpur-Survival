@@ -15,6 +15,7 @@ import {
   isAfterOrEqual,
   parseUTCDate,
   UserProfile,
+  END_DATE,
 } from "../utils/date";
 import {
   $G,
@@ -151,6 +152,105 @@ const CARD_RARITIES: Record<number, { tier: string; color: string; bg: string; i
 // Sub-component typewriter effect
 function TypewriterText({ text }: { text: string }) {
   return <span>{text}</span>;
+}
+
+// Sub-component: Rocket Launch Countdown Timer
+function RocketCountdown({ daysUntilHome }: { daysUntilHome: number }) {
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    function calcRemaining() {
+      // Target: end of END_DATE (midnight IST of the day after)
+      const [y, m, d] = END_DATE.split("-").map(Number);
+      // Create target as midnight IST of the day AFTER end date
+      // IST = UTC+5:30, so midnight IST = 18:30 UTC previous day
+      const targetUTC = new Date(Date.UTC(y, m - 1, d, 18, 30, 0)); // 00:00 IST Aug 1 = 18:30 UTC Jul 31
+      const now = new Date();
+      const diff = Math.max(0, targetUTC.getTime() - now.getTime());
+      const totalSecs = Math.floor(diff / 1000);
+      return {
+        days: Math.floor(totalSecs / 86400),
+        hours: Math.floor((totalSecs % 86400) / 3600),
+        minutes: Math.floor((totalSecs % 3600) / 60),
+        seconds: totalSecs % 60,
+      };
+    }
+    setTimeLeft(calcRemaining());
+    const interval = setInterval(() => setTimeLeft(calcRemaining()), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  if (!mounted) return null;
+
+  const totalSecs = timeLeft.days * 86400 + timeLeft.hours * 3600 + timeLeft.minutes * 60 + timeLeft.seconds;
+  const isComplete = totalSecs <= 0;
+
+  // Urgency tiers
+  let urgencyClass = "rocket-nominal"; // green, > 7 days
+  let statusLabel = "T-MINUS";
+  let statusIcon = "🚀";
+  if (isComplete) {
+    urgencyClass = "rocket-complete";
+    statusLabel = "MISSION COMPLETE";
+    statusIcon = "🏠";
+  } else if (daysUntilHome <= 1) {
+    urgencyClass = "rocket-final";
+    statusLabel = "⚠ FINAL COUNTDOWN";
+    statusIcon = "🔥";
+  } else if (daysUntilHome <= 3) {
+    urgencyClass = "rocket-critical";
+    statusLabel = "🔴 T-MINUS";
+    statusIcon = "⚡";
+  } else if (daysUntilHome <= 7) {
+    urgencyClass = "rocket-warning";
+    statusLabel = "T-MINUS";
+    statusIcon = "⏰";
+  }
+
+  const pad = (n: number) => String(n).padStart(2, "0");
+
+  return (
+    <div className={`rocket-countdown ${urgencyClass}`}>
+      <div className="rocket-scanline" />
+      <div className="rocket-header">
+        <span className="rocket-status-icon">{statusIcon}</span>
+        <span className="rocket-status-label">{statusLabel}</span>
+        <span className="rocket-status-icon">{statusIcon}</span>
+      </div>
+      {isComplete ? (
+        <div className="rocket-digits-wrap">
+          <div className="rocket-complete-msg">HOMEBOUND</div>
+        </div>
+      ) : (
+        <div className="rocket-digits-wrap">
+          <div className="rocket-digit-group">
+            <span className="rocket-digit">{pad(timeLeft.days)}</span>
+            <span className="rocket-unit">DAYS</span>
+          </div>
+          <span className="rocket-colon">:</span>
+          <div className="rocket-digit-group">
+            <span className="rocket-digit">{pad(timeLeft.hours)}</span>
+            <span className="rocket-unit">HRS</span>
+          </div>
+          <span className="rocket-colon">:</span>
+          <div className="rocket-digit-group">
+            <span className="rocket-digit">{pad(timeLeft.minutes)}</span>
+            <span className="rocket-unit">MIN</span>
+          </div>
+          <span className="rocket-colon">:</span>
+          <div className="rocket-digit-group">
+            <span className="rocket-digit rocket-seconds">{pad(timeLeft.seconds)}</span>
+            <span className="rocket-unit">SEC</span>
+          </div>
+        </div>
+      )}
+      <div className="rocket-footer">
+        {isComplete ? "The journey is complete. Welcome home." : `${daysUntilHome} day${daysUntilHome === 1 ? "" : "s"} until homecoming`}
+      </div>
+    </div>
+  );
 }
 
 export default function Home() {
@@ -698,6 +798,11 @@ function TimelineTab({
           <span className="jb-location">🏠 Nashik</span>
         </div>
       </div>
+
+      {/* Rocket Launch Countdown (final 15 days) */}
+      {stats.daysUntilHome <= 16 && (
+        <RocketCountdown daysUntilHome={stats.daysUntilHome} />
+      )}
 
       {/* Mascot Bubble Scene */}
       <div className="scene-card">
