@@ -154,8 +154,8 @@ function TypewriterText({ text }: { text: string }) {
   return <span>{text}</span>;
 }
 
-// Sub-component: Live Countdown Pill
-function LiveCountdownPill({ daysUntilHome }: { daysUntilHome: number }) {
+// Sub-component: Massive Live Countdown Hero
+function LiveCountdownHero({ daysUntilHome }: { daysUntilHome: number }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [mounted, setMounted] = useState(false);
 
@@ -180,20 +180,51 @@ function LiveCountdownPill({ daysUntilHome }: { daysUntilHome: number }) {
   }, []);
 
   if (!mounted) {
-    return <strong className="text-gradient-cool">{daysUntilHome} days to go</strong>;
+    return (
+      <div className="countdown-hero-card">
+        <div className="ch-title">⏳ COUNTDOWN TO HOMECOMING</div>
+        <div className="ch-timer-loading">Loading systems...</div>
+      </div>
+    );
   }
 
   const isComplete = timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0;
   const pad = (n: number) => String(n).padStart(2, "0");
 
   if (isComplete) {
-    return <strong className="text-gradient-cool">Homebound!</strong>;
+    return (
+      <div className="countdown-hero-card">
+        <div className="ch-title">STATUS</div>
+        <div className="ch-homebound">MISSION COMPLETE. WELCOME HOME. 🏠</div>
+      </div>
+    );
   }
 
   return (
-    <strong className="text-gradient-cool" style={{ fontFamily: "monospace", letterSpacing: "-0.5px" }}>
-      {pad(timeLeft.days)}d:{pad(timeLeft.hours)}h:{pad(timeLeft.minutes)}m:{pad(timeLeft.seconds)}s to go
-    </strong>
+    <div className="countdown-hero-card">
+      <div className="ch-title">⏳ T-MINUS</div>
+      <div className="ch-digits-row">
+        <div className="ch-group">
+          <span className="ch-val">{pad(timeLeft.days)}</span>
+          <span className="ch-unit">DAYS</span>
+        </div>
+        <span className="ch-sep">:</span>
+        <div className="ch-group">
+          <span className="ch-val">{pad(timeLeft.hours)}</span>
+          <span className="ch-unit">HRS</span>
+        </div>
+        <span className="ch-sep">:</span>
+        <div className="ch-group">
+          <span className="ch-val">{pad(timeLeft.minutes)}</span>
+          <span className="ch-unit">MIN</span>
+        </div>
+        <span className="ch-sep">:</span>
+        <div className="ch-group">
+          <span className="ch-val ch-sec">{pad(timeLeft.seconds)}</span>
+          <span className="ch-unit">SEC</span>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -713,16 +744,9 @@ function TimelineTab({
         </div>
       )}
 
-      {/* Stats Header */}
+      {/* Massive Digital Countdown Hero */}
       <div className="hero-compact">
-        <div className="stats-row">
-          <div className={`stat-pill ${milestoneDay ? 'stat-pill-celebrate' : ''}`}>
-            📍 <strong className="text-gradient-warm">Day {stats.elapsed}</strong>
-          </div>
-          <div className={`stat-pill ${milestoneDay ? 'stat-pill-celebrate' : ''}`}>
-            ⏳ <LiveCountdownPill daysUntilHome={stats.daysUntilHome} />
-          </div>
-        </div>
+        <LiveCountdownHero daysUntilHome={stats.daysUntilHome} />
       </div>
 
       {/* Progress Track */}
