@@ -218,11 +218,7 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       </div>
       
       <div className="ch-digits-row">
-        <div className="ch-group ch-group-days">
-          <svg className="ch-progress-svg" viewBox="0 0 100 100">
-            <rect x="2" y="2" width="96" height="96" rx="28" className="ch-ring-bg" />
-            <rect x="2" y="2" width="96" height="96" rx="28" className="ch-ring-fill" pathLength="100" strokeDasharray="100" strokeDashoffset={100 - percentComplete} />
-          </svg>
+        <div className="ch-group ch-group-days" style={{ "--progress": percentComplete } as React.CSSProperties}>
           <span key={timeLeft.days} className="ch-val ch-days slide-in">{pad(timeLeft.days)}</span>
         </div>
         
@@ -782,9 +778,9 @@ function TimelineTab({
           </div>
         </div>
         <div className="jb-labels">
-          <span className="jb-location">📍 Kanpur</span>
+          <span className="jb-location">Kanpur</span>
           <span className="jb-progress">{stats.percentComplete}%</span>
-          <span className="jb-location">🏠 Nashik</span>
+          <span className="jb-location">Nashik</span>
         </div>
       </div>
 
@@ -792,23 +788,24 @@ function TimelineTab({
       {/* Mascot Bubble Scene */}
       <div className="scene-card">
         {isDhirajLogged && isAasthaLogged ? (
-          <div className="scene-row">
-            <img src="/both-highfive.png" alt="High five!" width={90} height={90} className="scene-img" />
-            <div className="scene-right">
-              <div className="scene-speech both">
-                <div style={{ fontSize: 12, fontWeight: 800, color: "var(--blue)" }}>
-                  Dhiraj:{" "}
-                  <TypewriterText
-                    text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Dhiraj")?.text || "Logged"}
-                  />
-                </div>
-                <div style={{ fontSize: 12, fontWeight: 800, color: "var(--pink)", marginTop: 4 }}>
-                  Aastha:{" "}
-                  <TypewriterText
-                    text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Aastha")?.text || "Logged"}
-                  />
-                </div>
+          <div className="scene-row" style={{ alignItems: 'flex-start' }}>
+            <img src="/happy-couple.png" alt="Both logged" width={80} height={80} className="scene-img" style={{ alignSelf: 'center', marginRight: 8 }} />
+            <div className="scene-chat-container" style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
+              
+              <div className="chat-bubble dhiraj-bubble">
+                <div className="chat-name">Dhiraj</div>
+                <TypewriterText
+                  text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Dhiraj")?.text || "Logged"}
+                />
               </div>
+
+              <div className="chat-bubble aastha-bubble">
+                <div className="chat-name">Aastha</div>
+                <TypewriterText
+                  text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Aastha")?.text || "Logged"}
+                />
+              </div>
+
             </div>
           </div>
         ) : isDhirajLogged && !isAasthaLogged ? (

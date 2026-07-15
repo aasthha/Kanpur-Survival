@@ -844,6 +844,59 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 }
 
 
+.scene-speech {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  padding: 12px 14px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+
+.chat-bubble {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.chat-name {
+  font-size: 11px;
+  font-weight: 800;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dhiraj-bubble {
+  align-self: flex-start;
+  background: #E8F0FE;
+  color: #1967D2;
+  border-bottom-left-radius: 4px;
+}
+.dhiraj-bubble .chat-name { color: #174EA6; }
+
+.aastha-bubble {
+  align-self: flex-end;
+  background: #FCE8E6;
+  color: #C5221F;
+  border-bottom-right-radius: 4px;
+}
+.aastha-bubble .chat-name { color: #B31412; }
+
+.scene-speech::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: -8px;
+  border-width: 8px 10px 8px 0;
+  border-style: solid;
+  border-color: transparent white transparent transparent;
+}
+
 .gacha-card {
   width: 240px;
   height: 336px;
@@ -1343,7 +1396,7 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 30px;
-  padding: 24px 20px 24px;
+  padding: 16px 12px 16px;
   box-shadow: inset 0 8px 20px rgba(0, 0, 0, 0.04), inset 0 2px 4px rgba(0, 0, 0, 0.02);
   display: flex;
   flex-direction: column;
@@ -1464,30 +1517,31 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   box-shadow: 0 12px 30px rgba(124, 107, 196, 0.25), 0 4px 12px rgba(124, 107, 196, 0.1);
 }
 
-.ch-progress-svg {
+.ch-group-days::before {
+  content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transform: rotate(-90deg);
+  inset: -1px;
+  border-radius: 25px;
+  padding: 4px;
+  background: conic-gradient(#7B5CFF calc(var(--progress) * 1%), transparent 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
   pointer-events: none;
-  overflow: visible;
 }
 
-.ch-ring-bg {
-  fill: none;
-  stroke: rgba(123, 92, 255, 0.1);
-  stroke-width: 4;
-}
-
-.ch-ring-fill {
-  fill: none;
-  stroke: #7B5CFF;
-  stroke-width: 4;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 1s ease-in-out;
-  filter: drop-shadow(0 0 6px rgba(123, 92, 255, 0.4));
+.ch-group-days::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 25px;
+  padding: 4px;
+  background: rgba(123, 92, 255, 0.1);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .ch-val {
