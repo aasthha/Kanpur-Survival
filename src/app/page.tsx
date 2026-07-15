@@ -202,27 +202,46 @@ function LiveCountdownHero({ daysUntilHome }: { daysUntilHome: number }) {
 
   return (
     <div className="countdown-hero-card">
-      <div className="ch-title">⏳ T-MINUS</div>
+      <div className="ch-blob ch-blob-1" />
+      <div className="ch-blob ch-blob-2" />
+      
+      <div className="ch-title">
+        {timeLeft.days} Days Until You're Home ❤️
+      </div>
+      
       <div className="ch-digits-row">
         <div className="ch-group">
-          <span className="ch-val">{pad(timeLeft.days)}</span>
-          <span className="ch-unit">DAYS</span>
+          <span className="ch-val ch-days">{pad(timeLeft.days)}</span>
+          <span className="ch-unit">days</span>
         </div>
-        <span className="ch-sep">:</span>
+        <div className="ch-sep">
+          <div className="ch-dot" />
+          <div className="ch-dot" />
+        </div>
         <div className="ch-group">
-          <span className="ch-val">{pad(timeLeft.hours)}</span>
-          <span className="ch-unit">HRS</span>
+          <span className="ch-val ch-hrs">{pad(timeLeft.hours)}</span>
+          <span className="ch-unit">hours</span>
         </div>
-        <span className="ch-sep">:</span>
+        <div className="ch-sep">
+          <div className="ch-dot" />
+          <div className="ch-dot" />
+        </div>
         <div className="ch-group">
-          <span className="ch-val">{pad(timeLeft.minutes)}</span>
-          <span className="ch-unit">MIN</span>
+          <span className="ch-val ch-mins">{pad(timeLeft.minutes)}</span>
+          <span className="ch-unit">minutes</span>
         </div>
-        <span className="ch-sep">:</span>
+        <div className="ch-sep">
+          <div className="ch-dot" />
+          <div className="ch-dot" />
+        </div>
         <div className="ch-group">
-          <span className="ch-val ch-sec">{pad(timeLeft.seconds)}</span>
-          <span className="ch-unit">SEC</span>
+          <span className="ch-val ch-secs">{pad(timeLeft.seconds)}</span>
+          <span className="ch-unit">seconds</span>
         </div>
+      </div>
+      
+      <div className="ch-subtitle">
+        Every second brings us closer.
       </div>
     </div>
   );
