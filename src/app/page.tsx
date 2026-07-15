@@ -220,31 +220,28 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       <div className="ch-digits-row">
         <div className="ch-group ch-group-days">
           <svg className="ch-progress-svg" viewBox="0 0 100 100">
-            <rect x="2" y="2" width="96" height="96" rx="24" className="ch-ring-bg" />
-            <rect x="2" y="2" width="96" height="96" rx="24" className="ch-ring-fill" pathLength="100" strokeDasharray="100" strokeDashoffset={100 - percentComplete} />
+            <rect x="2" y="2" width="96" height="96" rx="28" className="ch-ring-bg" />
+            <rect x="2" y="2" width="96" height="96" rx="28" className="ch-ring-fill" pathLength="100" strokeDasharray="100" strokeDashoffset={100 - percentComplete} />
           </svg>
-          <div className="ch-val-wrapper">
-            <span key={timeLeft.days} className="ch-val ch-days slide-in">{pad(timeLeft.days)}</span>
-            <span className="ch-unit">d</span>
-          </div>
+          <span key={timeLeft.days} className="ch-val ch-days slide-in">{pad(timeLeft.days)}</span>
         </div>
+        
+        <span key={`sep1-${timeLeft.seconds}`} className="ch-sep">:</span>
+        
         <div className="ch-group">
-          <div className="ch-val-wrapper">
-            <span key={timeLeft.hours} className="ch-val ch-hrs slide-in">{pad(timeLeft.hours)}</span>
-            <span className="ch-unit">h</span>
-          </div>
+          <span key={timeLeft.hours} className="ch-val ch-hrs slide-in">{pad(timeLeft.hours)}</span>
         </div>
+        
+        <span key={`sep2-${timeLeft.seconds}`} className="ch-sep">:</span>
+        
         <div className="ch-group">
-          <div className="ch-val-wrapper">
-            <span key={timeLeft.minutes} className="ch-val ch-mins slide-in">{pad(timeLeft.minutes)}</span>
-            <span className="ch-unit">m</span>
-          </div>
+          <span key={timeLeft.minutes} className="ch-val ch-mins slide-in">{pad(timeLeft.minutes)}</span>
         </div>
+        
+        <span key={`sep3-${timeLeft.seconds}`} className="ch-sep">:</span>
+        
         <div className="ch-group">
-          <div className="ch-val-wrapper">
-            <span key={timeLeft.seconds} className="ch-val ch-secs slide-in">{pad(timeLeft.seconds)}</span>
-            <span className="ch-unit">s</span>
-          </div>
+          <span key={timeLeft.seconds} className="ch-val ch-secs slide-in">{pad(timeLeft.seconds)}</span>
         </div>
       </div>
     </div>
