@@ -1338,13 +1338,13 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 .countdown-hero-card {
   position: relative;
   width: 100%;
-  background: linear-gradient(180deg, rgba(255, 249, 252, 0.65) 0%, rgba(248, 242, 255, 0.65) 50%, rgba(238, 233, 255, 0.65) 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
   border-radius: 30px;
-  padding: 32px 24px 28px;
-  box-shadow: 0 12px 35px rgba(150, 120, 220, 0.18);
+  padding: 24px 20px 24px;
+  box-shadow: 0 12px 35px rgba(150, 120, 220, 0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1436,7 +1436,7 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 
 .ch-days { color: #7B5CFF; text-shadow: 0 0 15px rgba(123, 92, 255, 0.3); }
 .ch-hrs { color: #4EA7FF; text-shadow: 0 0 15px rgba(78, 167, 255, 0.3); }
-.ch-mins { color: #50D6A0; text-shadow: 0 0 15px rgba(80, 214, 160, 0.3); }
+.ch-mins { color: #059669; text-shadow: 0 0 15px rgba(5, 150, 105, 0.3); }
 .ch-secs { color: #FF6B81; text-shadow: 0 0 15px rgba(255, 107, 129, 0.3); }
 
 .ch-unit {

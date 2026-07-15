@@ -220,7 +220,7 @@ function LiveCountdownHero({ daysUntilHome }: { daysUntilHome: number }) {
         </div>
         <div className="ch-group">
           <span className="ch-val ch-hrs">{pad(timeLeft.hours)}</span>
-          <span className="ch-unit">hours</span>
+          <span className="ch-unit">hrs</span>
         </div>
         <div className="ch-sep">
           <div className="ch-dot" />
@@ -228,7 +228,7 @@ function LiveCountdownHero({ daysUntilHome }: { daysUntilHome: number }) {
         </div>
         <div className="ch-group">
           <span className="ch-val ch-mins">{pad(timeLeft.minutes)}</span>
-          <span className="ch-unit">minutes</span>
+          <span className="ch-unit">mins</span>
         </div>
         <div className="ch-sep">
           <div className="ch-dot" />
@@ -236,12 +236,8 @@ function LiveCountdownHero({ daysUntilHome }: { daysUntilHome: number }) {
         </div>
         <div className="ch-group">
           <span className="ch-val ch-secs">{pad(timeLeft.seconds)}</span>
-          <span className="ch-unit">seconds</span>
+          <span className="ch-unit">secs</span>
         </div>
-      </div>
-      
-      <div className="ch-subtitle">
-        Every second brings us closer.
       </div>
     </div>
   );
