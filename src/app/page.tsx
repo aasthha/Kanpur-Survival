@@ -778,9 +778,9 @@ function TimelineTab({
           </div>
         </div>
         <div className="jb-labels">
-          <span className="jb-location">Kanpur</span>
+          <span className="jb-location">📍 Kanpur</span>
           <span className="jb-progress">{stats.percentComplete}%</span>
-          <span className="jb-location">Nashik</span>
+          <span className="jb-location">🏠 Nashik</span>
         </div>
       </div>
 
@@ -793,7 +793,7 @@ function TimelineTab({
             <div className="scene-chat-container" style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
               
               <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end', alignSelf: 'flex-start' }}>
-                <img src={MASCOT_AVATARS.dhiraj} alt="D" width={24} height={24} style={{ borderRadius: '50%' }} />
+                <img src={MASCOT_AVATARS.dhiraj} alt="D" className="chat-avatar" />
                 <div className="chat-bubble dhiraj-bubble">
                   <TypewriterText
                     text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Dhiraj")?.text || "Logged"}
@@ -807,7 +807,7 @@ function TimelineTab({
                     text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Aastha")?.text || "Logged"}
                   />
                 </div>
-                <img src={MASCOT_AVATARS.aastha} alt="A" width={24} height={24} style={{ borderRadius: '50%' }} />
+                <img src={MASCOT_AVATARS.aastha} alt="A" className="chat-avatar" />
               </div>
 
             </div>

@@ -865,16 +865,25 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 
 .dhiraj-bubble {
   align-self: flex-start;
-  background: #4EA7FF;
+  background: #4F9DF9;
   color: white;
   border-bottom-left-radius: 4px;
 }
 
 .aastha-bubble {
   align-self: flex-end;
-  background: #FF6B81;
+  background: #F86B95;
   color: white;
   border-bottom-right-radius: 4px;
+}
+
+.chat-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: white;
 }
 
 .scene-speech::before {
