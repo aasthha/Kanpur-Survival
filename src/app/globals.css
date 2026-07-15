@@ -1437,7 +1437,19 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 .ch-days { color: #7B5CFF; text-shadow: 0 0 15px rgba(123, 92, 255, 0.3); }
 .ch-hrs { color: #4EA7FF; text-shadow: 0 0 15px rgba(78, 167, 255, 0.3); }
 .ch-mins { color: #059669; text-shadow: 0 0 15px rgba(5, 150, 105, 0.3); }
-.ch-secs { color: #FF6B81; text-shadow: 0 0 15px rgba(255, 107, 129, 0.3); }
+.ch-secs { 
+  color: #FF6B81; 
+  text-shadow: 0 0 15px rgba(255, 107, 129, 0.3); 
+  animation: tickPulse 1s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  display: inline-block;
+}
+
+@keyframes tickPulse {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.15); }
+  35% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
 
 .ch-unit {
   font-family: 'Poppins', sans-serif;
