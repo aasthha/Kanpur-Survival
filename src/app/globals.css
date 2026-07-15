@@ -98,21 +98,21 @@ to{transform:scale(1);opacity:1}
 .scene-speech.aastha{background:var(--pink-bg);color:#9B4A6C;border:2px solid rgba(232,120,154,.15)}
 .scene-speech.sleeping{background:#FFF;color:var(--ink-soft);border:2px solid rgba(124,107,196,.15)}
 .scene-detail{font-size:12px;color:#6A6E8B;font-weight:700;line-height:1.2;margin-top:2px;margin-left:6px}
-.journey-bar{margin:6px 0 8px;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:16px;padding:10px;box-shadow:0 4px 16px rgba(124,107,196,.1),inset 0 1px 0 rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.5)}
+.journey-bar{margin:6px 0 8px;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:16px;padding:10px;border:1px solid rgba(255,255,255,.5)}
 .jb-track{position:relative;height:12px;border-radius:8px;background:rgba(0,0,0,.05);margin:0 6px;box-shadow:inset 0 2px 4px rgba(0,0,0,.05)}
-.jb-fill{position:absolute;left:0;top:0;height:100%;border-radius:8px;background:linear-gradient(90deg,#FF8E53,#E83E8C,#6610F2);box-shadow:0 0 10px rgba(232,62,140,.5);transition:width 1s ease}
+.jb-fill{position:absolute;left:0;top:0;height:100%;border-radius:8px;background:linear-gradient(90deg,#FF8E53,#E83E8C,#6610F2);transition:width 1s ease}
 .jb-shimmer-overlay{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.8),transparent);background-size:200% 100%;animation:shimmerSweep 2s infinite linear;z-index:2;pointer-events:none}
 @keyframes shimmerSweep{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.jb-halo{border-radius:50%;animation:haloGlow 2s infinite alternate}
-@keyframes haloGlow{0%{box-shadow:0 0 10px rgba(102,16,242,0.5),0 0 20px rgba(232,62,140,0.5)}100%{box-shadow:0 0 25px rgba(102,16,242,0.9),0 0 40px rgba(232,62,140,0.9)}}
-.jb-milestone{position:absolute;top:50%;transform:translate(-50%,-50%);z-index:5;width:8px;height:8px;border-radius:50%;background:#fff;border:2.5px solid #6610F2;box-shadow:0 0 8px rgba(102,16,242,0.4);transition:all 0.3s ease}
-.jb-milestone.reached{background:#6610F2;border-color:#fff;box-shadow:0 0 12px rgba(102,16,242,0.7),0 0 20px rgba(232,62,140,0.5);animation:milestonePulse 2s infinite alternate}
+.jb-halo{border-radius:50%;}
+@keyframes haloGlow{0%{}100%{}}
+.jb-milestone{position:absolute;top:50%;transform:translate(-50%,-50%);z-index:5;width:8px;height:8px;border-radius:50%;background:#fff;border:2.5px solid #6610F2;transition:all 0.3s ease}
+.jb-milestone.reached{background:#6610F2;border-color:#fff;animation:milestonePulse 2s infinite alternate}
 .jb-milestone-50{left:50%}
 .jb-milestone-80{left:80%}
 @keyframes milestonePulse{0%{transform:translate(-50%,-50%) scale(1)}100%{transform:translate(-50%,-50%) scale(1.3)}}
 .jb-marker{position:absolute;top:50%;transform:translate(-50%,-50%);width:40px;height:40px;z-index:10;transition:left 1s cubic-bezier(.34,1.56,.64,1)}
-@keyframes magicalHover{0%,to{transform:translateY(0) scale(1);filter:drop-shadow(0 4px 12px rgba(102,16,242,.4))}
-50%{transform:translateY(-6px) scale(1.05);filter:drop-shadow(0 8px 16px rgba(232,62,140,.6))}
+@keyframes magicalHover{0%,to{transform:translateY(0) scale(1);}
+50%{transform:translateY(-6px) scale(1.05);}
 }
 .jb-avatar{border-radius:50%;border:3px solid #fff;width:100%;height:100%;-o-object-fit:cover;object-fit:cover;animation:magicalHover 3s ease-in-out infinite}
 .jb-labels{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding:0 2px}
@@ -1338,29 +1338,28 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 /* === Massive Digital Countdown Hero === */
 .countdown-hero-card {
   width: 100%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: linear-gradient(135deg, #1e1b4b, #312e81, #1e1b4b);
+  border: 1px solid rgba(139, 92, 246, 0.5);
   border-radius: 20px;
-  padding: 16px 20px;
+  padding: 18px 20px 20px;
   box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.05),
-    inset 0 2px 0 rgba(255, 255, 255, 0.5);
+    0 12px 35px rgba(49, 46, 129, 0.35),
+    inset 0 2px 0 rgba(255, 255, 255, 0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 8px;
 }
 
 .ch-title {
-  font-size: 11px;
-  font-weight: 800;
+  font-size: 12px;
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--slate);
-  margin-bottom: 12px;
-  opacity: 0.7;
+  letter-spacing: 0.2em;
+  color: #a5b4fc;
+  margin-bottom: 14px;
+  text-shadow: 0 2px 10px rgba(165, 180, 252, 0.4);
 }
 
 .ch-digits-row {
@@ -1376,43 +1375,43 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   flex-direction: column;
   align-items: center;
   flex: 1;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
-  padding: 10px 4px 8px;
-  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 14px;
+  padding: 12px 4px 10px;
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .ch-val {
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 900;
   line-height: 1;
-  color: var(--blue);
-  text-shadow: 0 2px 10px rgba(59, 130, 246, 0.2);
+  color: #38bdf8;
+  text-shadow: 0 0 16px rgba(56, 189, 248, 0.7);
   letter-spacing: -0.5px;
 }
 
 .ch-sec {
-  color: var(--pink);
-  text-shadow: 0 2px 10px rgba(236, 72, 153, 0.2);
+  color: #f472b6;
+  text-shadow: 0 0 16px rgba(244, 114, 182, 0.7);
 }
 
 .ch-unit {
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--slate);
-  margin-top: 6px;
-  letter-spacing: 0.05em;
+  font-size: 11px;
+  font-weight: 800;
+  color: #818cf8;
+  margin-top: 8px;
+  letter-spacing: 0.1em;
 }
 
 .ch-sep {
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 900;
-  color: rgba(148, 163, 184, 0.4);
+  color: rgba(165, 180, 252, 0.5);
   animation: chBlink 1s steps(1) infinite;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 @keyframes chBlink {
