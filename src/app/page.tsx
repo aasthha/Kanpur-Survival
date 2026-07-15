@@ -154,11 +154,10 @@ function TypewriterText({ text }: { text: string }) {
   return <span>{text}</span>;
 }
 
-// Sub-component: Rocket Launch Countdown Timer
-function RocketCountdown({ daysUntilHome }: { daysUntilHome: number }) {
+// Sub-component: Live Countdown Pill
+function LiveCountdownPill({ daysUntilHome }: { daysUntilHome: number }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [mounted, setMounted] = useState(false);
-  const TOTAL_COUNTDOWN_DAYS = 16;
 
   useEffect(() => {
     setMounted(true);
@@ -180,66 +179,21 @@ function RocketCountdown({ daysUntilHome }: { daysUntilHome: number }) {
     return () => clearInterval(interval);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted) {
+    return <strong className="text-gradient-cool">{daysUntilHome} days to go</strong>;
+  }
 
-  const totalSecsLeft = timeLeft.days * 86400 + timeLeft.hours * 3600 + timeLeft.minutes * 60 + timeLeft.seconds;
-  const totalCountdownSecs = TOTAL_COUNTDOWN_DAYS * 86400;
-  const fuelPercent = Math.min(100, Math.max(0, Math.round(((totalCountdownSecs - totalSecsLeft) / totalCountdownSecs) * 100)));
-  const isLiftoff = totalSecsLeft <= 0;
+  const isComplete = timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0;
   const pad = (n: number) => String(n).padStart(2, "0");
 
+  if (isComplete) {
+    return <strong className="text-gradient-cool">Homebound!</strong>;
+  }
+
   return (
-    <div className={`rocket-card ${isLiftoff ? "rocket-card-liftoff" : ""}`}>
-      <div className="rocket-stars-bg" />
-
-      <div className="rocket-visual">
-        <div className={`rocket-ship ${isLiftoff ? "ship-launch" : ""} ${fuelPercent >= 90 ? "ship-rumble" : ""}`}>
-          {/* Nose cone */}
-          <div className="rocket-nose-cone" />
-          {/* Body with fuel gauge */}
-          <div className="rocket-body-hull">
-            <div className="rocket-porthole" />
-            <div className="rocket-fuel-liquid" style={{ height: `${fuelPercent}%` }} />
-          </div>
-          {/* Fins */}
-          <div className="rocket-fin-l" />
-          <div className="rocket-fin-r" />
-          {/* Nozzle */}
-          <div className="rocket-nozzle" />
-          {/* Exhaust flames — grow with fuel */}
-          {fuelPercent >= 30 && (
-            <div className={`rocket-exhaust-fire ${fuelPercent >= 65 ? "fire-med" : ""} ${fuelPercent >= 85 ? "fire-hot" : ""}`}>
-              <div className="flame-inner" />
-              <div className="flame-outer" />
-            </div>
-          )}
-        </div>
-        {/* Launch pad */}
-        {!isLiftoff && <div className="rocket-pad-base" />}
-      </div>
-
-      {/* Fuel status */}
-      <div className="rocket-fuel-info">
-        ⛽ {isLiftoff ? "Launch complete!" : `Fuel: ${fuelPercent}%`}
-      </div>
-
-      {/* Digital countdown */}
-      <div className="rocket-mini-timer">
-        {isLiftoff ? (
-          <span className="rocket-home-label">🏠 HOMEBOUND!</span>
-        ) : (
-          <>
-            <span className="rmt-block">{pad(timeLeft.days)}<small>d</small></span>
-            <span className="rmt-sep">:</span>
-            <span className="rmt-block">{pad(timeLeft.hours)}<small>h</small></span>
-            <span className="rmt-sep">:</span>
-            <span className="rmt-block">{pad(timeLeft.minutes)}<small>m</small></span>
-            <span className="rmt-sep">:</span>
-            <span className="rmt-block rmt-sec">{pad(timeLeft.seconds)}<small>s</small></span>
-          </>
-        )}
-      </div>
-    </div>
+    <strong className="text-gradient-cool" style={{ fontFamily: "monospace", letterSpacing: "-0.5px" }}>
+      {pad(timeLeft.days)}d:{pad(timeLeft.hours)}h:{pad(timeLeft.minutes)}m:{pad(timeLeft.seconds)}s to go
+    </strong>
   );
 }
 
@@ -766,7 +720,7 @@ function TimelineTab({
             📍 <strong className="text-gradient-warm">Day {stats.elapsed}</strong>
           </div>
           <div className={`stat-pill ${milestoneDay ? 'stat-pill-celebrate' : ''}`}>
-            ⏳ <strong className="text-gradient-cool">{stats.daysUntilHome} to go</strong>
+            ⏳ <LiveCountdownPill daysUntilHome={stats.daysUntilHome} />
           </div>
         </div>
       </div>
@@ -790,10 +744,6 @@ function TimelineTab({
         </div>
       </div>
 
-      {/* Rocket Launch Countdown (final 15 days) */}
-      {stats.daysUntilHome <= 16 && (
-        <RocketCountdown daysUntilHome={stats.daysUntilHome} />
-      )}
 
       {/* Mascot Bubble Scene */}
       <div className="scene-card">
