@@ -793,7 +793,9 @@ function TimelineTab({
             <div className="scene-chat-container" style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
               
               <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end', alignSelf: 'flex-start' }}>
-                <img src={MASCOT_AVATARS.dhiraj} alt="D" className="chat-avatar" />
+                <div className="chat-avatar-wrapper">
+                  <img src={MASCOT_AVATARS.dhiraj} alt="D" />
+                </div>
                 <div className="chat-bubble dhiraj-bubble">
                   <TypewriterText
                     text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Dhiraj")?.text || "Logged"}
@@ -807,7 +809,9 @@ function TimelineTab({
                     text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Aastha")?.text || "Logged"}
                   />
                 </div>
-                <img src={MASCOT_AVATARS.aastha} alt="A" className="chat-avatar" />
+                <div className="chat-avatar-wrapper">
+                  <img src={MASCOT_AVATARS.aastha} alt="A" className="aastha-avatar" />
+                </div>
               </div>
 
             </div>
