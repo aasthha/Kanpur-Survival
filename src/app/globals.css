@@ -856,36 +856,26 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   max-width: 85%;
   padding: 10px 14px;
   border-radius: 18px;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 800;
   line-height: 1.4;
   position: relative;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.chat-name {
-  font-size: 11px;
-  font-weight: 800;
-  margin-bottom: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
 .dhiraj-bubble {
   align-self: flex-start;
-  background: #E8F0FE;
-  color: #1967D2;
+  background: #4EA7FF;
+  color: white;
   border-bottom-left-radius: 4px;
 }
-.dhiraj-bubble .chat-name { color: #174EA6; }
 
 .aastha-bubble {
   align-self: flex-end;
-  background: #FCE8E6;
-  color: #C5221F;
+  background: #FF6B81;
+  color: white;
   border-bottom-right-radius: 4px;
 }
-.aastha-bubble .chat-name { color: #B31412; }
 
 .scene-speech::before {
   content: '';

@@ -789,21 +789,25 @@ function TimelineTab({
       <div className="scene-card">
         {isDhirajLogged && isAasthaLogged ? (
           <div className="scene-row" style={{ alignItems: 'flex-start' }}>
-            <img src="/happy-couple.png" alt="Both logged" width={80} height={80} className="scene-img" style={{ alignSelf: 'center', marginRight: 8 }} />
+            <img src="/both-highfive.png" alt="Both logged" width={80} height={80} className="scene-img" style={{ alignSelf: 'center', marginRight: 8 }} />
             <div className="scene-chat-container" style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
               
-              <div className="chat-bubble dhiraj-bubble">
-                <div className="chat-name">Dhiraj</div>
-                <TypewriterText
-                  text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Dhiraj")?.text || "Logged"}
-                />
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end', alignSelf: 'flex-start' }}>
+                <img src={MASCOT_AVATARS.dhiraj} alt="D" width={24} height={24} style={{ borderRadius: '50%' }} />
+                <div className="chat-bubble dhiraj-bubble">
+                  <TypewriterText
+                    text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Dhiraj")?.text || "Logged"}
+                  />
+                </div>
               </div>
 
-              <div className="chat-bubble aastha-bubble">
-                <div className="chat-name">Aastha</div>
-                <TypewriterText
-                  text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Aastha")?.text || "Logged"}
-                />
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end', alignSelf: 'flex-end' }}>
+                <div className="chat-bubble aastha-bubble">
+                  <TypewriterText
+                    text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Aastha")?.text || "Logged"}
+                  />
+                </div>
+                <img src={MASCOT_AVATARS.aastha} alt="A" width={24} height={24} style={{ borderRadius: '50%' }} />
               </div>
 
             </div>
