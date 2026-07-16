@@ -1442,7 +1442,8 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 }
 
 .ch-title {
-  font-size: 18px;
+  font-family: 'Caveat', cursive;
+  font-size: 26px;
   font-weight: 700;
   color: #8B76C1;
   margin-bottom: 12px;
@@ -1451,13 +1452,12 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 }
 
-.ch-heart-svg {
-  width: 20px;
-  height: 20px;
-  fill: #D32F2F;
-  margin-left: 8px;
+.ch-heart-emoji {
+  display: inline-block;
+  font-size: 22px;
   animation: heartBeat 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
