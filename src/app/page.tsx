@@ -971,7 +971,9 @@ function TimelineTab({
       {/* Calendar Grid Card */}
       <div className="card cal-card" style={{ position: "relative", padding: "12px 14px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-          <h3 style={{ margin: 0, fontSize: 14, fontWeight: 800, color: "var(--ink)" }}>Calendar</h3>
+          <h3 style={{ margin: 0, fontSize: 14, fontWeight: 800, color: "var(--ink)" }}>
+            {viewMonth === 5 ? "June 2026" : "July 2026"}
+          </h3>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             {calExpanded && (
               <select 
@@ -992,24 +994,26 @@ function TimelineTab({
                 <option value={6}>July</option>
               </select>
             )}
-            <button
-              onClick={() => setCalExpanded(e => !e)}
-              style={{
-                background: 'rgba(124,107,196,0.1)',
-                border: '1px solid rgba(124,107,196,0.2)',
-                borderRadius: 20,
-                padding: '3px 10px',
-                fontSize: 11,
-                fontWeight: 800,
-                color: 'var(--purple)',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 4,
-              }}
-            >
-              {calExpanded ? '▲ Collapse' : '▼ Full view'}
-            </button>
+            {viewMonth === 6 && (
+              <button
+                onClick={() => setCalExpanded(e => !e)}
+                style={{
+                  background: 'rgba(124,107,196,0.1)',
+                  border: '1px solid rgba(124,107,196,0.2)',
+                  borderRadius: 20,
+                  padding: '3px 10px',
+                  fontSize: 11,
+                  fontWeight: 800,
+                  color: 'var(--purple)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 4,
+                }}
+              >
+                {calExpanded ? '▲ Collapse' : '▼ Full view'}
+              </button>
+            )}
           </div>
         </div>
         <div className="cal-grid" style={{ position: "relative", zIndex: 1 }}>
