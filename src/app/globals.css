@@ -1612,14 +1612,7 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   align-items: center;
   justify-content: center;
   gap: 6px;
-  margin: 0 auto 10px;
-  padding: 6px 16px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.35));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(255,255,255,0.7);
-  border-radius: 100px;
-  box-shadow: 0 4px 16px rgba(124,107,196,0.12);
+  margin: 0 auto 12px;
   width: fit-content;
 }
 
