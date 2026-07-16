@@ -1652,3 +1652,93 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* ---- Running Reunion Animation ---- */
+.run-reunion-container {
+  position: absolute;
+  bottom: 75px; 
+  left: 0;
+  width: 100%;
+  height: 80px;
+  pointer-events: none;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.run-dhiraj-pack {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  width: 60px;
+  height: 60px;
+  opacity: 0;
+  animation: dhirajPack 15s infinite;
+  object-fit: contain;
+}
+
+.run-dhiraj {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  width: 50px;
+  height: 50px;
+  opacity: 0;
+  animation: dhirajRun 15s infinite;
+  object-fit: contain;
+}
+
+.run-aastha {
+  position: absolute;
+  bottom: 0;
+  right: 15px;
+  width: 55px;
+  height: 55px;
+  opacity: 0;
+  animation: aasthaWait 15s infinite;
+  object-fit: contain;
+}
+
+.run-hug {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+  width: 75px;
+  height: 75px;
+  opacity: 0;
+  animation: hugReunion 15s infinite;
+  object-fit: contain;
+}
+
+@keyframes dhirajPack {
+  0%, 5% { opacity: 0; transform: scale(0.8); }
+  7% { opacity: 1; transform: scale(1); }
+  11% { opacity: 1; transform: scale(1); }
+  12%, 100% { opacity: 0; transform: scale(1); }
+}
+
+@keyframes dhirajRun {
+  0%, 11.9% { opacity: 0; transform: translateX(0); }
+  12% { opacity: 1; transform: translateX(0); }
+  14% { transform: translateX(15vw) translateY(-20px); }
+  16% { transform: translateX(30vw) translateY(0); }
+  18% { transform: translateX(45vw) translateY(-20px); }
+  20% { transform: translateX(60vw) translateY(0); }
+  22% { transform: translateX(75vw) translateY(-20px); }
+  24% { opacity: 1; transform: translateX(calc(100vw - 90px)) translateY(0); }
+  25%, 100% { opacity: 0; transform: translateX(calc(100vw - 90px)) translateY(0); }
+}
+
+@keyframes aasthaWait {
+  0%, 18% { opacity: 0; }
+  20% { opacity: 1; transform: scale(1); }
+  24% { opacity: 1; }
+  25%, 100% { opacity: 0; }
+}
+
+@keyframes hugReunion {
+  0%, 24% { opacity: 0; transform: scale(0.8) translateY(10px); }
+  25% { opacity: 1; transform: scale(1.1) rotate(-5deg) translateY(0); }
+  27% { transform: scale(1) rotate(0deg) translateY(0); }
+  35% { opacity: 1; }
+  38%, 100% { opacity: 0; }
+}
