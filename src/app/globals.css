@@ -55,11 +55,11 @@ img,video{max-width:100%;height:auto}
 .filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}
 :root{--purple:#7C6BC4;--purple-deep:#6A5AAE;--purple-light:#B8ACE0;--purple-pale:#EDE9FC;--pink:#E87899;--pink-bg:#FCEEF3;--blue:#5B9FD6;--blue-bg:#EEF5FB;--green:#6BCB77;--green-deep:#4CAF50;--green-bg:#EDF9EE;--yellow:#F5C842;--yellow-bg:#FFF8E1;--orange:#F5A442;--red:#E86B6B;--ink:#2B2D42;--ink-soft:#585B73;--ink-muted:#9599B3;--card:#FFFFFF;--card-shadow:0 2px 12px rgba(124,107,196,0.07);--radius:20px;--radius-sm:14px;--font:var(--font-nunito,"Nunito"),system-ui,-apple-system,sans-serif}
 *{box-sizing:border-box;margin:0}
-body,html{height:100%;width:100%;overflow:hidden;position:fixed;inset:0}
-body{color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;background:#EDE9FC}
+body,html{height:100%;width:100%}
+body{color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;background:#EDE9FC;overflow:hidden}
 button,input,select,textarea{font:inherit;color:inherit}
 button{touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.app-shell{height:100dvh;display:flex;flex-direction:column;overflow:hidden;position:relative;background:linear-gradient(145deg,#E2D7F4,#D1C0EC);transition:background 1s ease}
+.app-shell{position:fixed;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;overflow:hidden;background:linear-gradient(145deg,#E2D7F4,#D1C0EC);transition:background 1s ease}
 .app-shell.milestone-day{background:linear-gradient(135deg,#E6D8FC,#FCDAE8,#FCE8D5,#EAE0FB);animation:festiveBg 8s ease infinite;background-size:400% 400%}
 .app-shell.milestone-day::before{content:"";position:absolute;border-radius:50%;filter:blur(80px);opacity:0.35;width:400px;height:400px;background:#6610F2;top:40%;left:-100px;animation:blobDrift 18s ease-in-out infinite alternate;pointer-events:none;z-index:0}
 @keyframes festiveBg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
