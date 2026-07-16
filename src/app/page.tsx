@@ -634,7 +634,13 @@ export default function Home() {
       </div>
 
       {/* Navigation Tab Bar */}
-      <TabBar active={activeTab} onChange={(tab: any) => setActiveTab(tab)} newCard={newCardUnlockedNotifier} />
+      <TabBar 
+        active={activeTab} 
+        onChange={(tab: any) => setActiveTab(tab)} 
+        newCard={newCardUnlockedNotifier} 
+        onRefresh={refreshProjectData}
+        loading={dataRefreshing}
+      />
     </main>
   );
 }
@@ -757,11 +763,7 @@ function TimelineTab({
     (c: any) => c.date === activeDate && c.userId === user.id
   );
 
-  const currentHour = new Date().getHours();
-  let timeGreeting = "Good evening! 🌙";
-  if (currentHour >= 0 && currentHour < 5) timeGreeting = "Hi night owl! 🦉";
-  else if (currentHour < 12) timeGreeting = "Good morning! ☀️";
-  else if (currentHour < 17) timeGreeting = "Good afternoon! ⛅";
+
 
   // Check for card unlocks
   useEffect(() => {
@@ -827,35 +829,6 @@ function TimelineTab({
           <div className="grand-unlock-particles" />
         </div>
       )}
-
-      {/* Top Bar with Refresh */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '8px 0 16px', padding: '0 4px' }}>
-        <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--purple)', opacity: 0.8 }}>
-          {timeGreeting}
-        </div>
-        <button 
-          onClick={onRefresh}
-          disabled={loading}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 6,
-            background: 'var(--card)',
-            border: 'none',
-            borderRadius: 20,
-            padding: '6px 12px',
-            fontSize: 12,
-            fontWeight: 800,
-            color: 'var(--purple-deep)',
-            boxShadow: 'var(--card-shadow)',
-            opacity: loading ? 0.7 : 1,
-            cursor: loading ? 'wait' : 'pointer'
-          }}
-        >
-          <span className={loading ? "spin-anim" : ""} style={{ display: 'inline-block', fontSize: 14 }}>🔄</span>
-          {loading ? "Syncing..." : "Refresh"}
-        </button>
-      </div>
 
       {/* Massive Digital Countdown Hero */}
       <div className="hero-compact">
@@ -1965,9 +1938,11 @@ interface TabBarProps {
   active: "timeline" | "letters" | "cards" | "settings";
   onChange: (tab: "timeline" | "letters" | "cards" | "settings") => void;
   newCard: boolean;
+  onRefresh: () => Promise<void>;
+  loading: boolean;
 }
 
-function TabBar({ active, onChange, newCard }: TabBarProps) {
+function TabBar({ active, onChange, newCard, onRefresh, loading }: TabBarProps) {
   const tabs = [
     { id: "timeline", icon: "🏠", label: "Timeline" },
     { id: "letters", icon: "💌", label: "Letters" },
@@ -1976,7 +1951,7 @@ function TabBar({ active, onChange, newCard }: TabBarProps) {
   ] as const;
 
   return (
-    <nav className="tabbar" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
+    <nav className="tabbar" style={{ gridTemplateColumns: "repeat(5, 1fr)" }}>
       {tabs.map((tab) => (
         <button
           className={`tab-btn ${active === tab.id ? "active" : ""} ${tab.flash ? "tab-flash" : ""}`}
@@ -1987,6 +1962,15 @@ function TabBar({ active, onChange, newCard }: TabBarProps) {
           {tab.label}
         </button>
       ))}
+      <button
+        className="tab-btn"
+        onClick={onRefresh}
+        disabled={loading}
+        style={{ opacity: loading ? 0.7 : 1 }}
+      >
+        <span className={loading ? "spin-anim" : ""} style={{ display: 'inline-block' }}>🔄</span>
+        {loading ? "Syncing..." : "Refresh"}
+      </button>
     </nav>
   );
 }
