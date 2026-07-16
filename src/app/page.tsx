@@ -889,27 +889,37 @@ function TimelineTab({
             </div>
           </div>
         ) : isDhirajLogged && !isAasthaLogged ? (
-          <div className="scene-row">
-            <img src="/dhiraj-waiting.png" alt="Dhiraj waiting" width={90} height={90} className="scene-img" />
-            <div className="scene-right">
-              <div className="scene-speech dhiraj">
-                <TypewriterText
-                  text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Dhiraj")?.text || "Done for today. Waiting for Aastha... 👀"}
-                />
+          <div className="scene-row" style={{ alignItems: 'flex-start' }}>
+            <img src="/dhiraj-waiting.png" alt="Dhiraj waiting" width={90} height={90} className="scene-img" style={{ alignSelf: 'center', marginRight: 8 }} />
+            <div className="scene-chat-container" style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%', justifyContent: 'center' }}>
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end', alignSelf: 'flex-start' }}>
+                <div className="chat-avatar-wrapper">
+                  <img src={MASCOT_AVATARS.dhiraj} alt="D" />
+                </div>
+                <div className="chat-bubble dhiraj-bubble">
+                  <TypewriterText
+                    text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Dhiraj")?.text || "Done for today. Waiting for Aastha... 👀"}
+                  />
+                </div>
               </div>
-              <p className="scene-detail">Dhiraj is waiting for your log</p>
+              <p className="scene-detail" style={{ margin: 0, paddingLeft: 34 }}>Dhiraj is waiting for your log</p>
             </div>
           </div>
         ) : isAasthaLogged && !isDhirajLogged ? (
-          <div className="scene-row">
-            <img src="/aastha-waiting.png" alt="Aastha waiting" width={90} height={90} className="scene-img" />
-            <div className="scene-right">
-              <div className="scene-speech aastha">
-                <TypewriterText
-                  text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Aastha")?.text || "Your turn, Dhiraj 👀"}
-                />
+          <div className="scene-row" style={{ alignItems: 'flex-start' }}>
+            <img src="/aastha-waiting.png" alt="Aastha waiting" width={90} height={90} className="scene-img" style={{ alignSelf: 'center', marginRight: 8 }} />
+            <div className="scene-chat-container" style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%', justifyContent: 'center' }}>
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end', alignSelf: 'flex-end' }}>
+                <div className="chat-bubble aastha-bubble">
+                  <TypewriterText
+                    text={s.reflections.find((r: any) => r.date === activeDate && r.userName === "Aastha")?.text || "Your turn, Dhiraj 👀"}
+                  />
+                </div>
+                <div className="chat-avatar-wrapper">
+                  <img src={MASCOT_AVATARS.aastha} alt="A" className="aastha-avatar" />
+                </div>
               </div>
-              <p className="scene-detail">Aastha is waiting for your log</p>
+              <p className="scene-detail" style={{ margin: 0, textAlign: 'right', paddingRight: 34 }}>Aastha is waiting for your log</p>
             </div>
           </div>
         ) : (
