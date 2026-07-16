@@ -140,7 +140,7 @@ to{transform:scale(1);opacity:1}
 .strikeoff-text strong{display:block;font-size:14px;font-weight:900;color:var(--purple-deep)}
 .strikeoff-text span{font-size:11px;color:var(--ink-soft)}
 .strike-line{position:relative;display:inline-block}
-.strike-line:after{content:"";position:absolute;left:0;top:50%;width:0;height:3px;background:var(--pink);border-radius:2px;animation:strikeThrough .6s ease-out .3s forwards}
+.strike-line:after{content:"";position:absolute;left:0;top:58%;width:0;height:2px;background:var(--pink);border-radius:2px;animation:strikeThrough .6s ease-out .3s forwards}
 @keyframes strikeThrough{to{width:100%}
 }
 @keyframes strikeIn{0%{transform:scale(.5) rotate(-5deg);opacity:0}
@@ -896,16 +896,6 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   transform: scale(1.4);
 }
 
-.scene-speech::before {
-  content: '';
-  position: absolute;
-  top: 10px;
-  left: -8px;
-  border-width: 8px 10px 8px 0;
-  border-style: solid;
-  border-color: transparent white transparent transparent;
-}
-
 .gacha-card {
   width: 240px;
   height: 336px;
@@ -1525,7 +1515,7 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 .ch-group-days::after {
   content: '';
   position: absolute;
-  bottom: calc(var(--progress) * 1%);
+  bottom: calc(var(--progress) * 1% - 1px);
   left: 0;
   width: 200%;
   height: 6px;
