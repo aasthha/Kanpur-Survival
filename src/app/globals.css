@@ -1643,3 +1643,12 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.3px;
 }
+
+/* ---- Refresh Button Animation ---- */
+.spin-anim {
+  animation: spinAnim 1s linear infinite;
+}
+@keyframes spinAnim {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

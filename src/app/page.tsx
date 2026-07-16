@@ -568,6 +568,7 @@ export default function Home() {
           cardCustoms={cardCustoms}
           loading={dataRefreshing}
           onSave={handleSaveReflection}
+          onRefresh={refreshProjectData}
           test={testModeActive}
           milestoneDay={isMilestoneDay}
         />
@@ -717,6 +718,7 @@ interface TimelineTabProps {
   user: UserSessionProfile;
   loading: boolean;
   onSave: (text: string, dateOverride?: string) => Promise<void>;
+  onRefresh: () => Promise<void>;
   test: boolean;
   cards: any[];
   cardCustoms: any;
@@ -730,6 +732,7 @@ function TimelineTab({
   user,
   loading,
   onSave,
+  onRefresh,
   test,
   cards,
   cardCustoms,
@@ -824,6 +827,35 @@ function TimelineTab({
           <div className="grand-unlock-particles" />
         </div>
       )}
+
+      {/* Top Bar with Refresh */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '8px 0 16px', padding: '0 4px' }}>
+        <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--purple)', opacity: 0.8 }}>
+          {timeGreeting}
+        </div>
+        <button 
+          onClick={onRefresh}
+          disabled={loading}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            background: 'var(--card)',
+            border: 'none',
+            borderRadius: 20,
+            padding: '6px 12px',
+            fontSize: 12,
+            fontWeight: 800,
+            color: 'var(--purple-deep)',
+            boxShadow: 'var(--card-shadow)',
+            opacity: loading ? 0.7 : 1,
+            cursor: loading ? 'wait' : 'pointer'
+          }}
+        >
+          <span className={loading ? "spin-anim" : ""} style={{ display: 'inline-block', fontSize: 14 }}>🔄</span>
+          {loading ? "Syncing..." : "Refresh"}
+        </button>
+      </div>
 
       {/* Massive Digital Countdown Hero */}
       <div className="hero-compact">
