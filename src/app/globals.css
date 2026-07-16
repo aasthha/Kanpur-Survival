@@ -1543,8 +1543,26 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   right: 0;
   height: calc(var(--progress) * 1%);
   background: linear-gradient(180deg, #DBCBFF 0%, #C2A8FF 100%);
-  border-top: 2px solid rgba(123, 92, 255, 0.4);
   z-index: 0;
+}
+
+.ch-group-days::after {
+  content: '';
+  position: absolute;
+  bottom: calc(var(--progress) * 1%);
+  left: 0;
+  width: 200%;
+  height: 6px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 20' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,10 Q25,20 50,10 T100,10 L100,20 L0,20 Z' fill='%23DBCBFF'/%3E%3C/svg%3E");
+  background-size: 50% 100%;
+  animation: waveSlide 2.5s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes waveSlide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .ch-group-days > span {
