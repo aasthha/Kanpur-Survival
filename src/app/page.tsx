@@ -755,6 +755,11 @@ function TimelineTab({
   const [calExpanded, setCalExpanded] = useState(false);
 
   const activeDate = test ? selectedDate : today;
+  const currentHour = new Date().getHours();
+  let timeGreeting = "Good evening! 🌙";
+  if (currentHour >= 0 && currentHour < 5) timeGreeting = "Hi night owl! 🦉";
+  else if (currentHour < 12) timeGreeting = "Good morning! ☀️";
+  else if (currentHour < 17) timeGreeting = "Good afternoon! ⛅";
   const currentCompletions = test ? [...s.completions, ...tempCompletions] : s.completions;
 
   const isDhirajLogged = currentCompletions.some((c: any) => c.date === activeDate && c.userName === "Dhiraj");
@@ -1943,12 +1948,12 @@ interface TabBarProps {
 }
 
 function TabBar({ active, onChange, newCard, onRefresh, loading }: TabBarProps) {
-  const tabs = [
+  const tabs: any[] = [
     { id: "timeline", icon: "🏠", label: "Timeline" },
     { id: "letters", icon: "💌", label: "Letters" },
     { id: "cards", icon: "🎴", label: "Cards", flash: newCard },
     { id: "settings", icon: "⚙️", label: "Settings" },
-  ] as const;
+  ];
 
   return (
     <nav className="tabbar" style={{ gridTemplateColumns: "repeat(5, 1fr)" }}>
