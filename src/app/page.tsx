@@ -231,7 +231,6 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       
       <div className="ch-digits-row">
         <div className="ch-group ch-group-days" style={{ "--progress": animProgress } as React.CSSProperties}>
-          <div className="ch-progress-dot" />
           <span key={timeLeft.days} className="ch-val ch-days slide-in">{pad(timeLeft.days)}</span>
         </div>
         
