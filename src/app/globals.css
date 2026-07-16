@@ -1542,7 +1542,8 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   left: 0;
   right: 0;
   height: calc(var(--progress) * 1%);
-  background: #E8E2F6;
+  background: linear-gradient(180deg, #DBCBFF 0%, #C2A8FF 100%);
+  border-top: 2px solid rgba(123, 92, 255, 0.4);
   z-index: 0;
 }
 
