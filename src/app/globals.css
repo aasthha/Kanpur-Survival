@@ -1451,7 +1451,6 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: heartBeat 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .ch-heart-svg {
@@ -1459,6 +1458,7 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   height: 20px;
   fill: #D32F2F;
   margin-left: 8px;
+  animation: heartBeat 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 @keyframes heartBeat {
