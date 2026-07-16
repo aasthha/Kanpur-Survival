@@ -631,9 +631,6 @@ export default function Home() {
         />
       </div>
 
-      {/* Running Reunion Easter Egg */}
-      <RunningReunion />
-
       {/* Navigation Tab Bar */}
       <TabBar 
         active={activeTab} 
@@ -1948,22 +1945,6 @@ function AdminForm({ s, onRefresh }: { s: any; onRefresh: () => void }) {
           ))}
       </div>
     </React.Fragment>
-  );
-}
-
-// Sub-component: Running Reunion Animation
-function RunningReunion() {
-  return (
-    <div className="run-reunion-container">
-      {/* Dhiraj sitting on suitcase for a moment */}
-      <img src="/dhiraj-waiting.png" className="run-dhiraj-pack" alt="dhiraj packing" />
-      {/* Dhiraj running */}
-      <img src={MASCOT_AVATARS.dhiraj} className="run-dhiraj" alt="dhiraj running" />
-      {/* Aastha waiting on the right */}
-      <img src={MASCOT_AVATARS.aastha} className="run-aastha" alt="aastha waiting" />
-      {/* Both high-fiving / hugging */}
-      <img src="/both-highfive.png" className="run-hug" alt="hug reunion" />
-    </div>
   );
 }
 
