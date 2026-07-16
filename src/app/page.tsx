@@ -158,6 +158,7 @@ function TypewriterText({ text }: { text: string }) {
 function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: number; percentComplete: number }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, dayProgress: 0 });
   const [mounted, setMounted] = useState(false);
+  const [animProgress, setAnimProgress] = useState(0);
 
   useEffect(() => {
     setMounted(true);
@@ -180,6 +181,15 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
     const interval = setInterval(() => setTimeLeft(calcRemaining()), 1000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      const timer = setTimeout(() => {
+        setAnimProgress(timeLeft.dayProgress);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [mounted, timeLeft.dayProgress]);
 
   if (!mounted) {
     return (
@@ -220,7 +230,8 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       </div>
       
       <div className="ch-digits-row">
-        <div className="ch-group ch-group-days" style={{ "--progress": timeLeft.dayProgress } as React.CSSProperties}>
+        <div className="ch-group ch-group-days" style={{ "--progress": animProgress } as React.CSSProperties}>
+          <div className="ch-progress-dot" />
           <span key={timeLeft.days} className="ch-val ch-days slide-in">{pad(timeLeft.days)}</span>
         </div>
         

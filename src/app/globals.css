@@ -1526,6 +1526,39 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   box-shadow: 0 12px 30px rgba(124, 107, 196, 0.25), 0 4px 12px rgba(124, 107, 196, 0.1);
 }
 
+@property --progress {
+  syntax: '<number>';
+  initial-value: 0;
+  inherits: true;
+}
+
+.ch-group-days {
+  position: relative;
+  transition: --progress 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ch-progress-dot {
+  position: absolute;
+  top: -1px; left: -1px; right: -1px; bottom: -1px;
+  border-radius: 50%;
+  transform: rotate(calc(var(--progress) * 3.6deg));
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ch-progress-dot::after {
+  content: '';
+  position: absolute;
+  top: -3px; 
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 3px rgba(123, 92, 255, 0.9), 0 0 15px 5px rgba(123, 92, 255, 0.4);
+}
+
 .ch-group-days::before {
   content: '';
   position: absolute;
