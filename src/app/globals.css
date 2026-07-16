@@ -1415,47 +1415,25 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 }
 
 .ch-glare {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0) 100%);
-  transform: rotate(25deg);
-  pointer-events: none;
-  z-index: 0;
+  display: none;
 }
 
 @keyframes breatheScale {
   0% { transform: scale(1); }
-  100% { transform: scale(1.015); }
+  100% { transform: scale(1); }
 }
 
 /* Background Blobs */
 .ch-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(40px);
-  z-index: -1;
-  opacity: 0.5;
-  animation: blobDrift 10s ease-in-out infinite alternate;
+  display: none;
 }
 
 .ch-blob-1 {
-  width: 150px;
-  height: 150px;
-  background: #E8D5FF;
-  top: -20px;
-  left: -20px;
+  display: none;
 }
 
 .ch-blob-2 {
-  width: 120px;
-  height: 120px;
-  background: #FFD5E5;
-  bottom: -10px;
-  right: -10px;
-  animation-delay: -5s;
+  display: none;
 }
 
 @keyframes blobDrift {
