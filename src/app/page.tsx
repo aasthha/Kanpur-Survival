@@ -638,8 +638,6 @@ export default function Home() {
         active={activeTab} 
         onChange={(tab: any) => setActiveTab(tab)} 
         newCard={newCardUnlockedNotifier} 
-        onRefresh={refreshProjectData}
-        loading={dataRefreshing}
       />
     </main>
   );
@@ -1943,11 +1941,9 @@ interface TabBarProps {
   active: "timeline" | "letters" | "cards" | "settings";
   onChange: (tab: "timeline" | "letters" | "cards" | "settings") => void;
   newCard: boolean;
-  onRefresh: () => Promise<void>;
-  loading: boolean;
 }
 
-function TabBar({ active, onChange, newCard, onRefresh, loading }: TabBarProps) {
+function TabBar({ active, onChange, newCard }: TabBarProps) {
   const tabs: any[] = [
     { id: "timeline", icon: "🏠", label: "Timeline" },
     { id: "letters", icon: "💌", label: "Letters" },
@@ -1969,12 +1965,10 @@ function TabBar({ active, onChange, newCard, onRefresh, loading }: TabBarProps) 
       ))}
       <button
         className="tab-btn"
-        onClick={onRefresh}
-        disabled={loading}
-        style={{ opacity: loading ? 0.7 : 1 }}
+        onClick={() => window.location.reload()}
       >
-        <span className={loading ? "spin-anim" : ""} style={{ display: 'inline-block' }}>🔄</span>
-        {loading ? "Syncing..." : "Refresh"}
+        <span style={{ display: 'inline-block' }}>🔄</span>
+        Refresh
       </button>
     </nav>
   );
