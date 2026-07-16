@@ -843,7 +843,7 @@ function TimelineTab({
       <div className="journey-bar">
         <div className="jb-track">
           <div className="jb-fill" style={{ width: `${stats.percentComplete}%` }}>
-            {stats.percentComplete >= 50 && <div className="jb-shimmer-overlay" />}
+
           </div>
           <div className="jb-marker" style={{ left: `${Math.max(5, Math.min(95, stats.percentComplete))}%` }}>
             <img src={MASCOT_AVATARS.dhiraj} alt="Dhiraj" className={`jb-avatar ${stats.percentComplete >= 50 ? 'jb-halo' : ''}`} />
