@@ -1605,3 +1605,41 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   color: var(--pink);
   text-align: center;
 }
+
+/* ---- Kanpur Escape Countdown Pill ---- */
+.escape-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 auto 10px;
+  padding: 6px 16px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.35));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255,255,255,0.7);
+  border-radius: 100px;
+  box-shadow: 0 4px 16px rgba(124,107,196,0.12);
+  width: fit-content;
+}
+
+.escape-pill-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.escape-pill-text {
+  font-size: 12px;
+  font-weight: 700;
+  color: #7C6BC4;
+  letter-spacing: 0.1px;
+}
+
+.escape-pill-time {
+  font-size: 13px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #F97316, #EF4444);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.3px;
+}

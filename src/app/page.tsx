@@ -154,6 +154,52 @@ function TypewriterText({ text }: { text: string }) {
   return <span>{text}</span>;
 }
 
+// July 29 midnight IST (= July 28, 18:30 UTC) — the day Dhiraj leaves Kanpur
+const ESCAPE_DATE = new Date(Date.UTC(2026, 6, 28, 18, 30, 0));
+
+function EscapeCountdown() {
+  const [mounted, setMounted] = useState(false);
+  const [diff, setDiff] = useState({ days: 0, hours: 0, minutes: 0, escaped: false });
+
+  useEffect(() => {
+    setMounted(true);
+    function calc() {
+      const now = Date.now();
+      const ms = ESCAPE_DATE.getTime() - now;
+      if (ms <= 0) {
+        setDiff({ days: 0, hours: 0, minutes: 0, escaped: true });
+        return;
+      }
+      const totalMins = Math.floor(ms / 60000);
+      setDiff({
+        days: Math.floor(totalMins / 1440),
+        hours: Math.floor((totalMins % 1440) / 60),
+        minutes: totalMins % 60,
+        escaped: false,
+      });
+    }
+    calc();
+    const t = setInterval(calc, 30000);
+    return () => clearInterval(t);
+  }, []);
+
+  if (!mounted || diff.escaped) return null;
+
+  const label = diff.days > 0
+    ? `${diff.days}d ${diff.hours}h`
+    : diff.hours > 0
+    ? `${diff.hours}h ${diff.minutes}m`
+    : `${diff.minutes}m`;
+
+  return (
+    <div className="escape-pill">
+      <span className="escape-pill-icon">🚆</span>
+      <span className="escape-pill-text">Kanpur Escape in</span>
+      <span className="escape-pill-time">{label}</span>
+    </div>
+  );
+}
+
 // Sub-component: Massive Live Countdown Hero
 function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: number; percentComplete: number }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, dayProgress: 0 });
@@ -776,6 +822,9 @@ function TimelineTab({
       <div className="hero-compact">
         <LiveCountdownHero daysUntilHome={stats.daysUntilHome} percentComplete={stats.percentComplete} />
       </div>
+
+      {/* Kanpur Escape Countdown */}
+      <EscapeCountdown />
 
       {/* Progress Track */}
       <div className="journey-bar">
