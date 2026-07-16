@@ -216,12 +216,19 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
     );
   }
 
+
   return (
     <div className="countdown-hero-card">
       <div className="ch-glare" />
       <div className="ch-blob ch-blob-1" />
       <div className="ch-blob ch-blob-2" />
       
+      {/* 🟢 Live Badge */}
+      <div className="ch-live-badge">
+        <span className="ch-live-dot" />
+        Live
+      </div>
+
       <div className="ch-title">
         {timeLeft.days} Days Until You're Home
         <svg key={timeLeft.seconds} className="ch-heart-svg" viewBox="0 0 32 29.6">
@@ -236,13 +243,13 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
         
         <span key={`sep1-${timeLeft.seconds}`} className="ch-sep">:</span>
         
-        <div className="ch-group">
+        <div key={`hrs-box-${timeLeft.hours}`} className="ch-group ch-group-flash">
           <span key={timeLeft.hours} className="ch-val ch-hrs slide-in">{pad(timeLeft.hours)}</span>
         </div>
         
         <span key={`sep2-${timeLeft.seconds}`} className="ch-sep">:</span>
         
-        <div className="ch-group">
+        <div key={`mins-box-${timeLeft.minutes}`} className="ch-group ch-group-flash">
           <span key={timeLeft.minutes} className="ch-val ch-mins slide-in">{pad(timeLeft.minutes)}</span>
         </div>
         
@@ -255,6 +262,7 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
     </div>
   );
 }
+
 
 
 export default function Home() {
