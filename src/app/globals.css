@@ -100,7 +100,8 @@ to{transform:scale(1);opacity:1}
 .scene-detail{font-size:12px;color:#6A6E8B;font-weight:700;line-height:1.2;margin-top:2px;margin-left:6px}
 .journey-bar{margin:6px 0 8px;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:16px;padding:10px;border:1px solid rgba(255,255,255,.5)}
 .jb-track{position:relative;height:12px;border-radius:8px;background:rgba(0,0,0,.05);margin:0 6px;box-shadow:inset 0 2px 4px rgba(0,0,0,.05)}
-.jb-fill{position:absolute;left:0;top:0;height:100%;border-radius:8px;background:linear-gradient(90deg,#FF6B9E,#8A70FF);transition:width 1s ease}
+.jb-fill{position:absolute;left:0;top:0;height:100%;border-radius:8px;background:linear-gradient(90deg,#FF6B9E,#8A70FF,#FF6B9E,#8A70FF);background-size:300% 100%;animation:liquidFlow 12s infinite linear;transition:width 1s ease}
+@keyframes liquidFlow{0%{background-position:0% 50%}100%{background-position:-150% 50%}}
 .jb-shimmer-overlay{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.35),transparent);background-size:300% 100%;animation:shimmerSweep 2s infinite cubic-bezier(0.4, 0, 0.2, 1);z-index:2;pointer-events:none}
 @keyframes shimmerSweep{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .jb-halo{border-radius:50%;}
