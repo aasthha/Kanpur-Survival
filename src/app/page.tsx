@@ -783,8 +783,6 @@ function TimelineTab({
           <div className="jb-fill" style={{ width: `${stats.percentComplete}%` }}>
             {stats.percentComplete >= 50 && <div className="jb-shimmer-overlay" />}
           </div>
-          <div className={`jb-milestone jb-milestone-50 ${stats.percentComplete >= 50 ? 'reached' : ''}`} title="50%" />
-          <div className={`jb-milestone jb-milestone-80 ${stats.percentComplete >= 80 ? 'reached' : ''}`} title="80%" />
           <div className="jb-marker" style={{ left: `${Math.max(5, Math.min(95, stats.percentComplete))}%` }}>
             <img src={MASCOT_AVATARS.dhiraj} alt="Dhiraj" className={`jb-avatar ${stats.percentComplete >= 50 ? 'jb-halo' : ''}`} />
           </div>
