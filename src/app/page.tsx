@@ -193,7 +193,7 @@ function EscapeCountdown() {
 
   return (
     <div className="escape-pill">
-      <span className="escape-pill-icon">🛫</span>
+      <span className="escape-pill-icon">✈️</span>
       <span className="escape-pill-text">Kanpur Escape in</span>
       <span className="escape-pill-time">{label}</span>
     </div>
