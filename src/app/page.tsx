@@ -159,6 +159,9 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, dayProgress: 0 });
   const [mounted, setMounted] = useState(false);
   const [animProgress, setAnimProgress] = useState(0);
+  const [particles, setParticles] = useState<{ id: number; x: number }[]>([]);
+  const prevHourRef = useRef(-1);
+  const particleIdRef = useRef(0);
 
   useEffect(() => {
     setMounted(true);
@@ -178,15 +181,26 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       };
     }
     setTimeLeft(calcRemaining());
-    const interval = setInterval(() => setTimeLeft(calcRemaining()), 1000);
+    const interval = setInterval(() => {
+      const t = calcRemaining();
+      setTimeLeft(t);
+      // Feature 4: particle burst when hour changes
+      if (prevHourRef.current !== -1 && prevHourRef.current !== t.hours) {
+        const burst = Array.from({ length: 5 }, (_, i) => ({
+          id: ++particleIdRef.current,
+          x: 20 + i * 14,
+        }));
+        setParticles(p => [...p, ...burst]);
+        setTimeout(() => setParticles(p => p.filter(x => !burst.find(b => b.id === x.id))), 1200);
+      }
+      prevHourRef.current = t.hours;
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     if (mounted) {
-      const timer = setTimeout(() => {
-        setAnimProgress(timeLeft.dayProgress);
-      }, 100);
+      const timer = setTimeout(() => setAnimProgress(timeLeft.dayProgress), 100);
       return () => clearTimeout(timer);
     }
   }, [mounted, timeLeft.dayProgress]);
@@ -202,10 +216,6 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
 
   const isComplete = timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0;
   const pad = (n: number) => String(n).padStart(2, "0");
-  
-  const r = 24; // new rx
-  const rectCirc = 100;
-  const offset = 100 - percentComplete;
 
   if (isComplete) {
     return (
@@ -216,46 +226,75 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
     );
   }
 
+  // Feature 1: urgency ramp — seconds class escalates near :00
+  const sec = timeLeft.seconds;
+  const urgencyClass = sec <= 5 ? 'secs-critical' : sec <= 10 ? 'secs-warning' : '';
+
+  // Feature 7: days colour shift purple → amber → orange → red
+  const totalDays = 60;
+  const daysRatio = Math.min(1, (totalDays - daysUntilHome) / totalDays); // 0=start, 1=end
+  const daysColorClass = daysUntilHome <= 1 ? 'ch-days-red'
+    : daysUntilHome <= 5 ? 'ch-days-orange'
+    : daysUntilHome <= 10 ? 'ch-days-amber'
+    : 'ch-days-purple';
+
+  // Feature 3: daily palette shift — rotate hue by 6deg per day elapsed
+  const dayElapsed = totalDays - daysUntilHome;
+  const hueShift = (dayElapsed * 6) % 360;
+
   return (
-    <div className="countdown-hero-card">
+    <div className="countdown-hero-card" style={{ filter: `hue-rotate(${hueShift * 0.04}deg)` }}>
       <div className="ch-glare" />
       <div className="ch-blob ch-blob-1" />
       <div className="ch-blob ch-blob-2" />
-      
+
       <div className="ch-title">
         {timeLeft.days} Days Until You're Home
+        {/* Feature 2: heartbeat pulse keyed to seconds */}
         <svg key={timeLeft.seconds} className="ch-heart-svg" viewBox="0 0 32 29.6">
           <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2 c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
         </svg>
       </div>
-      
-      <div className="ch-digits-row">
-        <div className="ch-group ch-group-days" style={{ "--progress": animProgress } as React.CSSProperties}>
-          <span key={timeLeft.days} className="ch-val ch-days slide-in">{pad(timeLeft.days)}</span>
-        </div>
-        
-        <span key={`sep1-${timeLeft.seconds}`} className="ch-sep">:</span>
-        
-        <div className="ch-group">
-          <span key={timeLeft.hours} className="ch-val ch-hrs slide-in">{pad(timeLeft.hours)}</span>
-        </div>
-        
-        <span key={`sep2-${timeLeft.seconds}`} className="ch-sep">:</span>
-        
-        <div className="ch-group">
-          <span key={timeLeft.minutes} className="ch-val ch-mins slide-in">{pad(timeLeft.minutes)}</span>
-        </div>
-        
-        <span key={`sep3-${timeLeft.seconds}`} className="ch-sep">:</span>
-        
-        <div className="ch-group">
-          <span key={timeLeft.seconds} className="ch-val ch-secs slide-in">{pad(timeLeft.seconds)}</span>
+
+      {/* Feature 5: ambient breathing glow wrapper */}
+      <div className="ch-breathe-wrap">
+        <div className="ch-digits-row">
+          {/* Days box with water fill */}
+          <div className="ch-group ch-group-days" style={{ "--progress": animProgress } as React.CSSProperties}>
+            <span key={timeLeft.days} className={`ch-val slide-in ${daysColorClass}`}>{pad(timeLeft.days)}</span>
+          </div>
+
+          <span key={`sep1-${timeLeft.seconds}`} className="ch-sep">:</span>
+
+          {/* Hours box with particle container */}
+          <div className="ch-group ch-hours-wrap" style={{ position: 'relative' }}>
+            <span key={timeLeft.hours} className="ch-val ch-hrs slide-in">{pad(timeLeft.hours)}</span>
+            {/* Feature 4: particles */}
+            {particles.map(p => (
+              <span key={p.id} className="ch-particle" style={{ left: p.x + '%' }}>✨</span>
+            ))}
+          </div>
+
+          <span key={`sep2-${timeLeft.seconds}`} className="ch-sep">:</span>
+
+          <div className="ch-group">
+            <span key={timeLeft.minutes} className="ch-val ch-mins slide-in">{pad(timeLeft.minutes)}</span>
+          </div>
+
+          <span key={`sep3-${timeLeft.seconds}`} className="ch-sep">:</span>
+
+          {/* Seconds box with urgency + tactile tick */}
+          <div className={`ch-group ch-secs-box ${urgencyClass}`}>
+            {/* Feature 6: tactile tick nudge keyed to every second */}
+            <span key={timeLeft.seconds} className={`ch-val ch-secs slide-in ch-tick-nudge ${urgencyClass}`}>
+              {pad(timeLeft.seconds)}
+            </span>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
 
 export default function Home() {
   const [todayDate] = useState(() => getKolkataToday());
