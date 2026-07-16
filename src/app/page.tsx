@@ -743,6 +743,7 @@ function TimelineTab({
   const [grandUnlockCard, setGrandUnlockCard] = useState<any | null>(null);
   const dateObj = parseUTCDate(today);
   const [viewMonth, setViewMonth] = useState(dateObj.getUTCMonth());
+  const [calExpanded, setCalExpanded] = useState(false);
 
   const activeDate = test ? selectedDate : today;
   const currentCompletions = test ? [...s.completions, ...tempCompletions] : s.completions;
@@ -793,10 +794,16 @@ function TimelineTab({
   }
 
   // Calendar rendering
-  const calendarYear = 2026; // Since the journey is entirely in 2026
+  const calendarYear = 2026;
   const calendarMonth = viewMonth;
   const calendarGrid = generateCalendarGrid(calendarYear, calendarMonth);
   const timelineSet = new Set(generateTimelineDays());
+
+  // For collapsed view: find the week row that contains today
+  const todayIndex = calendarGrid.findIndex(d => d === today);
+  const currentWeekStart = todayIndex >= 0 ? Math.floor(todayIndex / 7) * 7 : 0;
+  const collapsedGrid = calendarGrid.slice(currentWeekStart, currentWeekStart + 7);
+  const visibleGrid = calExpanded ? calendarGrid : collapsedGrid;
 
   return (
     <React.Fragment>
@@ -949,32 +956,52 @@ function TimelineTab({
       <div className="card cal-card" style={{ position: "relative", padding: "12px 14px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
           <h3 style={{ margin: 0, fontSize: 14, fontWeight: 800, color: "var(--ink)" }}>Calendar</h3>
-          <select 
-            value={viewMonth}
-            onChange={(e) => setViewMonth(Number(e.target.value))}
-            style={{ 
-              padding: "2px 6px", 
-              borderRadius: 8, 
-              border: "1px solid rgba(124,107,196,0.3)",
-              background: "rgba(255,255,255,0.5)",
-              fontWeight: 700,
-              fontSize: 13,
-              color: "var(--purple)",
-              outline: "none"
-            }}
-          >
-            <option value={5}>June</option>
-            <option value={6}>July</option>
-          </select>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            {calExpanded && (
+              <select 
+                value={viewMonth}
+                onChange={(e) => setViewMonth(Number(e.target.value))}
+                style={{ 
+                  padding: "2px 6px", 
+                  borderRadius: 8, 
+                  border: "1px solid rgba(124,107,196,0.3)",
+                  background: "rgba(255,255,255,0.5)",
+                  fontWeight: 700,
+                  fontSize: 13,
+                  color: "var(--purple)",
+                  outline: "none"
+                }}
+              >
+                <option value={5}>June</option>
+                <option value={6}>July</option>
+              </select>
+            )}
+            <button
+              onClick={() => setCalExpanded(e => !e)}
+              style={{
+                background: 'rgba(124,107,196,0.1)',
+                border: '1px solid rgba(124,107,196,0.2)',
+                borderRadius: 20,
+                padding: '3px 10px',
+                fontSize: 11,
+                fontWeight: 800,
+                color: 'var(--purple)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 4,
+              }}
+            >
+              {calExpanded ? '▲ Collapse' : '▼ Full view'}
+            </button>
+          </div>
         </div>
         <div className="cal-grid" style={{ position: "relative", zIndex: 1 }}>
           {["M", "T", "W", "T", "F", "S", "S"].map((w, idx) => (
-            <div className="cal-weekday" key={`w-${idx}`}>
-              {w}
-            </div>
+            <div className="cal-weekday" key={`w-${idx}`}>{w}</div>
           ))}
 
-          {calendarGrid.map((dayStr, idx) => {
+          {visibleGrid.map((dayStr, idx) => {
             if (!dayStr) return <div key={`b-${idx}`} />;
             const isHistoricalDefault = dayStr >= "2026-06-01" && dayStr <= "2026-06-08";
             const completionsForDay = currentCompletions.filter((c: any) => c.date === dayStr);
