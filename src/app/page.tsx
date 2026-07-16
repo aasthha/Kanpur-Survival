@@ -270,7 +270,7 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       
       <div className="ch-title">
         {timeLeft.days} Days Until You're Home
-        <span key={timeLeft.seconds} className="ch-heart-emoji">❤️</span>
+        <span key={timeLeft.seconds} className="ch-heart-emoji">💜</span>
       </div>
       
       <div className="ch-digits-row">
