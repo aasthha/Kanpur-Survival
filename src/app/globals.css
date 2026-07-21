@@ -101,6 +101,36 @@ to{transform:scale(1);opacity:1}
 .journey-bar{margin:6px 0 8px;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:16px;padding:10px;border:1px solid rgba(255,255,255,.5)}
 .jb-track{position:relative;height:12px;border-radius:8px;background:rgba(0,0,0,.05);margin:0 6px;box-shadow:inset 0 2px 4px rgba(0,0,0,.05)}
 .jb-fill{position:absolute;left:0;top:0;height:100%;border-radius:8px;background:linear-gradient(90deg,#FF6B9E,#8A70FF);transition:width 1s ease}
+
+/* Excitement Overload Classes */
+.jb-overload { animation: jbShake 0.4s infinite; }
+@keyframes jbShake {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(-1px) translateY(-1px) rotate(-0.5deg); }
+  75% { transform: translateX(1px) translateY(1px) rotate(0.5deg); }
+}
+.jb-fill.jb-fill-overload {
+  background: linear-gradient(90deg, #FF3366, #FF9900, #FF3366);
+  background-size: 200% 100%;
+  animation: jbNeonFlow 1s infinite linear, jbOverloadPulse 0.3s infinite alternate;
+  box-shadow: 0 0 12px rgba(255,51,102,0.8);
+}
+@keyframes jbNeonFlow { 0% { background-position: 0% 50%; } 100% { background-position: -200% 50%; } }
+@keyframes jbOverloadPulse { 0% { filter: brightness(1); } 100% { filter: brightness(1.4); } }
+
+.jb-sparks {
+  position: absolute; width: 3px; height: 10px; background: #FFE600;
+  border-radius: 2px; box-shadow: 0 0 8px #FFE600; opacity: 0; pointer-events: none;
+}
+.jb-spark-1 { top: -10px; left: 10px; animation: sparkPop 1.2s infinite 0.1s; }
+.jb-spark-2 { top: 35px; left: 25px; animation: sparkPop 0.9s infinite 0.4s; }
+.jb-spark-3 { top: 15px; left: -10px; animation: sparkPop 1.5s infinite 0.7s; }
+@keyframes sparkPop {
+  0% { opacity: 0; transform: scale(0.5) translateY(0) rotate(0deg); }
+  10% { opacity: 1; transform: scale(1.2) translateY(-10px) rotate(20deg); }
+  30% { opacity: 0; transform: scale(0) translateY(-20px) rotate(45deg); }
+  100% { opacity: 0; }
+}
 .jb-shimmer-overlay{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.35),transparent);background-size:300% 100%;animation:shimmerSweep 2s infinite cubic-bezier(0.4, 0, 0.2, 1);z-index:2;pointer-events:none}
 @keyframes shimmerSweep{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .jb-halo{border-radius:50%;}

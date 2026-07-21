@@ -840,18 +840,25 @@ function TimelineTab({
       <EscapeCountdown />
 
       {/* Progress Track */}
-      <div className="journey-bar">
+      <div className={`journey-bar ${stats.daysUntilHome < 10 ? 'jb-overload' : ''}`}>
         <div className="jb-track">
-          <div className="jb-fill" style={{ width: `${stats.percentComplete}%` }}>
+          <div className={`jb-fill ${stats.daysUntilHome < 10 ? 'jb-fill-overload' : ''}`} style={{ width: `${stats.percentComplete}%` }}>
 
           </div>
           <div className="jb-marker" style={{ left: `${Math.max(5, Math.min(95, stats.percentComplete))}%` }}>
             <img src={MASCOT_AVATARS.dhiraj} alt="Dhiraj" className={`jb-avatar ${stats.percentComplete >= 50 ? 'jb-halo' : ''}`} />
+            {stats.daysUntilHome < 10 && (
+              <>
+                <div className="jb-sparks jb-spark-1" />
+                <div className="jb-sparks jb-spark-2" />
+                <div className="jb-sparks jb-spark-3" />
+              </>
+            )}
           </div>
         </div>
         <div className="jb-labels">
           <span className="jb-location">📍 Kanpur</span>
-          <span className="jb-progress">{stats.percentComplete}%</span>
+          <span className="jb-progress" style={stats.daysUntilHome < 10 ? { color: '#FF3366', fontWeight: 900 } : {}}>{stats.percentComplete}%</span>
           <span className="jb-location">🏠 Nashik</span>
         </div>
       </div>
