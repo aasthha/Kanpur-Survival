@@ -275,7 +275,7 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       
       <div className="ch-digits-row">
         <div className="ch-group ch-group-days" style={{ "--progress": animProgress } as React.CSSProperties}>
-          <span key={timeLeft.days} className="ch-val ch-days slide-in morph-days">{pad(timeLeft.days)}</span>
+          <span key={timeLeft.days} className="ch-val ch-days slide-in">{pad(timeLeft.days)}</span>
         </div>
         
         <span key={`sep1-${timeLeft.seconds}`} className="ch-sep">:</span>
@@ -368,14 +368,10 @@ export default function Home() {
       setSplashState('showing');
       window.localStorage.setItem(splashKey, 'true');
       
-      // Trigger morph transition at the climax of text zoom (2.5s)
       setTimeout(() => {
-        if (document.startViewTransition) {
-          document.startViewTransition(() => setSplashState('hidden'));
-        } else {
-          setSplashState('hidden');
-        }
-      }, 2500);
+        setSplashState('fading');
+        setTimeout(() => setSplashState('hidden'), 1500);
+      }, 3500);
     }
   }, [stats.daysUntilHome]);
   const isMilestoneDay = useMemo(() => {
@@ -560,17 +556,111 @@ export default function Home() {
 
   const isAdmin = currentUser.role === "admin";
 
+  const renderJoyfulSplash = () => {
+    if (splashState === 'hidden' || stats.daysUntilHome > 9 || stats.daysUntilHome < 1) return null;
+    const isFading = splashState === 'fading' ? 'fading-out' : '';
+    const day = stats.daysUntilHome;
+    
+    let content = null;
+    switch(day) {
+      case 9:
+        content = (
+          <div className="j9-bg">
+            <div className="j9-cloud j9-cloud-1">☁️</div>
+            <div className="j9-cloud j9-cloud-2">☁️</div>
+            <div className="j9-sun"><div className="joyful-text">DAY 9</div></div>
+          </div>
+        );
+        break;
+      case 8:
+        content = (
+          <div className="j8-bg">
+            <div className="j8-sunflower">🌻<div className="joyful-text">DAY 8</div></div>
+          </div>
+        );
+        break;
+      case 7:
+        content = (
+          <div className="j7-bg">
+            <div className="j7-rainbow">🌈</div>
+            <div className="j7-balloons">🎈 <span className="joyful-text">DAY 7</span> 🎈</div>
+          </div>
+        );
+        break;
+      case 6:
+        content = (
+          <div className="j6-bg">
+            <div className="j6-letter">💌</div>
+            <div className="j6-heart j6-h1">💜</div>
+            <div className="j6-heart j6-h2">💜</div>
+            <div className="j6-heart j6-h3">💜</div>
+            <div className="joyful-text">DAY 6</div>
+          </div>
+        );
+        break;
+      case 5:
+        content = (
+          <div className="j5-bg">
+            <div className="j5-star" style={{top: '10%', left: '20%'}}>✨</div>
+            <div className="j5-star" style={{top: '30%', left: '80%'}}>✨</div>
+            <div className="j5-star" style={{top: '70%', left: '40%'}}>✨</div>
+            <div className="j5-star" style={{top: '50%', left: '10%'}}>✨</div>
+            <div className="j5-shooting"></div>
+            <div className="joyful-text">DAY 5</div>
+          </div>
+        );
+        break;
+      case 4:
+        content = (
+          <div className="j4-bg">
+            <div className="j4-butterfly j4-b1">🦋</div>
+            <div className="j4-butterfly j4-b2">🦋</div>
+            <div className="j4-butterfly j4-b3">🦋</div>
+            <div className="joyful-text">DAY 4</div>
+          </div>
+        );
+        break;
+      case 3:
+        content = (
+          <div className="j3-bg">
+            <div className="j3-sun"></div>
+            <div className="j3-ocean"></div>
+            <div className="joyful-text">DAY 3</div>
+          </div>
+        );
+        break;
+      case 2:
+        content = (
+          <div className="j2-bg">
+            <div className="j2-jar">🫙</div>
+            <div className="j2-firefly j2-f1"></div>
+            <div className="j2-firefly j2-f2"></div>
+            <div className="j2-firefly j2-f3"></div>
+            <div className="joyful-text" style={{animationDelay: '1.5s', opacity: 0, animation: 'j2JarFade 1s forwards 1.5s'}}>DAY 2</div>
+          </div>
+        );
+        break;
+      case 1:
+        content = (
+          <div className="j1-bg">
+            <div className="j1-bouquet">💐</div>
+            <div className="joyful-text" style={{color: '#D84315'}}>DAY 1</div>
+          </div>
+        );
+        break;
+    }
+
+    return (
+      <div className={`joyful-splash ${isFading}`}>
+        {content}
+      </div>
+    );
+  };
+
   return (
     <main className={`app-shell ${isMilestoneDay ? 'milestone-day' : ''}`}>
-      {/* Cinematic Daily Splash */}
-      {splashState !== 'hidden' && (
-        <div className={`cinematic-splash ${splashState === 'fading' ? 'fading-out' : ''}`}>
-          <div className="warp-stars layer-1" />
-          <div className="warp-stars layer-2" />
-          <div className="warp-stars layer-3" />
-          <div className="cinematic-text">DAY <span className="morph-days">{stats.daysUntilHome}</span></div>
-        </div>
-      )}
+      {/* Joyful Daily Splash */}
+      {renderJoyfulSplash()}
 
       {/* Milestone Celebration Overlay */}
       {milestoneOverlay && (
