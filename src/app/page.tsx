@@ -368,12 +368,12 @@ export default function Home() {
       setSplashState('showing');
       window.localStorage.setItem(splashKey, 'true');
       
-      // Start fading out after 3.5 seconds
+      // Trigger warp flash at the climax of text zoom (2.3s)
       setTimeout(() => {
         setSplashState('fading');
-        // Hide completely after shatter animation (0.8s)
+        // Hide completely after flash animation (0.8s)
         setTimeout(() => setSplashState('hidden'), 800);
-      }, 3500);
+      }, 2300);
     }
   }, [stats.daysUntilHome]);
   const isMilestoneDay = useMemo(() => {
@@ -562,11 +562,11 @@ export default function Home() {
       {/* Cinematic Daily Splash */}
       {splashState !== 'hidden' && (
         <div className={`cinematic-splash ${splashState === 'fading' ? 'fading-out' : ''}`}>
-          <div className="shard shard-1" />
-          <div className="shard shard-2" />
-          <div className="shard shard-3" />
-          <div className="shard shard-4" />
+          <div className="warp-stars layer-1" />
+          <div className="warp-stars layer-2" />
+          <div className="warp-stars layer-3" />
           <div className="cinematic-text">DAY {stats.daysUntilHome}</div>
+          <div className={`warp-flash ${splashState === 'fading' ? 'flash-active' : ''}`} />
         </div>
       )}
 
