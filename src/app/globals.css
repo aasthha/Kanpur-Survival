@@ -1702,12 +1702,9 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   animation: warpTextZoom 2.5s ease-in forwards;
 }
 
-.warp-flash {
-  position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
-  background: #FFF; z-index: 20; opacity: 0;
-}
-.cinematic-splash.fading-out .warp-flash {
-  animation: warpFlashClimax 0.8s ease-out forwards;
+.morph-days {
+  view-transition-name: morph-days;
+  display: inline-block;
 }
 
 @keyframes warpFly {
@@ -1720,11 +1717,5 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   0% { transform: scale(0); opacity: 0; }
   20% { transform: scale(0.6); opacity: 1; filter: blur(0px); }
   60% { transform: scale(1.2); opacity: 1; filter: blur(0px); }
-  100% { transform: scale(20); opacity: 0; filter: blur(10px); }
-}
-
-@keyframes warpFlashClimax {
-  0% { opacity: 0; }
-  20% { opacity: 1; }
-  100% { opacity: 0; }
+  100% { transform: scale(2); opacity: 1; filter: blur(0px); }
 }

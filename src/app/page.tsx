@@ -275,7 +275,7 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       
       <div className="ch-digits-row">
         <div className="ch-group ch-group-days" style={{ "--progress": animProgress } as React.CSSProperties}>
-          <span key={timeLeft.days} className="ch-val ch-days slide-in">{pad(timeLeft.days)}</span>
+          <span key={timeLeft.days} className="ch-val ch-days slide-in morph-days">{pad(timeLeft.days)}</span>
         </div>
         
         <span key={`sep1-${timeLeft.seconds}`} className="ch-sep">:</span>
@@ -368,12 +368,14 @@ export default function Home() {
       setSplashState('showing');
       window.localStorage.setItem(splashKey, 'true');
       
-      // Trigger warp flash at the climax of text zoom (2.3s)
+      // Trigger morph transition at the climax of text zoom (2.5s)
       setTimeout(() => {
-        setSplashState('fading');
-        // Hide completely after flash animation (0.8s)
-        setTimeout(() => setSplashState('hidden'), 800);
-      }, 2300);
+        if (document.startViewTransition) {
+          document.startViewTransition(() => setSplashState('hidden'));
+        } else {
+          setSplashState('hidden');
+        }
+      }, 2500);
     }
   }, [stats.daysUntilHome]);
   const isMilestoneDay = useMemo(() => {
@@ -565,8 +567,7 @@ export default function Home() {
           <div className="warp-stars layer-1" />
           <div className="warp-stars layer-2" />
           <div className="warp-stars layer-3" />
-          <div className="cinematic-text">DAY {stats.daysUntilHome}</div>
-          <div className={`warp-flash ${splashState === 'fading' ? 'flash-active' : ''}`} />
+          <div className="cinematic-text">DAY <span className="morph-days">{stats.daysUntilHome}</span></div>
         </div>
       )}
 
