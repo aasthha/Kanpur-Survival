@@ -371,8 +371,8 @@ export default function Home() {
       // Start fading out after 3.5 seconds
       setTimeout(() => {
         setSplashState('fading');
-        // Hide completely after fade out animation (1.5s)
-        setTimeout(() => setSplashState('hidden'), 1500);
+        // Hide completely after shatter animation (0.8s)
+        setTimeout(() => setSplashState('hidden'), 800);
       }, 3500);
     }
   }, [stats.daysUntilHome]);
@@ -562,6 +562,10 @@ export default function Home() {
       {/* Cinematic Daily Splash */}
       {splashState !== 'hidden' && (
         <div className={`cinematic-splash ${splashState === 'fading' ? 'fading-out' : ''}`}>
+          <div className="shard shard-1" />
+          <div className="shard shard-2" />
+          <div className="shard shard-3" />
+          <div className="shard shard-4" />
           <div className="cinematic-text">DAY {stats.daysUntilHome}</div>
         </div>
       )}
