@@ -1677,7 +1677,16 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 .cinematic-splash {
   position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
   z-index: 9999; display: flex; justify-content: center; align-items: center;
-  pointer-events: none; background: #000; overflow: hidden;
+  pointer-events: none; overflow: hidden;
+  background: linear-gradient(-45deg, #FF6B9E, #8A70FF, #FF3366, #5A32FA);
+  background-size: 400% 400%;
+  animation: gradientBG 3s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .warp-stars {
