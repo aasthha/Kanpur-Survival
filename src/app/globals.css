@@ -1723,8 +1723,20 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 }
 
 @keyframes warpTextZoom {
-  0% { transform: scale(0); opacity: 0; }
-  20% { transform: scale(0.6); opacity: 1; filter: blur(0px); }
-  60% { transform: scale(1.2); opacity: 1; filter: blur(0px); }
-  100% { transform: scale(2); opacity: 1; filter: blur(0px); }
+  0% { 
+    transform: scale(0); opacity: 0; 
+    text-shadow: 0 0 20px rgba(255, 51, 102, 0.8), 0 0 0px rgba(255,0,0,0), 0 0 0px rgba(0,255,255,0);
+  }
+  20% { 
+    transform: scale(0.6); opacity: 1; filter: blur(0px); 
+    text-shadow: 0 0 20px rgba(255, 51, 102, 0.8), -3px 0 0px rgba(255,0,0,0.8), 3px 0 0px rgba(0,255,255,0.8);
+  }
+  60% { 
+    transform: scale(1.2); opacity: 1; filter: blur(0px); 
+    text-shadow: 0 0 20px rgba(255, 51, 102, 0.8), -10px 0 0px rgba(255,0,0,0.8), 10px 0 0px rgba(0,255,255,0.8);
+  }
+  100% { 
+    transform: scale(2); opacity: 1; filter: blur(0px); 
+    text-shadow: 0 0 20px rgba(255, 51, 102, 0.8), -25px 0 5px rgba(255,0,0,0.5), 25px 0 5px rgba(0,255,255,0.5);
+  }
 }
