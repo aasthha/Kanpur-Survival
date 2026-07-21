@@ -382,7 +382,8 @@ export default function Home() {
     if (typeof window === "undefined") return false;
     const milestones = [80, 50]; // check highest first
     for (const m of milestones) {
-      if (stats.percentComplete >= m) {
+      // Only trigger if within 2% of the milestone (prevents late triggers on new devices)
+      if (stats.percentComplete >= m && stats.percentComplete < m + 2) {
         const dateKey = `milestone_${m}_date`;
         const storedDate = window.localStorage.getItem(dateKey);
         if (!storedDate) {
