@@ -358,6 +358,24 @@ export default function Home() {
 
   // Milestone day detection & celebration
   const [milestoneOverlay, setMilestoneOverlay] = useState<number | null>(null);
+  const [splashState, setSplashState] = useState<'hidden' | 'showing' | 'fading'>('hidden');
+
+  // Cinematic Daily Splash for Single Digits
+  useEffect(() => {
+    if (typeof window === 'undefined' || stats.daysUntilHome >= 10 || stats.daysUntilHome <= 0) return;
+    const splashKey = `cinematic_splash_seen_${stats.daysUntilHome}`;
+    if (!window.localStorage.getItem(splashKey)) {
+      setSplashState('showing');
+      window.localStorage.setItem(splashKey, 'true');
+      
+      // Start fading out after 3.5 seconds
+      setTimeout(() => {
+        setSplashState('fading');
+        // Hide completely after fade out animation (1.5s)
+        setTimeout(() => setSplashState('hidden'), 1500);
+      }, 3500);
+    }
+  }, [stats.daysUntilHome]);
   const isMilestoneDay = useMemo(() => {
     if (typeof window === "undefined") return false;
     const milestones = [80, 50]; // check highest first
@@ -541,6 +559,13 @@ export default function Home() {
 
   return (
     <main className={`app-shell ${isMilestoneDay ? 'milestone-day' : ''}`}>
+      {/* Cinematic Daily Splash */}
+      {splashState !== 'hidden' && (
+        <div className={`cinematic-splash ${splashState === 'fading' ? 'fading-out' : ''}`}>
+          <div className="cinematic-text">DAY {stats.daysUntilHome}</div>
+        </div>
+      )}
+
       {/* Milestone Celebration Overlay */}
       {milestoneOverlay && (
         <div className="milestone-overlay" onClick={() => setMilestoneOverlay(null)}>
