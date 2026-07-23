@@ -296,6 +296,21 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
           <span key={timeLeft.seconds} className="ch-val ch-secs slide-in">{pad(timeLeft.seconds)}</span>
         </div>
       </div>
+
+      {timeLeft.days <= 7 && (
+        <div className={`ch-ribbon ch-ribbon-${timeLeft.days}`}>
+          <span className="ch-ribbon-shimmer" />
+          <span className="ch-ribbon-text">
+            {timeLeft.days === 1 ? '🔥 TOMORROW! 🔥' :
+             timeLeft.days === 2 ? '⚡ 2 DAYS TO GO! ⚡' :
+             timeLeft.days === 3 ? '🌟 3 DAYS TO GO! 🌟' :
+             timeLeft.days === 4 ? '💫 4 DAYS TO GO! 💫' :
+             timeLeft.days === 5 ? '🎯 5 DAYS TO GO! 🎯' :
+             timeLeft.days === 6 ? '💜 6 DAYS TO GO! 💜' :
+             '✨ 7 DAYS TO GO! ✨'}
+          </span>
+        </div>
+      )}
     </div>
   );
 }

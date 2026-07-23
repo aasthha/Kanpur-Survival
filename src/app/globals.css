@@ -1443,6 +1443,76 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   100% { transform: scale(1); }
 }
 
+/* Countdown Ribbon Banner */
+.ch-ribbon {
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  overflow: hidden;
+  text-align: center;
+  animation: ribbonEntrance 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes ribbonEntrance {
+  0% { transform: scaleX(0); opacity: 0; }
+  100% { transform: scaleX(1); opacity: 1; }
+}
+
+.ch-ribbon-text {
+  position: relative;
+  z-index: 2;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: white;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.ch-ribbon-shimmer {
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.35) 50%,
+    transparent 100%
+  );
+  animation: ribbonShimmer 2.5s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes ribbonShimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Per-day ribbon colors */
+.ch-ribbon-7 { background: linear-gradient(135deg, #8B5CF6, #A78BFA); }
+.ch-ribbon-6 { background: linear-gradient(135deg, #A855F7, #C084FC); }
+.ch-ribbon-5 { background: linear-gradient(135deg, #3B82F6, #60A5FA); }
+.ch-ribbon-4 { background: linear-gradient(135deg, #F59E0B, #FBBF24); }
+.ch-ribbon-3 { background: linear-gradient(135deg, #F97316, #FB923C); }
+.ch-ribbon-2 { background: linear-gradient(135deg, #EF4444, #F87171); }
+.ch-ribbon-1 {
+  background: linear-gradient(135deg, #FFD700, #FFA500, #FF6347);
+  background-size: 200% 200%;
+  animation: ribbonEntrance 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+             ribbonGoldPulse 1.5s ease-in-out infinite;
+}
+.ch-ribbon-1 .ch-ribbon-text {
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+@keyframes ribbonGoldPulse {
+  0%, 100% { background-position: 0% 50%; box-shadow: 0 0 12px rgba(255, 215, 0, 0.4); }
+  50% { background-position: 100% 50%; box-shadow: 0 0 24px rgba(255, 165, 0, 0.7); }
+}
+
 /* Background Blobs */
 .ch-blob {
   display: none;
