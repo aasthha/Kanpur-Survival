@@ -60,6 +60,13 @@ body{color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;-we
 button,input,select,textarea{font:inherit;color:inherit}
 button{touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .app-shell{position:fixed;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;overflow:hidden;background:linear-gradient(145deg,#E2D7F4,#D1C0EC);transition:background 1s ease}
+.app-shell.warmth-7{background:linear-gradient(145deg,#DED3F2,#D4C3EB)}
+.app-shell.warmth-6{background:linear-gradient(145deg,#DDCFF0,#D9C2E8)}
+.app-shell.warmth-5{background:linear-gradient(145deg,#DFCCEE,#DDC0E4)}
+.app-shell.warmth-4{background:linear-gradient(145deg,#E4CAEB,#E2BBE0)}
+.app-shell.warmth-3{background:linear-gradient(145deg,#E8C8E6,#E6B8DA)}
+.app-shell.warmth-2{background:linear-gradient(145deg,#ECC6E2,#EAB5D4)}
+.app-shell.warmth-1{background:linear-gradient(145deg,#F0C5DE,#EEB2CE)}
 .app-shell.milestone-day{background:linear-gradient(135deg,#E6D8FC,#FCDAE8,#FCE8D5,#EAE0FB);animation:festiveBg 8s ease infinite;background-size:400% 400%}
 .app-shell.milestone-day::before{content:"";position:absolute;border-radius:50%;filter:blur(80px);opacity:0.35;width:400px;height:400px;background:#6610F2;top:40%;left:-100px;animation:blobDrift 18s ease-in-out infinite alternate;pointer-events:none;z-index:0}
 @keyframes festiveBg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}

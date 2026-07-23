@@ -569,7 +569,7 @@ export default function Home() {
   const isAdmin = currentUser.role === "admin";
 
   return (
-    <main className={`app-shell ${isMilestoneDay ? 'milestone-day' : ''}`}>
+    <main className={`app-shell ${isMilestoneDay ? 'milestone-day' : ''} ${stats.daysUntilHome <= 7 && stats.daysUntilHome >= 1 ? `warmth-${stats.daysUntilHome}` : ''}`}>
 
       {/* Milestone Celebration Overlay */}
       {milestoneOverlay && (
