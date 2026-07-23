@@ -1504,13 +1504,15 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 .ch-ribbon-4 { background: linear-gradient(135deg, #D85888, #E878A0); }
 .ch-ribbon-3 { background: linear-gradient(135deg, #E2684A, #F48C70); }
 .ch-ribbon-2 { background: linear-gradient(135deg, #DB4364, #EE6886); }
-.ch-ribbon-1 {
+.ch-ribbon-1,
+.ch-ribbon-0 {
   background: linear-gradient(135deg, #3A235D, #58358B);
   background-size: 200% 200%;
   animation: ribbonEntrance 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
              ribbonGoldPulse 1.5s ease-in-out infinite;
 }
-.ch-ribbon-1 .ch-ribbon-text {
+.ch-ribbon-1 .ch-ribbon-text,
+.ch-ribbon-0 .ch-ribbon-text {
   font-size: 14px;
   letter-spacing: 0.5px;
   color: #FFD700;

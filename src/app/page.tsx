@@ -209,10 +209,9 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
   useEffect(() => {
     setMounted(true);
     function calcRemaining() {
-      const [y, m, d] = END_DATE.split("-").map(Number);
-      const targetUTC = new Date(Date.UTC(y, m - 1, d, 18, 30, 0));
+      const target = new Date("2026-07-31T20:30:00+05:30");
       const now = new Date();
-      const diff = Math.max(0, targetUTC.getTime() - now.getTime());
+      const diff = Math.max(0, target.getTime() - now.getTime());
       const totalSecs = Math.floor(diff / 1000);
       const dayProgress = ((now.getHours() * 3600) + (now.getMinutes() * 60) + now.getSeconds()) / 86400 * 100;
       return {
@@ -220,6 +219,7 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
         hours: Math.floor((totalSecs % 86400) / 3600),
         minutes: Math.floor((totalSecs % 3600) / 60),
         seconds: totalSecs % 60,
+        totalSecs,
         dayProgress,
       };
     }
@@ -246,7 +246,7 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
     );
   }
 
-  const isComplete = timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0;
+  const isComplete = timeLeft.totalSecs === 0;
   const pad = (n: number) => String(n).padStart(2, "0");
   
   const r = 24; // new rx
@@ -269,7 +269,19 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       <div className="ch-blob ch-blob-2" />
       
       <div className="ch-title">
-        <span style={{ fontSize: "1.4em" }}>{timeLeft.days}</span> Days Until You're Home
+        {timeLeft.days > 0 ? (
+          <>
+            <span style={{ fontSize: "1.4em" }}>{timeLeft.days}</span> Days Until You're Home
+          </>
+        ) : timeLeft.hours > 0 ? (
+          <>
+            <span style={{ fontSize: "1.4em" }}>{timeLeft.hours}</span> {timeLeft.hours === 1 ? 'Hour' : 'Hours'} Until We Meet
+          </>
+        ) : (
+          <>
+            <span style={{ fontSize: "1.4em" }}>{timeLeft.minutes}</span> {timeLeft.minutes === 1 ? 'Min' : 'Mins'} Until We Meet
+          </>
+        )}
         <span key={timeLeft.seconds} className="ch-heart-emoji">💜</span>
       </div>
       
@@ -297,8 +309,8 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
         </div>
       </div>
 
-      {timeLeft.days <= 7 && timeLeft.days >= 1 && (() => {
-        const sparkleCount = 8 - timeLeft.days; // 1 sparkle on day 7, 7 on day 1
+      {timeLeft.days <= 7 && timeLeft.days >= 0 && (() => {
+        const sparkleCount = 8 - Math.min(7, timeLeft.days); // 1 sparkle on day 7, 8 on day 0
         return (
           <div className={`ch-ribbon ch-ribbon-${timeLeft.days}`}>
             <span className="ch-ribbon-shimmer" />
@@ -313,7 +325,8 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
               >✦</span>
             ))}
             <span className="ch-ribbon-text">
-              {timeLeft.days === 1 ? '🔥 TOMORROW YOU\'RE HOME 🔥' :
+              {timeLeft.days === 0 ? '💖 IT\'S HAPPENING TODAY! 💖' :
+               timeLeft.days === 1 ? '🔥 TOMORROW YOU\'RE HOME 🔥' :
                timeLeft.days === 2 ? '⚡ ONE MORE SLEEP after this ⚡' :
                timeLeft.days === 3 ? '🌟 The suitcase is judging you. Pack it 🌟' :
                timeLeft.days === 4 ? '💫 Start packing your bags! 💫' :
