@@ -1751,12 +1751,15 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 }
 
 .escape-pill-success {
-  background: linear-gradient(135deg, rgba(220, 252, 231, 0.9), rgba(187, 247, 208, 0.6));
-  border-color: rgba(74, 222, 128, 0.8);
+  background: linear-gradient(135deg, rgba(237, 249, 238, 0.95), rgba(220, 245, 222, 0.85));
+  border: 1.5px solid rgba(107, 203, 119, 0.45);
+  box-shadow: 0 4px 16px rgba(107, 203, 119, 0.15);
 }
 .escape-pill-success .escape-pill-text {
-  color: #15803D;
+  color: #2E7D32;
+  font-family: var(--font-nunito, 'Nunito'), system-ui, sans-serif;
   font-weight: 800;
+  letter-spacing: 0.2px;
 }
 
 .escape-pill-icon {
