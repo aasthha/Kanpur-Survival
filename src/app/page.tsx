@@ -154,12 +154,12 @@ function TypewriterText({ text }: { text: string }) {
   return <span>{text}</span>;
 }
 
-// July 29 midnight IST (= July 28, 18:30 UTC) — the day Dhiraj leaves Kanpur
-const ESCAPE_DATE = new Date(Date.UTC(2026, 6, 28, 18, 30, 0));
+// July 30, 6:00 AM IST — Dhiraj leaves Kanpur
+const ESCAPE_DATE = new Date("2026-07-30T06:00:00+05:30");
 
 function EscapeCountdown() {
   const [mounted, setMounted] = useState(false);
-  const [diff, setDiff] = useState({ days: 0, hours: 0, minutes: 0, escaped: false });
+  const [diff, setDiff] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, escaped: false });
 
   useEffect(() => {
     setMounted(true);
@@ -167,19 +167,20 @@ function EscapeCountdown() {
       const now = Date.now();
       const ms = ESCAPE_DATE.getTime() - now;
       if (ms <= 0) {
-        setDiff({ days: 0, hours: 0, minutes: 0, escaped: true });
+        setDiff({ days: 0, hours: 0, minutes: 0, seconds: 0, escaped: true });
         return;
       }
-      const totalMins = Math.floor(ms / 60000);
+      const totalSecs = Math.floor(ms / 1000);
       setDiff({
-        days: Math.floor(totalMins / 1440),
-        hours: Math.floor((totalMins % 1440) / 60),
-        minutes: totalMins % 60,
+        days: Math.floor(totalSecs / 86400),
+        hours: Math.floor((totalSecs % 86400) / 3600),
+        minutes: Math.floor((totalSecs % 3600) / 60),
+        seconds: totalSecs % 60,
         escaped: false,
       });
     }
     calc();
-    const t = setInterval(calc, 30000);
+    const t = setInterval(calc, 1000);
     return () => clearInterval(t);
   }, []);
 
@@ -189,7 +190,7 @@ function EscapeCountdown() {
     ? `${diff.days}d ${diff.hours}h`
     : diff.hours > 0
     ? `${diff.hours}h ${diff.minutes}m`
-    : `${diff.minutes}m`;
+    : `${diff.minutes}m ${diff.seconds}s`;
 
   return (
     <div className="escape-pill">
