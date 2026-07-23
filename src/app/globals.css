@@ -1470,10 +1470,10 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
 .ch-ribbon-text {
   position: relative;
   z-index: 2;
-  font-family: 'Poppins', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
+  font-family: var(--font-nunito, 'Nunito'), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
   color: white;
   text-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
@@ -1511,8 +1511,8 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
              ribbonGoldPulse 1.5s ease-in-out infinite;
 }
 .ch-ribbon-1 .ch-ribbon-text {
-  font-size: 13px;
-  letter-spacing: 2px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
   color: #FFD700;
   text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
 }
