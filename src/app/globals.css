@@ -1750,6 +1750,15 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   width: fit-content;
 }
 
+.escape-pill-success {
+  background: linear-gradient(135deg, rgba(220, 252, 231, 0.9), rgba(187, 247, 208, 0.6));
+  border-color: rgba(74, 222, 128, 0.8);
+}
+.escape-pill-success .escape-pill-text {
+  color: #15803D;
+  font-weight: 800;
+}
+
 .escape-pill-icon {
   font-size: 16px;
   line-height: 1;

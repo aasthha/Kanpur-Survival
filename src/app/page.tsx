@@ -184,7 +184,16 @@ function EscapeCountdown() {
     return () => clearInterval(t);
   }, []);
 
-  if (!mounted || diff.escaped) return null;
+  if (!mounted) return null;
+
+  if (diff.escaped) {
+    return (
+      <div className="escape-pill escape-pill-success">
+        <span className="escape-pill-icon">🎉</span>
+        <span className="escape-pill-text">Successfully escaped Kanpur!</span>
+      </div>
+    );
+  }
 
   const label = diff.days > 0
     ? `${diff.days}d ${diff.hours}h`
