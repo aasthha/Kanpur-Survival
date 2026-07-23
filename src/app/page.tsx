@@ -297,20 +297,33 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
         </div>
       </div>
 
-      {timeLeft.days <= 7 && (
-        <div className={`ch-ribbon ch-ribbon-${timeLeft.days}`}>
-          <span className="ch-ribbon-shimmer" />
-          <span className="ch-ribbon-text">
-            {timeLeft.days === 1 ? '🔥 TOMORROW! 🔥' :
-             timeLeft.days === 2 ? '⚡ 2 DAYS TO GO! ⚡' :
-             timeLeft.days === 3 ? '🌟 3 DAYS TO GO! 🌟' :
-             timeLeft.days === 4 ? '💫 4 DAYS TO GO! 💫' :
-             timeLeft.days === 5 ? '🎯 5 DAYS TO GO! 🎯' :
-             timeLeft.days === 6 ? '💜 6 DAYS TO GO! 💜' :
-             '✨ 7 DAYS TO GO! ✨'}
-          </span>
-        </div>
-      )}
+      {timeLeft.days <= 7 && timeLeft.days >= 1 && (() => {
+        const sparkleCount = 8 - timeLeft.days; // 1 sparkle on day 7, 7 on day 1
+        return (
+          <div className={`ch-ribbon ch-ribbon-${timeLeft.days}`}>
+            <span className="ch-ribbon-shimmer" />
+            {Array.from({ length: sparkleCount }).map((_, i) => (
+              <span
+                key={i}
+                className="ch-sparkle"
+                style={{
+                  left: `${12 + (i * (76 / sparkleCount))}%`,
+                  animationDelay: `${i * 0.4}s`,
+                }}
+              >✦</span>
+            ))}
+            <span className="ch-ribbon-text">
+              {timeLeft.days === 1 ? '🔥 TOMORROW YOU\'RE HOME 🔥' :
+               timeLeft.days === 2 ? '⚡ ONE MORE SLEEP after this ⚡' :
+               timeLeft.days === 3 ? '🌟 The suitcase is judging you. Pack it 🌟' :
+               timeLeft.days === 4 ? '💫 Start packing your bags! 💫' :
+               timeLeft.days === 5 ? '🎯 High 5! Almost there 🎯' :
+               timeLeft.days === 6 ? '💜 Can you feel it getting closer? 💜' :
+               '🚀 The final week begins 🚀'}
+            </span>
+          </div>
+        );
+      })()}
     </div>
   );
 }
