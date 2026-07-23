@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
-import "./joyful-splash.css";
 
 const nunito = Nunito({
   subsets: ["latin"],
