@@ -1497,15 +1497,15 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   100% { left: 100%; }
 }
 
-/* Per-day ribbon colors (chosen to contrast with each day's emoji) */
-.ch-ribbon-7 { background: linear-gradient(135deg, #4338CA, #6366F1); }
-.ch-ribbon-6 { background: linear-gradient(135deg, #0D9488, #14B8A6); }
-.ch-ribbon-5 { background: linear-gradient(135deg, #2563EB, #3B82F6); }
-.ch-ribbon-4 { background: linear-gradient(135deg, #DB2777, #EC4899); }
-.ch-ribbon-3 { background: linear-gradient(135deg, #EA580C, #F97316); }
-.ch-ribbon-2 { background: linear-gradient(135deg, #DC2626, #EF4444); }
+/* Per-day ribbon colors (tailored for dashboard harmony & emoji contrast) */
+.ch-ribbon-7 { background: linear-gradient(135deg, #7C6BC4, #9B89E8); }
+.ch-ribbon-6 { background: linear-gradient(135deg, #0294A5, #14B8A6); }
+.ch-ribbon-5 { background: linear-gradient(135deg, #4F75E2, #7398FA); }
+.ch-ribbon-4 { background: linear-gradient(135deg, #D85888, #E878A0); }
+.ch-ribbon-3 { background: linear-gradient(135deg, #E2684A, #F48C70); }
+.ch-ribbon-2 { background: linear-gradient(135deg, #DB4364, #EE6886); }
 .ch-ribbon-1 {
-  background: linear-gradient(135deg, #1A1A1A, #333333);
+  background: linear-gradient(135deg, #3A235D, #58358B);
   background-size: 200% 200%;
   animation: ribbonEntrance 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
              ribbonGoldPulse 1.5s ease-in-out infinite;
@@ -1514,12 +1514,12 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   font-size: 14px;
   letter-spacing: 0.5px;
   color: #FFD700;
-  text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
 }
 
 @keyframes ribbonGoldPulse {
-  0%, 100% { box-shadow: 0 0 12px rgba(255, 215, 0, 0.3); }
-  50% { box-shadow: 0 0 24px rgba(255, 215, 0, 0.6); }
+  0%, 100% { box-shadow: 0 0 12px rgba(88, 53, 139, 0.4); }
+  50% { box-shadow: 0 0 24px rgba(255, 215, 0, 0.5); }
 }
 
 /* Floating Sparkle Particles */
