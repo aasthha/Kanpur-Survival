@@ -189,8 +189,8 @@ function EscapeCountdown() {
   const label = diff.days > 0
     ? `${diff.days}d ${diff.hours}h`
     : diff.hours > 0
-    ? `${diff.hours}h ${diff.minutes}m`
-    : `${diff.minutes}m ${diff.seconds}s`;
+    ? `${diff.hours}h`
+    : `${diff.minutes}m`;
 
   return (
     <div className="escape-pill">
