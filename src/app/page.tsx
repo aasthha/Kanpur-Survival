@@ -1143,7 +1143,7 @@ function TimelineTab({
 
                 {hasSurprise && <span className="cal-letter-dot">💌</span>}
                 {hasCardUnlock && (
-                  <span className="cal-letter-dot card-dot" style={hasSurprise ? { right: 12 } : {}}>
+                  <span className="cal-letter-dot card-dot" style={hasSurprise ? { right: 15 } : {}}>
                     🎴
                   </span>
                 )}
