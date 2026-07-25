@@ -1580,7 +1580,7 @@ function CardsTab({ cards, user, customs, today, onPhoto, onCustom }: CardsTabPr
 
   function handleCardClick(card: any) {
     const isUnlocked = checkCardUnlocked(card);
-    if (!isAdmin && !isUnlocked) return;
+    if (!isAdmin && !isUnlocked && card.weekNumber !== 6) return;
 
     setSelectedCard(card);
     setEditTitle(customs[`card_title_${card.weekNumber}`] || card.title);
@@ -1589,7 +1589,7 @@ function CardsTab({ cards, user, customs, today, onPhoto, onCustom }: CardsTabPr
     setEditUnlockDate(customs[`card_unlock_${card.weekNumber}`] || "");
 
     const unlockKey = customs[`card_unlock_${card.weekNumber}`];
-    if (unlockKey && unlockKey.startsWith(today) && !isAdmin) {
+    if (unlockKey && unlockKey.startsWith(today) && !isAdmin && card.weekNumber !== 6) {
       setShowUnlockAnim(true);
     }
   }
@@ -1647,7 +1647,7 @@ function CardsTab({ cards, user, customs, today, onPhoto, onCustom }: CardsTabPr
       <div className="cards-grid">
         {cards.map((card) => {
           const rarity = CARD_RARITIES[card.weekNumber] || CARD_RARITIES[1];
-          const isUnlocked = isAdmin || checkCardUnlocked(card);
+          const isUnlocked = isAdmin || checkCardUnlocked(card) || card.weekNumber === 6;
           const unlockKey = customs[`card_unlock_${card.weekNumber}`];
 
           return (
@@ -1729,7 +1729,7 @@ function CardsTab({ cards, user, customs, today, onPhoto, onCustom }: CardsTabPr
 
             <div className="detail-body">
               <p className="issue">Card #{selectedCard.weekNumber}</p>
-              {isAdmin ? (
+              {isAdmin || selectedCard.weekNumber === 6 ? (
                 <React.Fragment>
                   <div style={{ marginTop: 8 }}>
                     <label className="edit-label">Card Title</label>
