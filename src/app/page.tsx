@@ -1729,7 +1729,7 @@ function CardsTab({ cards, user, customs, today, onPhoto, onCustom }: CardsTabPr
 
             <div className="detail-body">
               <p className="issue">Card #{selectedCard.weekNumber}</p>
-              {isAdmin || selectedCard.weekNumber === 6 ? (
+              {isAdmin ? (
                 <React.Fragment>
                   <div style={{ marginTop: 8 }}>
                     <label className="edit-label">Card Title</label>
