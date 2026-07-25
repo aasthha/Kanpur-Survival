@@ -685,13 +685,14 @@ to{opacity:0;transform:translate(160px)}
 .phase-slide .fs-letter-card{opacity:.5;transform:translateY(20px) scale(.95)}
 .phase-reveal .fs-letter-card{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
 .phase-closing .fs-letter-card{opacity:0;transform:translateY(40px) scale(.9)}
-.fs-card-inner{background:#fff;border-radius:22px;box-shadow:0 12px 48px rgba(124,107,196,.2);border:3px solid rgba(124,107,196,.08);overflow-y:auto;max-height:calc(100vh - 200px)}
+.fs-card-inner{background:#fff;border-radius:22px;box-shadow:0 12px 48px rgba(124,107,196,.2);border:3px solid rgba(124,107,196,.08);overflow:visible;max-height:calc(100vh - 200px);display:flex;flex-direction:column}
+.fs-card-inner>*:not(.fs-butterflies){overflow-y:auto}
 .fs-sparkles{text-align:center;padding:12px 0 4px;font-size:20px;animation:sparkleFloat 2s ease-in-out infinite}
-.fs-butterflies{position:absolute;top:-10px;width:100%;text-align:center;pointer-events:none;font-size:18px}
+.fs-butterflies{position:relative;top:0;width:100%;text-align:center;pointer-events:none;font-size:18px;height:28px;z-index:5}
 .fs-butterflies span{display:inline-block;position:absolute;animation:flutterAnim 3s ease-in-out infinite alternate}
-.fs-butterflies .b1{left:10%;animation-delay:0s}
-.fs-butterflies .b2{left:50%;font-size:24px;top:-20px;animation-delay:.5s}
-.fs-butterflies .b3{right:10%;animation-delay:1s}
+.fs-butterflies .b1{left:10%;top:4px;animation-delay:0s}
+.fs-butterflies .b2{left:50%;font-size:24px;top:-2px;animation-delay:.5s}
+.fs-butterflies .b3{right:10%;top:4px;animation-delay:1s}
 @keyframes flutterAnim{0%{transform:translateY(0) rotate(-10deg) scale(.9);opacity:.8}
 to{transform:translateY(-15px) rotate(15deg) scale(1.1);opacity:1}
 }
