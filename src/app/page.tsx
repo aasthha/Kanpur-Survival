@@ -81,34 +81,7 @@ const WEEKLY_CARDS = [
     caption: "Six weeks completed. Problems enter. Solutions exit.",
     observation: "You have a very annoying habit of making difficult things look effortless.",
   },
-  {
-    weekNumber: 7,
-    title: "Quiet Strength",
-    emoji: "⚡",
-    caption: "Seven weeks down. You never make a big deal out of what you're carrying, but you've handled a lot.",
-    observation: "One of the things I admire most about you is how strong and independent you are without needing everyone to notice it.",
-  },
-  {
-    weekNumber: 8,
-    title: "Reliable As Ever",
-    emoji: "⚓",
-    caption: "Eight weeks completed. Through all the chaos, you've remained exactly who you are.",
-    observation: "You're the kind of person people quietly depend on, whether you realize it or not.",
-  },
-  {
-    weekNumber: 9,
-    title: "Future Industry Leader",
-    emoji: "🎓",
-    caption: "Nine weeks down. The intern era is rapidly becoming a myth.",
-    observation: "I can already picture you running things instead of learning how they work.",
-  },
-  {
-    weekNumber: 10,
-    title: "The Problem Absorber",
-    emoji: "🔥",
-    caption: "Ten weeks down. Problems continue arriving. Solutions continue leaving.",
-    observation: "You have this strange ability to stay calm while everyone else is figuring out how to panic.",
-  },
+
   {
     weekNumber: 11,
     title: "The Plot Armor Holder",
@@ -141,10 +114,7 @@ const CARD_RARITIES: Record<number, { tier: string; color: string; bg: string; i
   4: { tier: "Explorer", color: "#607D8B", bg: "linear-gradient(135deg, #B0BEC5, #546E7A)", icon: "🥈" },
   5: { tier: "Adventurer", color: "#F5A623", bg: "linear-gradient(135deg, #FFD54F, #F5A623)", icon: "🥇" },
   6: { tier: "Adventurer", color: "#F5A623", bg: "linear-gradient(135deg, #FFD54F, #F5A623)", icon: "🥇" },
-  7: { tier: "Specialist", color: "#7C4DFF", bg: "linear-gradient(135deg, #B388FF, #7C4DFF)", icon: "💎" },
-  8: { tier: "Specialist", color: "#7C4DFF", bg: "linear-gradient(135deg, #B388FF, #7C4DFF)", icon: "💎" },
-  9: { tier: "Veteran", color: "#E040FB", bg: "linear-gradient(135deg, #EA80FC, #CE93D8)", icon: "🔮" },
-  10: { tier: "Veteran", color: "#E040FB", bg: "linear-gradient(135deg, #EA80FC, #CE93D8)", icon: "🔮" },
+
   11: { tier: "Survivor", color: "#FF6D00", bg: "linear-gradient(135deg, #FFAB40, #FF6D00)", icon: "🔥" },
   12: { tier: "Legend", color: "#FFD700", bg: "linear-gradient(160deg, #FFD700, #FF6B35, #FF1744, #D500F9, #2979FF)", icon: "👑" },
 };
@@ -1698,17 +1668,6 @@ function CardsTab({ cards, user, customs, today, onPhoto, onCustom }: CardsTabPr
             className="card-detail card-detail-anim"
             style={{ borderColor: (CARD_RARITIES[selectedCard.weekNumber] || CARD_RARITIES[1]).color }}
           >
-            <button className="close-btn" onClick={() => setSelectedCard(null)}>
-              ✕
-            </button>
-            <div
-              className="detail-rarity"
-              style={{ background: (CARD_RARITIES[selectedCard.weekNumber] || CARD_RARITIES[1]).bg }}
-            >
-              {(CARD_RARITIES[selectedCard.weekNumber] || CARD_RARITIES[1]).icon}{" "}
-              {(CARD_RARITIES[selectedCard.weekNumber] || CARD_RARITIES[1]).tier}
-            </div>
-
             {selectedCard.photoUrl ? (
               <img
                 className="detail-photo"
@@ -1726,6 +1685,20 @@ function CardsTab({ cards, user, customs, today, onPhoto, onCustom }: CardsTabPr
             ) : (
               <div className="detail-placeholder">{selectedCard.emoji}</div>
             )}
+
+            <button className="close-btn detail-close-btn" onClick={() => setSelectedCard(null)}>
+              ✕
+            </button>
+
+            <div className="detail-rarity-bar">
+              <div
+                className="detail-rarity-inline"
+                style={{ background: (CARD_RARITIES[selectedCard.weekNumber] || CARD_RARITIES[1]).bg }}
+              >
+                {(CARD_RARITIES[selectedCard.weekNumber] || CARD_RARITIES[1]).icon}{" "}
+                {(CARD_RARITIES[selectedCard.weekNumber] || CARD_RARITIES[1]).tier}
+              </div>
+            </div>
 
             <div className="detail-body">
               <p className="issue">Card #{selectedCard.weekNumber}</p>
