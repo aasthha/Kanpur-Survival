@@ -681,10 +681,10 @@ to{opacity:0;transform:translate(160px)}
 .phase-reveal .fs-envelope{transform:scale(.85) translateY(-30px);opacity:0;pointer-events:none}
 .phase-closing .fs-envelope{transform:scale(1);opacity:1}
 .phase-closing .fs-env-flap{transform:rotateX(0);opacity:1}
-.fs-letter-card{position:absolute;top:0;left:0;right:0;opacity:0;pointer-events:none;transform:translateY(40px) scale(.9);transition:all .6s cubic-bezier(.2,.8,.2,1.2)}
-.phase-slide .fs-letter-card{opacity:.5;transform:translateY(20px) scale(.95)}
-.phase-reveal .fs-letter-card{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
-.phase-closing .fs-letter-card{opacity:0;transform:translateY(40px) scale(.9)}
+.fs-letter-card{position:absolute;top:50%;left:0;right:0;opacity:0;pointer-events:none;transform:translateY(calc(-50% + 40px)) scale(.9);transition:all .6s cubic-bezier(.2,.8,.2,1.2)}
+.phase-slide .fs-letter-card{opacity:.5;transform:translateY(calc(-50% + 20px)) scale(.95)}
+.phase-reveal .fs-letter-card{opacity:1;transform:translateY(-50%) scale(1);pointer-events:auto}
+.phase-closing .fs-letter-card{opacity:0;transform:translateY(calc(-50% + 40px)) scale(.9)}
 .fs-card-inner{background:#fff;border-radius:22px;box-shadow:0 12px 48px rgba(124,107,196,.2);border:3px solid rgba(124,107,196,.08);overflow:visible;max-height:calc(100vh - 200px);display:flex;flex-direction:column}
 .fs-card-inner>*:not(.fs-butterflies){overflow-y:auto}
 .fs-sparkles{text-align:center;padding:12px 0 4px;font-size:20px;animation:sparkleFloat 2s ease-in-out infinite}
