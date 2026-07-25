@@ -1550,7 +1550,7 @@ function CardsTab({ cards, user, customs, today, onPhoto, onCustom }: CardsTabPr
 
   function handleCardClick(card: any) {
     const isUnlocked = checkCardUnlocked(card);
-    if (!isAdmin && !isUnlocked && card.weekNumber !== 6) return;
+    if (!isAdmin && !isUnlocked) return;
 
     setSelectedCard(card);
     setEditTitle(customs[`card_title_${card.weekNumber}`] || card.title);
@@ -1559,7 +1559,7 @@ function CardsTab({ cards, user, customs, today, onPhoto, onCustom }: CardsTabPr
     setEditUnlockDate(customs[`card_unlock_${card.weekNumber}`] || "");
 
     const unlockKey = customs[`card_unlock_${card.weekNumber}`];
-    if (unlockKey && unlockKey.startsWith(today) && !isAdmin && card.weekNumber !== 6) {
+    if (unlockKey && unlockKey.startsWith(today) && !isAdmin) {
       setShowUnlockAnim(true);
     }
   }
@@ -1617,7 +1617,7 @@ function CardsTab({ cards, user, customs, today, onPhoto, onCustom }: CardsTabPr
       <div className="cards-grid">
         {cards.map((card) => {
           const rarity = CARD_RARITIES[card.weekNumber] || CARD_RARITIES[1];
-          const isUnlocked = isAdmin || checkCardUnlocked(card) || card.weekNumber === 6;
+          const isUnlocked = isAdmin || checkCardUnlocked(card);
           const unlockKey = customs[`card_unlock_${card.weekNumber}`];
 
           return (
@@ -1664,6 +1664,9 @@ function CardsTab({ cards, user, customs, today, onPhoto, onCustom }: CardsTabPr
       {/* Card Detail Dialog */}
       {selectedCard && (
         <div className="overlay" onClick={(e) => e.target === e.currentTarget && setSelectedCard(null)}>
+          <button className="detail-close-floating" onClick={() => setSelectedCard(null)}>
+            ✕
+          </button>
           <div
             className="card-detail card-detail-anim"
             style={{ borderColor: (CARD_RARITIES[selectedCard.weekNumber] || CARD_RARITIES[1]).color }}
@@ -1685,20 +1688,6 @@ function CardsTab({ cards, user, customs, today, onPhoto, onCustom }: CardsTabPr
             ) : (
               <div className="detail-placeholder">{selectedCard.emoji}</div>
             )}
-
-            <button className="close-btn detail-close-btn" onClick={() => setSelectedCard(null)}>
-              ✕
-            </button>
-
-            <div className="detail-rarity-bar">
-              <div
-                className="detail-rarity-inline"
-                style={{ background: (CARD_RARITIES[selectedCard.weekNumber] || CARD_RARITIES[1]).bg }}
-              >
-                {(CARD_RARITIES[selectedCard.weekNumber] || CARD_RARITIES[1]).icon}{" "}
-                {(CARD_RARITIES[selectedCard.weekNumber] || CARD_RARITIES[1]).tier}
-              </div>
-            </div>
 
             <div className="detail-body">
               <p className="issue">Card #{selectedCard.weekNumber}</p>
