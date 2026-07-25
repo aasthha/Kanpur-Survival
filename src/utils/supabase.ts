@@ -25,7 +25,9 @@ export interface UserSessionProfile {
 }
 
 export function _J(user: any): UserSessionProfile {
-  const isAastha = (user.email || "").toLowerCase().trim() === Jr.aastha.email.toLowerCase().trim();
+  const isAastha = (user.email || "").toLowerCase().trim() === Jr.aastha.email.toLowerCase().trim()
+    || user.id === "aastha"
+    || user.role === "admin";
   return {
     id: user.id,
     email: user.email || "",
