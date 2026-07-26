@@ -304,14 +304,7 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       <div className="ch-title">
         {timeLeft.days > 0 ? (
           <>
-            <span style={{ fontSize: "1.4em" }}>{timeLeft.days}</span>
-            {" "}
-            {timeLeft.days >= 6 && "Days Until You're Home"}
-            {timeLeft.days === 5 && "Days Left — The final stretch!"}
-            {timeLeft.days === 4 && "Days To Go — Almost in my arms!"}
-            {timeLeft.days === 3 && "Days Remaining — Just a little longer!"}
-            {timeLeft.days === 2 && "Days Left — I can't wait!"}
-            {timeLeft.days === 1 && "Day Left — See you tomorrow!"}
+            <span style={{ fontSize: "1.4em" }}>{timeLeft.days}</span> Days Until You're Home
           </>
         ) : timeLeft.hours > 0 ? (
           <>
