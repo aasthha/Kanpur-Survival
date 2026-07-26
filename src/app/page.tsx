@@ -304,15 +304,22 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       <div className="ch-title">
         {timeLeft.days > 0 ? (
           <>
-            <span style={{ fontSize: "1.4em" }}>{timeLeft.days}</span> Days Until You're Home
+            <span style={{ fontSize: "1.4em" }}>{timeLeft.days}</span>
+            {" "}
+            {timeLeft.days >= 6 && "Days Until You're Home"}
+            {timeLeft.days === 5 && "Days! Let's goooo!"}
+            {timeLeft.days === 4 && `Days! I repeat, ONLY ${timeLeft.days} DAYS!`}
+            {timeLeft.days === 3 && "Days! Panic! (The good kind)"}
+            {timeLeft.days === 2 && "Days! Is this real life?!"}
+            {timeLeft.days === 1 && "Day! AHHHHHHHHH!!!"}
           </>
         ) : timeLeft.hours > 0 ? (
           <>
-            <span style={{ fontSize: "1.4em" }}>{timeLeft.hours}</span> {timeLeft.hours === 1 ? 'Hour' : 'Hours'} Until We Meet
+            <span style={{ fontSize: "1.4em" }}>{timeLeft.hours}</span> {timeLeft.hours === 1 ? 'Hour!' : 'Hours!'} See you SO soon!
           </>
         ) : (
           <>
-            <span style={{ fontSize: "1.4em" }}>{timeLeft.minutes}</span> {timeLeft.minutes === 1 ? 'Min' : 'Mins'} Until We Meet
+            <span style={{ fontSize: "1.4em" }}>{timeLeft.minutes}</span> {timeLeft.minutes === 1 ? 'Min!' : 'Mins!'} Basically there!
           </>
         )}
         <span key={timeLeft.seconds} className="ch-heart-emoji">💜</span>
