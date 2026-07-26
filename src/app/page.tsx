@@ -182,12 +182,12 @@ function EscapeCountdown() {
 
 // Sub-component: Floating Emoji Rain (last 5 days)
 const EMOJI_RAIN_CONFIG: Record<number, { emojis: string[]; count: number; speed: number }> = {
-  5: { emojis: ["✨"], count: 6, speed: 12 },
-  4: { emojis: ["✨", "💫"], count: 9, speed: 11 },
-  3: { emojis: ["✨", "💫", "💜"], count: 13, speed: 10 },
-  2: { emojis: ["✨", "💫", "🎉", "💜"], count: 18, speed: 9 },
-  1: { emojis: ["🔥", "🎆", "🎊", "💖", "✨"], count: 24, speed: 7 },
-  0: { emojis: ["🔥", "🎆", "🎊", "💖", "✨", "🥳", "💜"], count: 30, speed: 6 },
+  5: { emojis: ["✨"], count: 10, speed: 12 },
+  4: { emojis: ["✨", "💫"], count: 14, speed: 11 },
+  3: { emojis: ["✨", "💫", "💜"], count: 20, speed: 10 },
+  2: { emojis: ["✨", "💫", "🎉", "💜"], count: 26, speed: 9 },
+  1: { emojis: ["🔥", "🎆", "🎊", "💖", "✨"], count: 32, speed: 7 },
+  0: { emojis: ["🔥", "🎆", "🎊", "💖", "✨", "🥳", "💜"], count: 40, speed: 6 },
 };
 
 function EmojiRain({ daysLeft }: { daysLeft: number }) {
@@ -203,7 +203,7 @@ function EmojiRain({ daysLeft }: { daysLeft: number }) {
       left: Math.random() * 95 + 2,
       delay: Math.random() * config.speed,
       duration: config.speed + Math.random() * 4,
-      size: 12 + Math.random() * 8,
+      size: 18 + Math.random() * 14,
     }));
     setParticles(newParticles);
   }, [daysLeft]);
