@@ -193,7 +193,8 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       const now = new Date();
       const diff = Math.max(0, target.getTime() - now.getTime());
       const totalSecs = Math.floor(diff / 1000);
-      const dayProgress = ((now.getHours() * 3600) + (now.getMinutes() * 60) + now.getSeconds()) / 86400 * 100;
+      const hoursInDay = totalSecs % 86400;
+      const dayProgress = ((86400 - hoursInDay) / 86400) * 100;
       return {
         days: Math.floor(totalSecs / 86400),
         hours: Math.floor((totalSecs % 86400) / 3600),
