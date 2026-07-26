@@ -197,10 +197,12 @@ function EmojiRain({ daysLeft }: { daysLeft: number }) {
     const config = EMOJI_RAIN_CONFIG[daysLeft];
     if (!config) return;
 
+    const laneWidth = 100 / config.count;
+    
     const newParticles = Array.from({ length: config.count }, (_, i) => ({
       id: i,
       emoji: config.emojis[i % config.emojis.length],
-      left: Math.random() * 95 + 2,
+      left: (i * laneWidth) + (Math.random() * (laneWidth * 0.8)), // Evenly distributed lanes
       delay: Math.random() * config.speed,
       duration: config.speed + Math.random() * 4,
       size: 18 + Math.random() * 14,
