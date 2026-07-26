@@ -184,10 +184,10 @@ function EscapeCountdown() {
 const EMOJI_RAIN_CONFIG: Record<number, { emojis: string[]; count: number; speed: number }> = {
   5: { emojis: ["✨"], count: 10, speed: 12 },
   4: { emojis: ["✨", "💫"], count: 14, speed: 11 },
-  3: { emojis: ["✨", "💫", "💜"], count: 20, speed: 10 },
-  2: { emojis: ["✨", "💫", "🎉", "💜"], count: 26, speed: 9 },
-  1: { emojis: ["🔥", "🎆", "🎊", "💖", "✨"], count: 32, speed: 7 },
-  0: { emojis: ["🔥", "🎆", "🎊", "💖", "✨", "🥳", "💜"], count: 40, speed: 6 },
+  3: { emojis: ["✨", "💫", "💌"], count: 20, speed: 10 },
+  2: { emojis: ["✨", "💫", "💌", "💖"], count: 26, speed: 9 },
+  1: { emojis: ["✨", "💖", "🎊", "🎈", "🏡"], count: 32, speed: 7 },
+  0: { emojis: ["✨", "💖", "🎊", "🎈", "🏡", "🥳", "🥂"], count: 40, speed: 6 },
 };
 
 function EmojiRain({ daysLeft }: { daysLeft: number }) {
