@@ -1809,6 +1809,7 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   opacity: 0;
   animation: emojiDrift linear infinite;
   will-change: transform, opacity;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
 }
 @keyframes emojiDrift {
   0% {
@@ -1816,14 +1817,14 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
     opacity: 0;
   }
   8% {
-    opacity: 0.9;
+    opacity: 1;
   }
   50% {
     transform: translateY(50vh) translateX(25px) rotate(180deg);
-    opacity: 0.8;
+    opacity: 1;
   }
   85% {
-    opacity: 0.6;
+    opacity: 0.8;
   }
   100% {
     transform: translateY(105vh) translateX(-15px) rotate(360deg);
