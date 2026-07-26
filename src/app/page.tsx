@@ -180,6 +180,56 @@ function EscapeCountdown() {
   );
 }
 
+// Sub-component: Floating Emoji Rain (last 5 days)
+const EMOJI_RAIN_CONFIG: Record<number, { emojis: string[]; count: number; speed: number }> = {
+  5: { emojis: ["✨"], count: 6, speed: 12 },
+  4: { emojis: ["✨", "💫"], count: 9, speed: 11 },
+  3: { emojis: ["✨", "💫", "💜"], count: 13, speed: 10 },
+  2: { emojis: ["✨", "💫", "🎉", "💜"], count: 18, speed: 9 },
+  1: { emojis: ["🔥", "🎆", "🎊", "💖", "✨"], count: 24, speed: 7 },
+  0: { emojis: ["🔥", "🎆", "🎊", "💖", "✨", "🥳", "💜"], count: 30, speed: 6 },
+};
+
+function EmojiRain({ daysLeft }: { daysLeft: number }) {
+  const [particles, setParticles] = useState<Array<{ id: number; emoji: string; left: number; delay: number; duration: number; size: number }>>([]);
+
+  useEffect(() => {
+    const config = EMOJI_RAIN_CONFIG[daysLeft];
+    if (!config) return;
+
+    const newParticles = Array.from({ length: config.count }, (_, i) => ({
+      id: i,
+      emoji: config.emojis[i % config.emojis.length],
+      left: Math.random() * 95 + 2,
+      delay: Math.random() * config.speed,
+      duration: config.speed + Math.random() * 4,
+      size: 12 + Math.random() * 8,
+    }));
+    setParticles(newParticles);
+  }, [daysLeft]);
+
+  if (daysLeft > 5 || daysLeft < 0) return null;
+
+  return (
+    <div className="emoji-rain" aria-hidden="true">
+      {particles.map((p) => (
+        <span
+          key={p.id}
+          className="emoji-raindrop"
+          style={{
+            left: `${p.left}%`,
+            animationDelay: `${p.delay}s`,
+            animationDuration: `${p.duration}s`,
+            fontSize: `${p.size}px`,
+          }}
+        >
+          {p.emoji}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 // Sub-component: Massive Live Countdown Hero
 function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: number; percentComplete: number }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, dayProgress: 0 });
@@ -837,6 +887,7 @@ function TimelineTab({
 
   return (
     <React.Fragment>
+      <EmojiRain daysLeft={stats.daysUntilHome} />
       {grandUnlockCard && (
         <div className="grand-unlock-overlay" onClick={() => setGrandUnlockCard(null)}>
           <div className="grand-unlock-content">
