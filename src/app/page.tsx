@@ -415,7 +415,30 @@ export default function Home() {
   const [testModeActive, setTestModeActive] = useState(false);
   const [newCardUnlockedNotifier, setNewCardUnlockedNotifier] = useState(false);
   const stats = useMemo(() => getJourneyStats(todayDate), [todayDate]);
-
+  
+  const [livePercentComplete, setLivePercentComplete] = useState(stats.percentComplete);
+  
+  useEffect(() => {
+    function calcLivePercent() {
+      const target = new Date("2026-07-31T20:30:00+05:30");
+      const start = new Date("2026-06-01T20:30:00+05:30"); // Align start with target time
+      const now = new Date();
+      
+      const totalSecs = Math.max(1, Math.floor((target.getTime() - start.getTime()) / 1000));
+      const remainingSecs = Math.max(0, Math.floor((target.getTime() - now.getTime()) / 1000));
+      
+      const daysRemaining = Math.floor(remainingSecs / 86400);
+      const totalDays = Math.floor(totalSecs / 86400);
+      const elapsedDays = totalDays - daysRemaining;
+      
+      const pct = Math.min(100, Math.max(0, Math.round((elapsedDays / totalDays) * 100)));
+      setLivePercentComplete(pct);
+    }
+    
+    calcLivePercent();
+    const interval = setInterval(calcLivePercent, 60000);
+    return () => clearInterval(interval);
+  }, []);
   const journeyCards = useMemo(() => {
     const nowStr = new Date().toISOString();
     return WEEKLY_CARDS.map((card) => {
@@ -444,7 +467,7 @@ export default function Home() {
     const milestones = [80, 50]; // check highest first
     for (const m of milestones) {
       // Only trigger if within 2% of the milestone (prevents late triggers on new devices)
-      if (stats.percentComplete >= m && stats.percentComplete < m + 2) {
+      if (livePercentComplete >= m && livePercentComplete < m + 2) {
         const dateKey = `milestone_${m}_date`;
         const storedDate = window.localStorage.getItem(dateKey);
         if (!storedDate) {
@@ -456,7 +479,7 @@ export default function Home() {
       }
     }
     return false;
-  }, [stats.percentComplete, todayDate]);
+  }, [livePercentComplete, todayDate]);
 
   // Multi-burst fireworks on every refresh during milestone day
   useEffect(() => {
@@ -652,6 +675,7 @@ export default function Home() {
           onRefresh={refreshProjectData}
           test={testModeActive}
           milestoneDay={isMilestoneDay}
+          livePercentComplete={livePercentComplete}
         />
       </div>
 
@@ -808,6 +832,7 @@ interface TimelineTabProps {
   cards: any[];
   cardCustoms: any;
   milestoneDay: number | false;
+  livePercentComplete: number;
 }
 
 function TimelineTab({
@@ -822,6 +847,7 @@ function TimelineTab({
   cards,
   cardCustoms,
   milestoneDay,
+  livePercentComplete,
 }: TimelineTabProps) {
   const [selectedDate, setSelectedDate] = useState(today);
   const [tempCompletions, setTempCompletions] = useState<any[]>([]);
@@ -917,7 +943,7 @@ function TimelineTab({
 
       {/* Massive Digital Countdown Hero */}
       <div className="hero-compact">
-        <LiveCountdownHero daysUntilHome={stats.daysUntilHome} percentComplete={stats.percentComplete} />
+        <LiveCountdownHero daysUntilHome={stats.daysUntilHome} percentComplete={livePercentComplete} />
       </div>
 
       {/* Kanpur Escape Countdown */}
@@ -926,11 +952,11 @@ function TimelineTab({
       {/* Progress Track */}
       <div className={`journey-bar ${stats.daysUntilHome < 10 ? 'jb-overload' : ''}`}>
         <div className="jb-track">
-          <div className={`jb-fill ${stats.daysUntilHome < 10 ? 'jb-fill-overload' : ''}`} style={{ width: `${stats.percentComplete}%` }}>
+          <div className={`jb-fill ${stats.daysUntilHome < 10 ? 'jb-fill-overload' : ''}`} style={{ width: `${livePercentComplete}%` }}>
 
           </div>
-          <div className="jb-marker" style={{ left: `${Math.max(5, Math.min(95, stats.percentComplete))}%` }}>
-            <img src={MASCOT_AVATARS.dhiraj} alt="Dhiraj" className={`jb-avatar ${stats.percentComplete >= 50 ? 'jb-halo' : ''}`} />
+          <div className="jb-marker" style={{ left: `${Math.max(5, Math.min(95, livePercentComplete))}%` }}>
+            <img src={MASCOT_AVATARS.dhiraj} alt="Dhiraj" className={`jb-avatar ${livePercentComplete >= 50 ? 'jb-halo' : ''}`} />
             {stats.daysUntilHome < 10 && (
               <>
                 <div className="jb-sparks jb-spark-1" />
@@ -942,7 +968,7 @@ function TimelineTab({
         </div>
         <div className="jb-labels">
           <span className="jb-location">📍 Kanpur</span>
-          <span className="jb-progress" style={stats.daysUntilHome < 10 ? { color: '#FF3366', fontWeight: 900 } : {}}>{stats.percentComplete}%</span>
+          <span className="jb-progress" style={stats.daysUntilHome < 10 ? { color: '#FF3366', fontWeight: 900 } : {}}>{livePercentComplete}%</span>
           <span className="jb-location">🏠 Nashik</span>
         </div>
       </div>
