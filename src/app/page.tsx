@@ -234,9 +234,10 @@ function EmojiRain({ daysLeft }: { daysLeft: number }) {
 
 // Sub-component: Massive Live Countdown Hero
 function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: number; percentComplete: number }) {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, dayProgress: 0 });
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, dayProgress: 0, hourProgress: 0 });
   const [mounted, setMounted] = useState(false);
   const [animProgress, setAnimProgress] = useState(0);
+  const [animHourProgress, setAnimHourProgress] = useState(0);
 
   useEffect(() => {
     setMounted(true);
@@ -247,6 +248,8 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       const totalSecs = Math.floor(diff / 1000);
       const hoursInDay = totalSecs % 86400;
       const dayProgress = ((86400 - hoursInDay) / 86400) * 100;
+      const minsInHour = totalSecs % 3600;
+      const hourProgress = ((3600 - minsInHour) / 3600) * 100;
       return {
         days: Math.floor(totalSecs / 86400),
         hours: Math.floor((totalSecs % 86400) / 3600),
@@ -254,6 +257,7 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
         seconds: totalSecs % 60,
         totalSecs,
         dayProgress,
+        hourProgress,
       };
     }
     setTimeLeft(calcRemaining());
@@ -265,10 +269,11 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
     if (mounted) {
       const timer = setTimeout(() => {
         setAnimProgress(timeLeft.dayProgress);
+        setAnimHourProgress(timeLeft.hourProgress);
       }, 100);
       return () => clearTimeout(timer);
     }
-  }, [mounted, timeLeft.dayProgress]);
+  }, [mounted, timeLeft.dayProgress, timeLeft.hourProgress]);
 
   if (!mounted) {
     return (
@@ -335,7 +340,7 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
           </>
         )}
         
-        <div className="ch-group">
+        <div className="ch-group ch-group-hours" style={{ "--progress": animHourProgress } as React.CSSProperties}>
           <span key={timeLeft.hours} className="ch-val ch-hrs slide-in">{pad(timeLeft.hours)}</span>
         </div>
         
