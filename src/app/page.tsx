@@ -949,14 +949,17 @@ function TimelineTab({
       {/* Kanpur Escape Countdown */}
       <EscapeCountdown />
 
-      {/* Progress Track */}
+        {/* Progress Track */}
       <div className={`journey-bar ${stats.daysUntilHome < 10 ? 'jb-overload' : ''}`}>
         <div className="jb-track">
-          <div className={`jb-fill ${stats.daysUntilHome < 10 ? 'jb-fill-overload' : ''}`} style={{ width: `${livePercentComplete}%` }}>
+          <div className={`jb-fill ${livePercentComplete >= 100 ? 'jb-fill-rainbow' : (stats.daysUntilHome < 10 ? 'jb-fill-overload' : '')}`} style={{ width: `${livePercentComplete}%` }}>
 
           </div>
           <div className="jb-marker" style={{ left: `${Math.max(5, Math.min(95, livePercentComplete))}%` }}>
             <img src={MASCOT_AVATARS.dhiraj} alt="Dhiraj" className={`jb-avatar ${livePercentComplete >= 50 ? 'jb-halo' : ''}`} />
+            {livePercentComplete >= 100 && (
+              <div className="jb-speech-bubble">I MADE IT!!!</div>
+            )}
             {stats.daysUntilHome < 10 && (
               <>
                 <div className="jb-sparks jb-spark-1" />
