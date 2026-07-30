@@ -983,7 +983,7 @@ function TimelineTab({
         </div>
         <div className="jb-labels">
           <span className="jb-location">📍 Kanpur</span>
-          <span className="jb-progress" style={stats.daysUntilHome < 10 ? { color: '#FF3366', fontWeight: 900 } : {}}>{livePercentComplete}%</span>
+          <span className={`jb-progress ${livePercentComplete >= 100 ? 'jb-progress-rainbow' : ''}`} style={livePercentComplete < 100 && stats.daysUntilHome < 10 ? { color: '#FF3366', fontWeight: 900 } : {}}>{livePercentComplete}%</span>
           <span className="jb-location">🏠 Nashik</span>
         </div>
       </div>
