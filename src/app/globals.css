@@ -69,6 +69,20 @@ button{touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:tran
 .app-shell.warmth-1{background:linear-gradient(145deg,#D482DF,#C476CB)}
 .app-shell.milestone-day{background:linear-gradient(135deg,#E6D8FC,#FCDAE8,#FCE8D5,#EAE0FB);animation:festiveBg 8s ease infinite;background-size:400% 400%}
 .app-shell.milestone-day::before{content:"";position:absolute;border-radius:50%;filter:blur(80px);opacity:0.35;width:400px;height:400px;background:#6610F2;top:40%;left:-100px;animation:blobDrift 18s ease-in-out infinite alternate;pointer-events:none;z-index:0}
+
+/* 100% Sunset Glow Background */
+.sunset-shift {
+  background: linear-gradient(145deg, #C4B4E8, #FF9A9E, #FCE8D5, #C4B4E8) !important;
+  background-size: 300% 300% !important;
+  animation: sunsetGlow 12s ease-in-out infinite;
+}
+
+@keyframes sunsetGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 @keyframes festiveBg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .screen{flex:1;display:flex;flex-direction:column;padding:0 14px 14px;overflow-y:auto;overflow-x:hidden;min-height:0}
 .screen,.screen-scroll{width:min(100%,440px);margin:0 auto;position:relative;z-index:1;-webkit-overflow-scrolling:touch}

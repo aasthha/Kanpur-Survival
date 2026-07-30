@@ -645,8 +645,11 @@ export default function Home() {
   const isAdmin = currentUser.role === "admin";
 
   return (
-    <main className={`app-shell ${isMilestoneDay ? 'milestone-day' : ''} ${stats.daysUntilHome <= 7 && stats.daysUntilHome >= 1 ? `warmth-${stats.daysUntilHome}` : ''}`}>
-
+    <main className={`app-shell ${livePercentComplete >= 100 ? 'sunset-shift' : ''} ${isMilestoneDay ? 'milestone-day' : ''} ${stats.daysUntilHome <= 7 && stats.daysUntilHome >= 1 ? `warmth-${stats.daysUntilHome}` : ''}`}>
+      {/* 100% Celebration Background Elements */}
+      {livePercentComplete >= 100 && (
+        <div className="sunset-glare-overlay" style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at top, rgba(255, 255, 255, 0.4) 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
+      )}
       {/* Milestone Celebration Overlay */}
       {milestoneOverlay && (
         <div className="milestone-overlay" onClick={() => setMilestoneOverlay(null)}>
