@@ -136,6 +136,16 @@ to{transform:scale(1);opacity:1}
   animation: jbNeonFlow 1s infinite linear, jbOverloadPulse 0.3s infinite alternate;
   box-shadow: 0 0 12px rgba(255,51,102,0.8);
 }
+.jb-avatar.jb-halo{box-shadow:0 0 0 3px #FF3366,0 0 15px rgba(255,51,102,.6)}
+
+.jb-avatar.jb-halo-golden {
+  box-shadow: 0 0 0 3px #FFE600, 0 0 20px rgba(255, 230, 0, 0.9);
+  animation: goldenPulse 1.5s infinite alternate;
+}
+@keyframes goldenPulse {
+  from { box-shadow: 0 0 0 3px #FFE600, 0 0 15px rgba(255, 230, 0, 0.6); }
+  to { box-shadow: 0 0 0 4px #FFF, 0 0 30px rgba(255, 255, 0, 1); }
+}
 @keyframes jbNeonFlow { 0% { background-position: 0% 50%; } 100% { background-position: -200% 50%; } }
 @keyframes jbOverloadPulse { 0% { filter: brightness(1); } 100% { filter: brightness(1.4); } }
 

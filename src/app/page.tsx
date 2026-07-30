@@ -326,11 +326,14 @@ function LiveCountdownHero({ daysUntilHome, percentComplete }: { daysUntilHome: 
       </div>
       
       <div className="ch-digits-row">
-        <div className="ch-group ch-group-days" style={{ "--progress": animProgress } as React.CSSProperties}>
-          <span key={timeLeft.days} className="ch-val ch-days slide-in">{pad(timeLeft.days)}</span>
-        </div>
-        
-        <span key={`sep1-${timeLeft.seconds}`} className="ch-sep">:</span>
+        {timeLeft.days > 0 && (
+          <>
+            <div className="ch-group ch-group-days" style={{ "--progress": animProgress } as React.CSSProperties}>
+              <span key={timeLeft.days} className="ch-val ch-days slide-in">{pad(timeLeft.days)}</span>
+            </div>
+            <span key={`sep1-${timeLeft.seconds}`} className="ch-sep">:</span>
+          </>
+        )}
         
         <div className="ch-group">
           <span key={timeLeft.hours} className="ch-val ch-hrs slide-in">{pad(timeLeft.hours)}</span>
@@ -953,13 +956,13 @@ function TimelineTab({
       <EscapeCountdown />
 
         {/* Progress Track */}
-      <div className={`journey-bar ${stats.daysUntilHome < 10 ? 'jb-overload' : ''}`}>
+      <div className={`journey-bar ${stats.daysUntilHome < 10 ? 'jb-overload' : ''}`} style={{ marginTop: livePercentComplete >= 100 ? '24px' : undefined }}>
         <div className="jb-track">
           <div className={`jb-fill ${livePercentComplete >= 100 ? 'jb-fill-rainbow' : (stats.daysUntilHome < 10 ? 'jb-fill-overload' : '')}`} style={{ width: `${livePercentComplete}%` }}>
 
           </div>
           <div className="jb-marker" style={{ left: `${Math.max(5, Math.min(95, livePercentComplete))}%` }}>
-            <img src={MASCOT_AVATARS.dhiraj} alt="Dhiraj" className={`jb-avatar ${livePercentComplete >= 50 ? 'jb-halo' : ''}`} />
+            <img src={MASCOT_AVATARS.dhiraj} alt="Dhiraj" className={`jb-avatar ${livePercentComplete >= 100 ? 'jb-halo-golden' : (livePercentComplete >= 50 ? 'jb-halo' : '')}`} />
             {livePercentComplete >= 100 && (
               <div className="jb-speech-bubble">I MADE IT!!!</div>
             )}
