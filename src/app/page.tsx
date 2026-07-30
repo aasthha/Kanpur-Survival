@@ -671,7 +671,7 @@ export default function Home() {
             <img src={MASCOT_AVATARS.dhiraj} alt="Dhiraj" width="120" className="gfo-avatar dhiraj" />
             <img src={MASCOT_AVATARS.aastha} alt="Aastha" width="120" className="gfo-avatar aastha" />
             <h1 className="gfo-title">WELCOME BACK MY PYAARA BACCHA</h1>
-            <div className="gfo-subtitle">The wait is finally over! 🎉💖</div>
+            <div className="gfo-subtitle">best day for me</div>
           </div>
         </div>
       )}
