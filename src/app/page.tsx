@@ -425,7 +425,7 @@ export default function Home() {
   const stats = useMemo(() => getJourneyStats(todayDate), [todayDate]);
   
   const [livePercentComplete, setLivePercentComplete] = useState(stats.percentComplete);
-  const [isFullyComplete, setIsFullyComplete] = useState(false);
+  const [isFullyComplete, setIsFullyComplete] = useState(true); // FORCED FOR LIVE PREVIEW
   
   useEffect(() => {
     function calcLivePercent() {
