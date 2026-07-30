@@ -1919,3 +1919,69 @@ to{transform:translateY(-800px) rotate(180deg);opacity:0}
   0% { transform: translate(-50%, 10px) scale(0); opacity: 0; }
   100% { transform: translate(-50%, 0) scale(1); opacity: 1; }
 }
+
+.jb-progress-rainbow {
+  background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff, #ff0000);
+  background-size: 200% 100%;
+  animation: rainbowText 2s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes rainbowText {
+  0% { background-position: 100% 0; }
+  100% { background-position: 0 0; }
+}
+
+/* ---- Grand Finale Overlay ---- */
+.grand-finale-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: linear-gradient(135deg, #1A0B2E, #4B1D52);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeIn 2s ease forwards;
+}
+
+.gfo-content {
+  text-align: center;
+  z-index: 10;
+}
+
+.gfo-avatar {
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 0 30px rgba(255, 51, 102, 0.5);
+  margin: 0 -15px; 
+  position: relative;
+  z-index: 2;
+  animation: floatBounce 3s ease-in-out infinite alternate;
+}
+
+.gfo-avatar.dhiraj { animation-delay: -1.5s; z-index: 1; }
+
+.gfo-title {
+  font-family: 'Chewy', system-ui;
+  font-size: 46px;
+  line-height: 1.1;
+  color: #fff;
+  margin: 32px 0 12px;
+  background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff, #ff0000);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowText 2s linear infinite;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+}
+
+.gfo-subtitle {
+  font-family: 'Space Grotesk', system-ui;
+  font-size: 18px;
+  color: rgba(255,255,255,0.9);
+  font-weight: 700;
+  animation: fadeIn 3s ease forwards 1s;
+  opacity: 0;
+}
