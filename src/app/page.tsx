@@ -425,7 +425,6 @@ export default function Home() {
   const stats = useMemo(() => getJourneyStats(todayDate), [todayDate]);
   
   const [livePercentComplete, setLivePercentComplete] = useState(stats.percentComplete);
-  const [isFullyComplete, setIsFullyComplete] = useState(false);
   
   useEffect(() => {
     function calcLivePercent() {
@@ -442,10 +441,6 @@ export default function Home() {
       
       const pct = Math.min(100, Math.max(0, Math.round((elapsedDays / totalDays) * 100)));
       setLivePercentComplete(pct);
-      
-      if (now.getTime() >= target.getTime()) {
-        setIsFullyComplete(true);
-      }
     }
     
     calcLivePercent();
@@ -664,17 +659,6 @@ export default function Home() {
         <div className="sunset-glare-overlay" style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at top, rgba(255, 255, 255, 0.4) 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
       )}
       
-      {/* GRAND FINALE OVERLAY */}
-      {isFullyComplete && (
-        <div className="grand-finale-overlay">
-          <div className="gfo-content">
-            <img src={MASCOT_AVATARS.dhiraj} alt="Dhiraj" width="120" className="gfo-avatar dhiraj" />
-            <img src={MASCOT_AVATARS.aastha} alt="Aastha" width="120" className="gfo-avatar aastha" />
-            <h1 className="gfo-title">WELCOME BACK MY PYAARA BACCHA</h1>
-            <div className="gfo-subtitle">best day for me</div>
-          </div>
-        </div>
-      )}
       {/* Milestone Celebration Overlay */}
       {milestoneOverlay && (
         <div className="milestone-overlay" onClick={() => setMilestoneOverlay(null)}>
@@ -999,7 +983,7 @@ function TimelineTab({
         </div>
         <div className="jb-labels">
           <span className="jb-location">📍 Kanpur</span>
-          <span className={`jb-progress ${livePercentComplete >= 100 ? 'jb-progress-rainbow' : ''}`} style={livePercentComplete < 100 && stats.daysUntilHome < 10 ? { color: '#FF3366', fontWeight: 900 } : {}}>{livePercentComplete}%</span>
+          <span className="jb-progress" style={stats.daysUntilHome < 10 ? { color: '#FF3366', fontWeight: 900 } : {}}>{livePercentComplete}%</span>
           <span className="jb-location">🏠 Nashik</span>
         </div>
       </div>
